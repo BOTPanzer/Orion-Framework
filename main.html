@@ -185,20 +185,21 @@
         <div class="cat">Cursor Attribute</div>
         <div class="desc">
           Changes the Mouse Cursor on Hover:<br>
-          <span class="cod">load</span> or <span class="cod">click</span>.
+          <span class="cod">click</span> (Default), <span class="cod">load</span> or <span class="cod">auto</span>.
         </div>
         <div class="code">
           &lt;div class="button text">Default&lt;/div> <br><br>
+          &lt;div class="button text" <span class="high">cursor="click"</span>>Clickable&lt;/div> <br><br>
           &lt;div class="button text" <span class="high">cursor="load"</span> btype="border">Loading&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">cursor="click"</span> btype="ghost">Clickable&lt;/div>
+          &lt;div class="button text" <span class="high">cursor="auto"</span> btype="border">Auto&lt;/div>
         </div>
         <div class="display">
-          <!-- DISABLED -->
-          <div class="button text">Default</div>
+          <!-- CLICK -->
+          <div class="button text" cursor="click">Clickable</div>
           <!-- LOADING -->
           <div class="button text" cursor="load" btype="border">Loading</div>
-          <!-- CLICK -->
-          <div class="button text" cursor="click" btype="ghost">Clickable</div>
+          <!-- AUTO -->
+          <div class="button text" cursor="auto" btype="ghost">Auto</div>
         </div>
       </div>
     </div>
