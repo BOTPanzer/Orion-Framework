@@ -164,9 +164,10 @@ img {
 
 /*DEFAULT BUTTON*/
 .button {
+  --borderRadius: var(--buttonCorner);
   color: var(--textPrimary);
   fill: var(--textPrimary);
-  border-radius: var(--buttonCorner);
+  border-radius: var(--borderRadius);
   overflow: hidden;
   position: relative;
   transition: all .2s;
@@ -183,7 +184,7 @@ img {
   position: absolute;
   pointer-events: none;
   transition: all .2s;
-  border-radius: var(--buttonCorner);
+  border-radius: var(--borderRadius);
 }
 
 .button::after {
@@ -196,7 +197,7 @@ img {
   position: absolute;
   pointer-events: none;
   transition: all .2s;
-  border-radius: var(--buttonCorner);
+  border-radius: var(--borderRadius);
   border: var(--buttonBorderWidth) solid var(--buttonBorderColor);
   box-sizing: border-box;
 }
@@ -354,22 +355,7 @@ img {
   height: 30px;
   margin: 5px 0;
   position: relative;
-  border-radius: 15px;
-}
-
-.radio::after {
-  content: '';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  position: absolute;
-  pointer-events: none;
-  transition: all .2s;
-  border-radius: 15px;
-  border: var(--buttonBorderWidth) solid var(--buttonBorderColor);
-  box-sizing: border-box;
+  --borderRadius: 15px;
 }
 
 .radio input {
@@ -402,7 +388,7 @@ img {
   height: 30px;
   margin: 5px 0;
   position: relative;
-  border-radius: 15px;
+  --borderRadius: 15px;
 }
 
 .switch::after {
