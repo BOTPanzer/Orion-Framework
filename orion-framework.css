@@ -164,11 +164,9 @@ img {
 
 /*DEFAULT BUTTON*/
 .button {
-  /*COLOR & SHAPE*/
   color: var(--textPrimary);
   fill: var(--textPrimary);
   border-radius: var(--buttonCorner);
-  /*OTHER*/
   overflow: hidden;
   position: relative;
   transition: all .2s;
@@ -271,6 +269,10 @@ img {
 }
 
 /*STATE ATTRIBUTE*/
+.button[cursor=click]:hover {
+  cursor: pointer;
+}
+
 .button[cursor=load]:hover {
   cursor: progress;
 }
@@ -319,8 +321,10 @@ img {
 
 /*SVG*/
 .svg {
-  width: 26px;
-  height: 26px;
+  min-width: 26px;
+  max-width: 26px;
+  min-height: 26px;
+  max-height: 26px;
   margin: 7px;
 }
 
@@ -351,6 +355,21 @@ img {
   margin: 5px 0;
   position: relative;
   border-radius: 15px;
+}
+
+.radio::after {
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  position: absolute;
+  pointer-events: none;
+  transition: all .2s;
+  border-radius: 15px;
+  border: var(--buttonBorderWidth) solid var(--buttonBorderColor);
+  box-sizing: border-box;
 }
 
 .radio input {
@@ -384,6 +403,21 @@ img {
   margin: 5px 0;
   position: relative;
   border-radius: 15px;
+}
+
+.switch::after {
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  position: absolute;
+  pointer-events: none;
+  transition: all .2s;
+  border-radius: 15px;
+  border: var(--buttonBorderWidth) solid var(--buttonBorderColor);
+  box-sizing: border-box;
 }
 
 .switch input {
@@ -495,10 +529,24 @@ img {
   color: var(--textPrimary);
   fill: var(--textPrimary);
   transition: all .2s, visibility 0s;
+  position: relative;
 }
 
-.ctx-item:hover {
-  background: var(--buttonHover);
+.ctx-item::after {
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  position: absolute;
+  pointer-events: none;
+  transition: all .2s;
+  box-sizing: border-box;
+}
+
+.ctx-item:hover::after {
+  background: var(--hover);
 }
 
 
@@ -549,6 +597,7 @@ img {
   color: var(--topText);
   overflow: hidden;
   transition: all .2s, width 0s;
+  cursor: pointer;
 }
 
 .button-top:hover {
@@ -608,6 +657,7 @@ img {
   margin: 0;
   opacity: 0;
   position: absolute;
+  cursor: pointer;
 }
 
 .module input:checked ~ div:nth-of-type(2) {
