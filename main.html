@@ -76,9 +76,16 @@
     gap: 20px; 
     align-items: center;
   }
+
+  .display2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    align-items: center;
+  }
 </style>
 
-<body class="vc" style="background: var(--background); overflow: auto;">
+<body class="vc" style="overflow: auto;">
   <div class="vc" style="padding: 2%; display: flex; flex-direction: column; align-items: center;">
     <div class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 20px;">Orion Framework</div>
 
@@ -95,27 +102,33 @@
       <div class="type">- Buttons -</div>
       <div class="desc">
         Buttons Have Custom Attributes to Show.<br>
-        These are <span class="cod">type</span>, <span class="cod">color</span>, <span class="cod">hover</span> and <span class="cod">state</span>.
+        These are <span class="cod">shape</span>, <span class="cod">color</span>, <span class="cod">hover</span> and <span class="cod">state</span>.
       </div>
-      <!-- BTYPE -->
+      <!-- SHAPE -->
       <div class="cat-c">
-        <div class="cat">BType Attribute</div>
+        <div class="cat">Shape Attribute</div>
         <div class="desc">
           Defines the Button Shape:<br>
-          <span class="cod">fill</span> (Default), <span class="cod">border</span> or <span class="cod">ghost</span>.
+          <span class="cod">plain</span> (Default), <span class="cod">shadow</span>, <span class="cod">border</span> or <span class="cod">ghost</span>.
         </div>
         <div class="code">
-          &lt;div class="button text" <span class="high">btype="fill"</span>>Filled&lt;/div> <br><br> 
-          &lt;div class="button text" <span class="high">btype="border"</span>>Border&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">btype="ghost"</span>>Ghost&lt;/div>;
+          &lt;div class="button text" <span class="high">shape="plain"</span>>Plain&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">shape="shadow"</span>>Shadow&lt;/div><br>
+          <br> 
+          &lt;div class="button text" <span class="high">shape="border"</span>>Border&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">shape="ghost"</span>>Ghost&lt;/div>;
         </div>
         <div class="display">
-          <!-- BUTTON -->
-          <div class="button text" btype="fill">Filled</div>
+          <!-- PLAIN -->
+          <div class="button text" shape="plain">Plain</div>
+          <!-- FILL -->
+          <div class="button text" shape="shadow">Shadow</div>
           <!-- BORDER -->
-          <div class="button text" btype="border">Border</div>
+          <div class="button text" shape="border">Border</div>
           <!-- GHOST -->
-          <div class="button text" btype="ghost">Ghost</div>
+          <div class="button text" shape="ghost">Ghost</div>
         </div>
       </div>
       <!-- COLOR -->
@@ -124,29 +137,33 @@
         <div class="desc">
           Changes the Button Color:<br>
           <span class="cod">accent</span>, <span class="cod">success</span>, <span class="cod">danger</span>, or <span class="cod">warning</span>.<br>
-          Changes to Background With Custom Colors are Also Valid.
+          Changes to Background With the <span class="cod">--oBackground</span> Variable are Also Valid.
         </div>
         <div class="code">
-          &lt;div class="button text" btype="border">Default&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">color="accent"</span>>Accent&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">color="success"</span> btype="border">Success&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">color="danger"</span>>Danger&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">color="warning"</span> btype="border">Warning&lt;/div> <br><br>
-          &lt;div class="button text" style="<span class="high">background: #02bb9c;</span>">Custom&lt;/div>
+          &lt;div class="button text" shape="border">Default&lt;/div> <br><br>
+          &lt;div class="button text" <span class="high">color="accent"</span>>Accent&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">color="success"</span> shape="border">Success&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">color="danger"</span>>Danger&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">color="warning"</span> shape="border">Warning&lt;/div><br>
+          <br>
+          &lt;div class="button text" style="<span class="high">--oBackground: #02bb9c;</span>">Custom&lt;/div>
         </div>
         <div class="display">
           <!-- DEFAULT -->
-          <div class="button text" btype="border">Default</div>
+          <div class="button text" shape="border">Default</div>
           <!-- ACCENT -->
           <div class="button text" color="accent">Accent</div>
           <!-- SUCCESS -->
-          <div class="button text" color="success" btype="border">Success</div>
+          <div class="button text" color="success" shape="border">Success</div>
           <!-- DANGER -->
           <div class="button text" color="danger">Danger</div>
           <!-- WARNING -->
-          <div class="button text" color="warning" btype="border">Warning</div>
+          <div class="button text" color="warning" shape="border">Warning</div>
           <!-- WARNING -->
-          <div class="button text" style="background: #02bb9c;">Custom</div>
+          <div class="button text" style="--oBackground: #02bb9c;">Custom</div>
         </div>
       </div>
       <!-- HOVER -->
@@ -158,26 +175,31 @@
           You can add Multiple Hover Effects.
         </div>
         <div class="code">
-          &lt;div class="button text" <span class="high">hover="def"</span>>Default&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">hover=""</span> btype="border">None&lt;/div> <br><br> 
-          &lt;div class="button text" <span class="high">hover="float"</span> btype="ghost">Floating&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">hover="def float"</span>>Default & Floating&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">hover="sink"</span> btype="border">Sinking&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">hover="def sink"</span> btype="ghost">Default & Sinking&lt;/div>
+          &lt;div class="button text" <span class="high">hover="def"</span>>Default&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">hover=""</span> shape="border">None&lt;/div><br>
+          <br> 
+          &lt;div class="button text" <span class="high">hover="float"</span> shape="ghost">Floating&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">hover="def float"</span>>Default & Floating&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">hover="sink"</span> shape="border">Sinking&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">hover="def sink"</span> shape="ghost">Default & Sinking&lt;/div>
         </div>
         <div class="display">
           <!-- DEFAULT -->
           <div class="button text" hover="def">Default</div>
           <!-- NONE -->
-          <div class="button text" hover="" btype="border">None</div>
+          <div class="button text" hover="" shape="border">None</div>
           <!-- FLOAT -->
-          <div class="button text" hover="float" btype="ghost">Floating</div>
+          <div class="button text" hover="float" shape="ghost">Floating</div>
           <!-- FLOAT COLOR -->
           <div class="button text" hover="def float">Default & Floating</div>
           <!-- SINK -->
-          <div class="button text" hover="sink" btype="border">Sinking</div>
+          <div class="button text" hover="sink" shape="border">Sinking</div>
           <!-- SINK COLOR -->
-          <div class="button text" hover="def sink" btype="ghost">Default & Sinking</div>
+          <div class="button text" hover="def sink" shape="ghost">Default & Sinking</div>
         </div>
       </div>
       <!-- CURSOR -->
@@ -188,17 +210,19 @@
           <span class="cod">click</span> (Default), <span class="cod">load</span> or <span class="cod">auto</span>.
         </div>
         <div class="code">
-          &lt;div class="button text" <span class="high">cursor="click"</span>>Clickable&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">cursor="load"</span> btype="border">Loading&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">cursor="auto"</span> btype="border">Auto&lt;/div>
+          &lt;div class="button text" <span class="high">cursor="click"</span>>Clickable&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">cursor="load"</span> shape="border">Loading&lt;/div><br>
+          <br>
+          &lt;div class="button text" <span class="high">cursor="auto"</span> shape="ghost">Auto&lt;/div>
         </div>
         <div class="display">
           <!-- CLICK -->
           <div class="button text" cursor="click">Clickable</div>
           <!-- LOADING -->
-          <div class="button text" cursor="load" btype="border">Loading</div>
+          <div class="button text" cursor="load" shape="border">Loading</div>
           <!-- AUTO -->
-          <div class="button text" cursor="auto" btype="ghost">Auto</div>
+          <div class="button text" cursor="auto" shape="ghost">Auto</div>
         </div>
       </div>
     </div>
@@ -215,16 +239,16 @@
     <div class="type-c">
       <div class="type">- Button Elements -</div>
       <div class="desc">
-        You can add Elements Inside Buttons to Create Other Elements.
+        Other Elements can be Created by Adding new Classes Inside Buttons.
       </div>
       <!-- ICONS -->
       <div class="cat-c">
         <div class="cat">Icons & Text</div>
         <div class="desc">
-          There are 3 Classes to Place Icons and Text:<br>
-          <span class="cod">emote</span> Changes the Text Size to Place an Emote.<br>
-          <span class="cod">svg</span> Changes a SVG Size to Match the Emote Size.<br>
-          <span class="cod">text</span> Changes the Text Size to Place Text.
+          There are 3 Classes to Place Icons and Text Inside Buttons:<br>
+          The <span class="cod">emote</span> Class Resizes Text to Place an Emote.<br>
+          The <span class="cod">svg</span> Class Resizes an SVG to Look Like an Emote.<br>
+          The <span class="cod">text</span> Class Resizes Text to Place Text.
         </div>
         <div class="code">
           &lt;div class="button <span class="high">emote</span>">💯&lt;/div> <br><br>
@@ -242,7 +266,7 @@
           <!-- EMOTE BUTTON -->
           <div class="button emote">💯</div>
           <!-- SVG BUTTON -->
-          <div class="button" style="max-height: 40px;">
+          <div class="button">
             <svg class="svg" viewBox="0 0 24 24">
               <path d="M16.44 3.10156C14.63 3.10156 13.01 3.98156 12 5.33156C10.99 3.98156 9.37 3.10156 7.56 3.10156C4.49 3.10156 2 5.60156 2 8.69156C2 9.88156 2.19 10.9816 2.52 12.0016C4.1 17.0016 8.97 19.9916 11.38 20.8116C11.72 20.9316 12.28 20.9316 12.62 20.8116C15.03 19.9916 19.9 17.0016 21.48 12.0016C21.81 10.9816 22 9.88156 22 8.69156C22 5.60156 19.51 3.10156 16.44 3.10156Z"/>
             </svg>
@@ -275,20 +299,20 @@
       <div class="cat-c">
         <div class="cat">Inputs</div>
         <div class="desc">
-          Class <span class="cod">input</span> for Text Inputs to use Inside Buttons.
+          The <span class="cod">input</span> Class can be Used to add Text Inputs Inside Buttons.
         </div>
         <div class="code">
-          &lt;div class="button hc" style="width: 200px;">><br>
-          &nbsp;&nbsp;&lt;input class="<span class="high">input</span>" btype="text" placeholder="Input">&lt;/input>><br>
+          &lt;div class="button" style="width: 200px;"><br>
+          &nbsp;&nbsp;&lt;input class="<span class="high">input</span>" shape="text" placeholder="Input"/><br>
           &lt;/div>
         </div>
         <div class="display">
           <!-- INPUT -->
-          <div class="button hc" style="width: 200px;">
-            <input class="input" btype="text" spellcheck="false" placeholder="Input" maxlength="30" style="width: 200px;"></input>
+          <div class="button" style="width: 200px;">
+            <input class="input" shape="text" spellcheck="false" placeholder="Input" maxlength="30"/>
           </div>
           <!-- MIXED INPUT -->
-          <div class="button hc" style="width: 200px;">
+          <div class="button" style="width: 200px;">
             <div class="emote">🗿</div>
             <input class="input" type="text" spellcheck="false" placeholder="Mixed Input" maxlength="30" style="width: 120px; padding-left: 0; padding-right: 0;"></input>
             <svg class="svg" viewBox="0 0 24 24">
@@ -298,38 +322,33 @@
           </div>
         </div>
       </div>
-      <!-- OTHER -->
+      <!-- SWITCHES & CHECKBOXES -->
       <div class="cat-c">
-        <div class="cat">Other</div>
+        <div class="cat">Switches & Checkboxes</div>
         <div class="desc">
           Classes <span class="cod">switch</span> and <span class="cod">switch-custom</span> can be Used to Create Switches.<br>
-          Class <span class="cod">radio</span> can be Used to Create Radio Buttons.
+          The <span class="cod">checkbox</span> Class can be Used to Create Checkboxes and Radio Buttons.
         </div>
         <div class="code">
-          &lt;div class="button <span class="high">switch</span>"><br>
-          &nbsp;&nbsp;&lt;input btype="checkbox" /><br>
-          &nbsp;&nbsp;&lt;div>&lt;/div><br>
-          &lt;/div><br><br>
+          &lt;input class="button <span class="high">switch</span>" type="checkbox"/><br>
+          <br>
           &lt;div class="button <span class="high">switch-custom</span>" style="width: 80px; height: 40px;"><br>
-          &nbsp;&nbsp;&lt;input btype="checkbox"/><br>
+          &nbsp;&nbsp;&lt;input type="checkbox"/><br>
           &nbsp;&nbsp;&lt;div>&lt;/div><br>
           &nbsp;&nbsp;&lt;div class="emote">😎&lt;/div><br>
           &nbsp;&nbsp;&lt;div class="emote">😴&lt;/div><br>
-          &lt;/div><br><br>
-          &lt;div class="button <span class="high">radio</span>"><br>
-          &nbsp;&nbsp;&lt;input btype="radio" checked="true" name="radio"><br>
-          &nbsp;&nbsp;&lt;div>&lt;/div><br>
-          &lt;/div>
+          &lt;/div><br>
+          <br>
+          &lt;input class="button <span class="high">checkbox</span>" type="checkbox"/><br>
+          <br>
+          &lt;input class="button <span class="high">checkbox</span>" type="radio" name="radio"/>
         </div>
-        <div class="display">
+        <div class="display2">
           <div class="hc" style="gap: 20px; align-items: center;">
             <!-- SWITCH -->
             <div class="hc">
               <div class="text">Switch:</div>
-              <div class="button switch">
-                <input type="checkbox" />
-                <div></div>
-              </div>
+              <input class="button switch" type="checkbox"/>
             </div>
             <!-- SWITCH CUSTOM  -->
             <div class="hc">
@@ -342,26 +361,18 @@
               </div>
             </div>
           </div>
-          <div class="hc" style="gap: 20px; align-items: center;">
+          <div class="hc" style="margin-top: 10px; gap: 20px; align-items: center;">
+            <!-- CHECKBOX -->
+            <div class="hc">
+              <div class="text">Checkbox:</div>
+              <input class="button checkbox" type="checkbox"/>
+            </div>
             <!-- RADIO BUTTON -->
             <div class="hc">
               <div class="text">Radio:</div>
-              <div class="hc" style="gap: 20px;">
-                <div class="button radio">
-                  <input type="radio" checked="true" name="radio">
-                  <div></div>
-                </div>
-                  
-                <div class="button radio">
-                 <input type="radio" name="radio">
-                  <div></div>
-                </div>
-                    
-                <div class="button radio">
-                  <input type="radio" name="radio">
-                  <div></div>
-                </div>
-              </div>
+              <input class="button checkbox" type="radio" name="radio" checked="true"/>
+              <input class="button checkbox" type="radio" name="radio"/>
+              <input class="button checkbox" type="radio" name="radio"/>
             </div>
           </div>
         </div>
@@ -380,16 +391,60 @@
     <div class="type-c">
       <div class="type">- SEEKBAR -</div>
       <div class="desc">
-        Use <span class="cod">seekbar</span> Class on Range Inputs to Create a Seekbar.
+        The <span class="cod">seekbar</span> Class can be Used on Range Inputs to Create a Seekbar.
       </div>
       <!-- SEEKBAR -->
       <div class="cat-c">
         <div class="code">
-          &lt;Input class="<span class="high">seekbar</span>" type="range" style="width: 400px;">&lt;/Input>
+          &lt;Input class="<span class="high">seekbar</span>" type="range"/>
         </div>
         <div class="display">
           <!-- SEEKBAR -->
-          <Input class="seekbar" type="range" style="width: 400px;"></Input>
+          <Input class="seekbar" type="range" style="width: 400px;"/>
+        </div>
+      </div>
+    </div>
+    
+    <!--$$$$$$ /$$$$$$$$ /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$$$$$$$ /$$$$$$ 
+    | $$_____/| $$_____/| $$_____/| $$_____/ /$$__  $$|__  $$__//$$__  $$
+    | $$      | $$      | $$      | $$      | $$  \__/   | $$  | $$  \__/
+    | $$$$$   | $$$$$   | $$$$$   | $$$$$   | $$         | $$  |  $$$$$$ 
+    | $$__/   | $$__/   | $$__/   | $$__/   | $$         | $$   \____  $$
+    | $$      | $$      | $$      | $$      | $$    $$   | $$   /$$  \ $$
+    | $$$$$$$$| $$      | $$      | $$$$$$$$|  $$$$$$/   | $$  |  $$$$$$/
+    |________/|__/      |__/      |________/ \______/    |__/   \____-->
+
+     <div class="type-c">
+      <div class="type">- EFFECTS -</div>
+      <div class="desc">
+        Effects can be Applied to Elements.
+      </div>
+      <!-- GLOW -->
+      <div class="cat-c">
+        <div class="cat">Glow</div>
+        <div class="desc">
+          The <span class="cod">glow</span> Class Replaces the Element's Background Image to add a Glow Effect.
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">glow</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- GLOW -->
+          <div class="glow" style="width: 80px; height: 40px; border-radius: var(--buttonCorner);"></div>
+        </div>
+      </div>
+      <!-- NOISE -->
+      <div class="cat-c">
+        <div class="cat">Noise</div>
+        <div class="desc">
+          The <span class="cod">noise</span> Class Replaces the Element's Background Image to add a Noise Effect.
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">noise</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- NOISE -->
+          <div class="noise" style="width: 80px; height: 40px; border-radius: var(--buttonCorner);"></div>
         </div>
       </div>
     </div>
