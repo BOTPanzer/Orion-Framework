@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-              /$$        /$$$$$$       /$$$$$$ 
-            /$$$$       /$$__  $$     /$$__  $$
- /$$    /$$|_  $$      |__/  \ $$    | $$  \ $$
-|  $$  /$$/  | $$        /$$$$$$/    |  $$$$$$$
- \  $$/$$/   | $$       /$$____/      \____  $$
-  \  $$$/    | $$      | $$           /$$  \ $$
-   \  $/    /$$$$$$ /$$| $$$$$$$$ /$$|  $$$$$$/
-    \_/    |______/|__/|________/|__/ \_____*/
+              /$$        /$$$$$$        /$$    /$$$$$$ 
+            /$$$$       /$$__  $$     /$$$$   /$$__  $$
+ /$$    /$$|_  $$      |__/  \ $$    |_  $$  |__/  \ $$
+|  $$  /$$/  | $$        /$$$$$$/      | $$    /$$$$$$/
+ \  $$/$$/   | $$       /$$____/       | $$   /$$____/ 
+  \  $$$/    | $$      | $$            | $$  | $$      
+   \  $/    /$$$$$$ /$$| $$$$$$$$ /$$ /$$$$$$| $$$$$$$$
+    \_/    |______/|__/|________/|__/|______/|_______*/
 
 /* ASCII FONT: Big Money-ne - https://manytools.org/hacker-tools/ascii-banner */
 @font-face { font-family: Name; src: url('Data/Fonts/Name.ttf'); }
@@ -188,9 +188,9 @@ img {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
   overflow: hidden;
   position: absolute;
   pointer-events: none;
@@ -203,9 +203,9 @@ img {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
   overflow: hidden;
   position: absolute;
   pointer-events: none;
@@ -355,69 +355,64 @@ img {
   --oBorderR: 15px;
   width: 50px;
   height: 30px;
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 .switch::before {
   width: 10px;
   height: 10px;
   top: 10px;
-  left: 10px;
   right: 30px;
   bottom: 10px;
+  left: 10px;
   border-radius: 5px;
   background: var(--textPrimary);
 }
 
 .switch:checked::before {
   top: 10px;
-  left: 30px;
   right: 10px;
   bottom: 10px;
+  left: 30px;
 }
 
 /*CUSTOM SWITCH*/
-.switch-custom {
-  width: 80px;
-  height: 40px;
-  display: flex;
-  position: relative;
-  transition: all .2s;
-}
-
 .switch-custom input {
-  width: inherit;
-  height: inherit;
-  opacity: 0;
-  position: absolute;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  appearance: none;
 }
 
-.switch-custom div:nth-of-type(1) {
+.switch-custom input::before {
+  content: '';
   width: calc(50% - 10px);
   height: calc(100% - 10px);
   margin: 5px;
-  background: var(--textPrimary);
-  border-radius: inherit;
-  position: relative;
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  pointer-events: none;
   transition: all .2s;
+  border-radius: var(--oBorderR);
+  background: var(--textPrimary);
 }
 
-.switch-custom input:checked ~ div:nth-of-type(1) {
+.switch-custom input:checked::before {
   transform: translateX(calc(100% + 10px));
 }
 
 .switch-custom div {
-  width: 50%;
-  height: inherit;
+  width: 50%; 
+  height: 100%;
   position: absolute;
   pointer-events: none;
 }
 
-.switch-custom div:nth-of-type(3) {
-  width: 50%;
-  height: inherit;
-  pointer-events: none;
+.switch-custom div:nth-of-type(2) {
   transform: translateX(100%);
 }
 
@@ -426,7 +421,7 @@ img {
   --oBorderR: 15px;
   width: 30px;
   height: 30px;
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 .checkbox::before {
@@ -442,6 +437,35 @@ img {
 
 .checkbox:checked::before {
   background: var(--textPrimary);
+}
+
+/*DROPDOWN*/
+.dropdown select {
+  min-width: 150px;
+  height: 40px;
+  font-size: 15px;
+  font-family: Main;
+  direction: rtl;
+  text-indent: 20px;
+  color: var(--textPrimary);
+  background: var(--oBackground);
+  text-align: center;
+  appearance: none;
+  box-shadow: none;
+  outline: 0;
+  border: 0;
+}
+
+.dropdown::before {
+  content: '▼';
+  width: auto;
+  height: 20px;
+  font-size: 16px;
+  line-height: 20px;
+  top: 10px;
+  right: 10px;
+  left: auto;
+  border-radius: 5px;
 }
 
 
@@ -460,7 +484,7 @@ img {
 /*SEEKBAR*/
 .seekbar {
   height: 12px;
-  -webkit-appearance: none;
+  appearance: none;
   background: var(--button);
   border-radius: 6px;
 }
@@ -496,15 +520,17 @@ img {
 
 /*GLOW*/
 .glow {
-  background-image: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(238, 238, 238, 0.616) 50%,
-    rgba(238, 238, 238, 0.616) 55%, transparent 65%, transparent 100%);
+  background-image: linear-gradient(65deg, 
+    transparent 0%, transparent 45%, 
+    rgba(255, 255, 255, 0.6) 50%,rgba(255, 255, 255, 0.6) 55%, 
+    transparent 60%, transparent 100%);
   background-size: 300%;
   animation: glow 1s infinite;
 }
 
 @keyframes glow {
-  from { background-position: 100% 100%; }
-  to   { background-position: 0 0; }
+  0% { background-position: 100% 100%; }
+  60% { background-position: 0 0; }
 }
 
 .noise {
@@ -598,9 +624,6 @@ img {
 | $$  | $$   | $$   | $$  | $$| $$      | $$  \ $$
 |  $$$$$$/   | $$   | $$  | $$| $$$$$$$$| $$  | $$
  \______/    |__/   |__/  |__/|________/|__/  |_*/
-
-
-
 
 /*TITLE BAR BUTTONS*/
 .button-top {
