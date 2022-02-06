@@ -873,21 +873,22 @@
     </div>
   </div>
 </body>
-</html>
 
 <script>
-let frameworkMenuChanging = false
-function hideMenu() {
-  if (frameworkMenuChanging) return
-  let el = document.getElementById('frameworkMenu')
-  if (el.style.visibility == 'visible') {
-    el.style.opacity = '0'
-    setTimeout(function(){
-      el.style.visibility = 'hidden'
-    }, 500)
-  } else {
-    el.style.visibility = 'visible'
-    el.style.opacity = '1'
+  let frameworkMenuChanging = false
+  function hideMenu() {
+    if (frameworkMenuChanging) return
+    let el = document.getElementById('frameworkMenu')
+    if (el.style.visibility == 'visible') {
+      el.style.opacity = '0'
+      setTimeout(function(){
+        el.style.visibility = 'hidden'
+      }, 500)
+    } else {
+      el.style.visibility = 'visible'
+      el.style.opacity = '1'
+    }
   }
-}
 </script>
+</html>
+
