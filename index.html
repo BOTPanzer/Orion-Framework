@@ -6,15 +6,42 @@
 </head>
 
 <style>
+  .leyend {
+    padding: 10px 20px 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--textPrimary);
+    cursor: pointer;
+  }
+
+  .leyend2 {
+    padding: 0 20px 0 30px;
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--textSecondary);
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  .leyend2:hover {
+    color: var(--textPrimary);
+  }
+
+  /*TYPE CONTAINER*/
   .type-c {
-    margin: 30px 0 30px 0;
+    width: 50%;
+    min-width: 500px;
+    padding-top: 30px;
+    margin-bottom: 200px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    align-items: center;
+    position: relative;
   }
 
+  /*TYPE TITLE*/
   .type {
+    margin: 0 0 10px 0;
     font-family: Special; 
     font-size: 40px; 
     line-height: 40px;
@@ -24,30 +51,27 @@
     color: var(--textPrimary);
   }
 
+  /*DESCRIPTION*/
   .desc {
-    width: 500px; 
-    margin: 20px 0 10px 0;
-    text-align: center;
+    width: 100%;
+    margin: 10px 0;
   }
 
-  .cod {
-    padding: 0 5px;
-    border-radius: 5px; 
-    background: var(--menu);
-    user-select: text;
-  }
-
+  /*CATEGORY CONTAINER*/
   .cat-c {
+    width: 100%;
     margin: 10px 0 30px 0;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    align-items: center;
+    position: relative;
   }
 
+  /*CATEGORY TITLE*/
   .cat {
+    margin: 10px 0;
     font-family: Special; 
-    font-size: 20px; 
+    font-size: 20px;
     line-height: 20px;
     text-overflow: ellipsis; 
     white-space: nowrap; 
@@ -55,13 +79,24 @@
     color: var(--textPrimary);
   }
 
+  /*CODE CONTAINER*/
   .code {
-    width: 500px; 
+    width: 100%;
     height: fit-content; 
     padding: 10px;
     margin: 10px 0 20px 0;
     font-size: 13px; 
+    font-family: monospace;
+    line-height: 150%;
     border-radius: var(--buttonCorner); 
+    background: var(--menu);
+    user-select: text;
+  }
+
+  /*TEXT HIGHLIGHTS*/
+  .cod {
+    padding: 0 5px;
+    border-radius: 5px; 
     background: var(--menu);
     user-select: text;
   }
@@ -70,25 +105,74 @@
     color: var(--accent)
   }
 
+  /*DISPLAYS*/
   .display {
+    width: fit-content;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     gap: 20px; 
-    align-items: center;
   }
 
   .display2 {
     display: flex;
     flex-direction: column;
-    gap: 20px; 
+    gap: 20px;
     align-items: center;
   }
 </style>
 
-<body class="vc" style="overflow: auto;">
+<body class="vc" style="overflow: auto; scroll-behavior: smooth;">
   <div class="vc" style="padding: 2%; display: flex; flex-direction: column; align-items: center;">
-    <div class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 20px;">Orion Framework v1.2.12</div>
+    <div class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">Orion Framework v1.3.0</div>
+
+    <!--$$$$$$ /$$   /$$ /$$$$$$$$ /$$      /$$ /$$$$$$$$
+    |__  $$__/| $$  | $$| $$_____/| $$$    /$$$| $$_____/
+       | $$   | $$  | $$| $$      | $$$$  /$$$$| $$      
+       | $$   | $$$$$$$$| $$$$$   | $$ $$/$$ $$| $$$$$   
+       | $$   | $$__  $$| $$__/   | $$  $$$| $$| $$__/   
+       | $$   | $$  | $$| $$      | $$\  $ | $$| $$      
+       | $$   | $$  | $$| $$$$$$$$| $$ \/  | $$| $$$$$$$$
+       |__/   |__/  |__/|________/|__/     |__/|______-->
     
+    <div id="themes" class="type-c">
+      <div class="type">- THEME -</div>
+      <div class="desc">
+        Oriøn has a Serie of Colors That are Used all Over the Framework and can be Personalized.<br>
+        These are the Default Colors.
+      </div>
+      <!-- THEME COLORS -->
+      <div class="cat-c">
+        <div class="cat">CONTENT</div>
+        <div class="desc">
+          <span class="cod">--menu</span> #202225<br>
+          <span class="cod">--background</span> #2F3136<br>
+          <span class="cod">--scrollbar</span> #202225<br>
+        </div>
+        <div class="cat">COLORS</div>
+        <div class="desc">
+          <span class="cod">--accent</span> #ce2353<br>
+          <span class="cod">--success</span> #00d12d<br>
+          <span class="cod">--danger</span> #C70039<br>
+          <span class="cod">--warning</span> #e9ab00<br>
+          <span class="cod">--progress</span> #C7C9CA<br>
+        </div>
+        <div class="cat">TEXT</div>
+        <div class="desc">
+          <span class="cod">--textTitleBar</span> #72767D<br>
+          <span class="cod">--textPrimary</span> #f5f5f5<br>
+          <span class="cod">--textSecondary</span> #C7C9CA<br>
+        </div>
+        <div class="cat">BUTTONS</div>
+        <div class="desc">
+          <span class="cod">--button</span> #202225<br>
+          <span class="cod">--buttonBorderColor</span> transparent<br>
+          <span class="cod">--buttonBorderWidth</span> 0<br>
+          <span class="cod">--buttonCorner</span> 10px<br>
+        </div>
+      </div>
+    </div>
+
     <!--$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$  /$$$$$$ 
     | $$__  $$| $$  | $$|__  $$__/|__  $$__//$$__  $$| $$$ | $$ /$$__  $$
     | $$  \ $$| $$  | $$   | $$      | $$  | $$  \ $$| $$$$| $$| $$  \__/
@@ -98,27 +182,39 @@
     | $$$$$$$/|  $$$$$$/   | $$      | $$  |  $$$$$$/| $$ \  $$|  $$$$$$/
     |_______/  \______/    |__/      |__/   \______/ |__/  \__/ \____-->
 
-    <div class="type-c">
+    <div id="buttons" class="type-c">
       <div class="type">- Buttons -</div>
-      <div class="desc">
-        Buttons Have Custom Attributes to Show.<br>
-        These are <span class="cod">shape</span>, <span class="cod">color</span>, <span class="cod">hover</span> and <span class="cod">state</span>.
+      <!-- BUTTON -->
+      <div class="cat-c">      
+        <div class="desc">
+          The <span class="cod">button</span> Class is Used to Create Buttons<br>
+          <br>
+          Custom Attributes<br>
+          <span class="cod">shape</span>, <span class="cod">color</span>, <span class="cod">hover</span> and <span class="cod">state</span>
+          </div>
+        <div class="code">
+          &lt;div class="<span class="high">button</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- BUTTON -->
+          <div class="button" style="width: 80px; height: 40px;"></div>
+        </div>
       </div>
       <!-- SHAPE -->
-      <div class="cat-c">
+      <div id="buttonshape" class="cat-c">
         <div class="cat">Shape Attribute</div>
         <div class="desc">
-          Defines the Button Shape:<br>
-          <span class="cod">plain</span> (Default), <span class="cod">shadow</span>, <span class="cod">border</span> or <span class="cod">ghost</span>.
+          Changes the Button Shape<br>
+          <span class="cod">plain</span> (Default), <span class="cod">shadow</span>, <span class="cod">border</span> or <span class="cod">ghost</span>
         </div>
         <div class="code">
-          &lt;div class="button text" <span class="high">shape="plain"</span>>Plain&lt;/div><br>
+          &lt;div class="button" <span class="high">shape="plain"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">shape="shadow"</span>>Shadow&lt;/div><br>
+          &lt;div class="button" <span class="high">shape="shadow"</span>>&lt;/div><br>
           <br> 
-          &lt;div class="button text" <span class="high">shape="border"</span>>Border&lt;/div><br>
+          &lt;div class="button" <span class="high">shape="border"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">shape="ghost"</span>>Ghost&lt;/div>;
+          &lt;div class="button" <span class="high">shape="ghost"</span>>&lt;/div>
         </div>
         <div class="display">
           <!-- PLAIN -->
@@ -132,24 +228,25 @@
         </div>
       </div>
       <!-- COLOR -->
-      <div class="cat-c">
+      <div id="buttoncolor" class="cat-c">
         <div class="cat">Color Attribute</div>
         <div class="desc">
-          Changes the Button Color:<br>
-          <span class="cod">accent</span>, <span class="cod">success</span>, <span class="cod">danger</span>, or <span class="cod">warning</span>.<br>
-          Changes to Background With the <span class="cod">--oBackground</span> Variable are Also Valid.
+          Changes the Button Color<br>
+          <span class="cod">accent</span>, <span class="cod">success</span>, <span class="cod">danger</span>, or <span class="cod">warning</span><br>
+          The <span class="cod">--oBackground</span> Variable Applies a Custom Background Color
         </div>
         <div class="code">
-          &lt;div class="button text" shape="border">Default&lt;/div> <br><br>
-          &lt;div class="button text" <span class="high">color="accent"</span>>Accent&lt;/div><br>
+          &lt;div class="button">&lt;/div> <br>
           <br>
-          &lt;div class="button text" <span class="high">color="success"</span> shape="border">Success&lt;/div><br>
+          &lt;div class="button" <span class="high">color="accent"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">color="danger"</span>>Danger&lt;/div><br>
+          &lt;div class="button" <span class="high">color="success"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">color="warning"</span> shape="border">Warning&lt;/div><br>
+          &lt;div class="button" <span class="high">color="danger"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" style="<span class="high">--oBackground: #02bb9c;</span>">Custom&lt;/div>
+          &lt;div class="button" <span class="high">color="warning"</span>>&lt;/div><br>
+          <br>
+          &lt;div class="button" style="<span class="high">--oBackground: #d4007c;</span>">&lt;/div>
         </div>
         <div class="display">
           <!-- DEFAULT -->
@@ -163,29 +260,29 @@
           <!-- WARNING -->
           <div class="button text" color="warning" shape="border">Warning</div>
           <!-- WARNING -->
-          <div class="button text" style="--oBackground: #02bb9c;">Custom</div>
+          <div class="button text" style="--oBackground: #d4007c;">Custom</div>
         </div>
       </div>
       <!-- HOVER -->
-      <div class="cat-c">
+      <div id="buttonhover" class="cat-c">
         <div class="cat">Hover Attribute</div>
         <div class="desc">
-          Changes the Hover Animation:<br>
-          <span class="cod">def</span> (Default), <span class="cod">float</span> and <span class="cod">sink</span>.<br>
-          You can add Multiple Hover Effects.
+          Changes the Hover Animation<br>
+          <span class="cod">def</span> (Default), <span class="cod">float</span> and <span class="cod">sink</span><br>
+          • You can add Multiple Hover Effects
         </div>
         <div class="code">
-          &lt;div class="button text" <span class="high">hover="def"</span>>Default&lt;/div><br>
+          &lt;div class="button" <span class="high">hover="def"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">hover=""</span> shape="border">None&lt;/div><br>
+          &lt;div class="button" <span class="high">hover=""</span>>&lt;/div><br>
           <br> 
-          &lt;div class="button text" <span class="high">hover="float"</span> shape="ghost">Floating&lt;/div><br>
+          &lt;div class="button" <span class="high">hover="float"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">hover="def float"</span>>Default & Floating&lt;/div><br>
+          &lt;div class="button" <span class="high">hover="def float"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">hover="sink"</span> shape="border">Sinking&lt;/div><br>
+          &lt;div class="button" <span class="high">hover="sink"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">hover="def sink"</span> shape="ghost">Default & Sinking&lt;/div>
+          &lt;div class="button" <span class="high">hover="def sink"</span>>&lt;/div>
         </div>
         <div class="display">
           <!-- DEFAULT -->
@@ -203,18 +300,18 @@
         </div>
       </div>
       <!-- CURSOR -->
-      <div class="cat-c">
+      <div id="buttoncursor" class="cat-c">
         <div class="cat">Cursor Attribute</div>
         <div class="desc">
-          Changes the Mouse Cursor on Hover:<br>
-          <span class="cod">click</span> (Default), <span class="cod">load</span> or <span class="cod">auto</span>.
+          Changes the Hover Mouse Cursor<br>
+          <span class="cod">click</span> (Default), <span class="cod">load</span> or <span class="cod">auto</span>
         </div>
         <div class="code">
-          &lt;div class="button text" <span class="high">cursor="click"</span>>Clickable&lt;/div><br>
+          &lt;div class="button" <span class="high">cursor="click"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">cursor="load"</span> shape="border">Loading&lt;/div><br>
+          &lt;div class="button" <span class="high">cursor="load"</span>>&lt;/div><br>
           <br>
-          &lt;div class="button text" <span class="high">cursor="auto"</span> shape="ghost">Auto&lt;/div>
+          &lt;div class="button" <span class="high">cursor="auto"</span>>&lt;/div>
         </div>
         <div class="display">
           <!-- CLICK -->
@@ -227,25 +324,24 @@
       </div>
     </div>
 
-    <!--$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$       /$$$$$$$$ /$$       /$$$$$$$$ /$$      /$$ /$$$$$$$$ /$$   /$$ /$$$$$$$$ /$$$$$$ 
-    | $$__  $$| $$  | $$|__  $$__/|__  $$__//$$__  $$| $$$ | $$      | $$_____/| $$      | $$_____/| $$$    /$$$| $$_____/| $$$ | $$|__  $$__//$$__  $$
-    | $$  \ $$| $$  | $$   | $$      | $$  | $$  \ $$| $$$$| $$      | $$      | $$      | $$      | $$$$  /$$$$| $$      | $$$$| $$   | $$  | $$  \__/
-    | $$$$$$$ | $$  | $$   | $$      | $$  | $$  | $$| $$ $$ $$      | $$$$$   | $$      | $$$$$   | $$ $$/$$ $$| $$$$$   | $$ $$ $$   | $$  |  $$$$$$ 
-    | $$__  $$| $$  | $$   | $$      | $$  | $$  | $$| $$  $$$$      | $$__/   | $$      | $$__/   | $$  $$$| $$| $$__/   | $$  $$$$   | $$   \____  $$
-    | $$  \ $$| $$  | $$   | $$      | $$  | $$  | $$| $$\  $$$      | $$      | $$      | $$      | $$\  $ | $$| $$      | $$\  $$$   | $$   /$$  \ $$
-    | $$$$$$$/|  $$$$$$/   | $$      | $$  |  $$$$$$/| $$ \  $$      | $$$$$$$$| $$$$$$$$| $$$$$$$$| $$ \/  | $$| $$$$$$$$| $$ \  $$   | $$  |  $$$$$$/
-    |_______/  \______/    |__/      |__/   \______/ |__/  \__/      |________/|________/|________/|__/     |__/|________/|__/  \__/   |__/   \____-->
+    <!--$$$  /$$$$$$   /$$$$$$  /$$   /$$  /$$$$$$         /$$$           /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$$
+    |_  $$_/ /$$__  $$ /$$__  $$| $$$ | $$ /$$__  $$       /$$ $$         |__  $$__/| $$_____/| $$  / $$|__  $$__/
+      | $$  | $$  \__/| $$  \ $$| $$$$| $$| $$  \__/      |  $$$             | $$   | $$      |  $$/ $$/   | $$   
+      | $$  | $$      | $$  | $$| $$ $$ $$|  $$$$$$        /$$ $$/$$         | $$   | $$$$$    \  $$$$/    | $$   
+      | $$  | $$      | $$  | $$| $$  $$$$ \____  $$      | $$  $$_/         | $$   | $$__/     >$$  $$    | $$   
+      | $$  | $$    $$| $$  | $$| $$\  $$$ /$$  \ $$      | $$\  $$          | $$   | $$       /$$/\  $$   | $$   
+     /$$$$$$|  $$$$$$/|  $$$$$$/| $$ \  $$|  $$$$$$/      |  $$$$/$$         | $$   | $$$$$$$$| $$  \ $$   | $$   
+    |______/ \______/  \______/ |__/  \__/ \______/        \____/\_/         |__/   |________/|__/  |__/   |-->
 
-    <div class="type-c">
-      <div class="type">- Button Elements -</div>
+    <div id="iconstext" class="type-c">
+      <div class="type">- ICONS & TEXT -</div>
       <div class="desc">
-        Other Elements can be Created by Adding new Classes Inside Buttons.
+        Elements That Mixed With Buttons Create Custom Buttons.
       </div>
-      <!-- ICONS -->
+      <!-- ICONS  -->
       <div class="cat-c">
-        <div class="cat">Icons & Text</div>
+        <div class="cat">ICONS & TEXT</div>
         <div class="desc">
-          There are 3 Classes to Place Icons and Text Inside Buttons:<br>
           The <span class="cod">emote</span> Class Resizes Text to Place an Emote.<br>
           The <span class="cod">svg</span> Class Resizes an SVG to Look Like an Emote.<br>
           The <span class="cod">text</span> Class Resizes Text to Place Text.
@@ -295,14 +391,30 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!--$$$ /$$   /$$ /$$$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$ 
+    |_  $$_/| $$$ | $$| $$__  $$| $$  | $$|__  $$__//$$__  $$
+      | $$  | $$$$| $$| $$  \ $$| $$  | $$   | $$  | $$  \__/
+      | $$  | $$ $$ $$| $$$$$$$/| $$  | $$   | $$  |  $$$$$$ 
+      | $$  | $$  $$$$| $$____/ | $$  | $$   | $$   \____  $$
+      | $$  | $$\  $$$| $$      | $$  | $$   | $$   /$$  \ $$
+     /$$$$$$| $$ \  $$| $$      |  $$$$$$/   | $$  |  $$$$$$/
+    |______/|__/  \__/|__/       \______/    |__/   \____-->
+
+    <div id="inputs" class="type-c">
+      <div class="type">- INPUTS -</div>
+      <div class="desc">
+        Elements That Mixed With the <span class="cod">button</span> Class Create Inputs.
+      </div>      
       <!-- INPUTS -->
       <div class="cat-c">
-        <div class="cat">Inputs</div>
+        <div class="cat">INPUTS</div>
         <div class="desc">
-          The <span class="cod">input</span> Class can be Used to add Text Inputs Inside Buttons.
+          The <span class="cod">input</span> Class is Used to add Text Inputs Inside Buttons.
         </div>
         <div class="code">
-          &lt;div class="button" style="width: 200px;"><br>
+          &lt;div class="button"><br>
           &nbsp;&nbsp;&lt;input class="<span class="high">input</span>" shape="text" placeholder="Input"/><br>
           &lt;/div>
         </div>
@@ -322,67 +434,178 @@
           </div>
         </div>
       </div>
-      <!-- SWITCHES & CHECKBOXES -->
-      <div class="cat-c">
-        <div class="cat">Switches & Checkboxes</div>
+    </div>
+
+      <!--$$$  /$$   /$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$$$$$$   /$$$$$$  /$$   /$$
+     /$$__  $$| $$  | $$| $$_____/ /$$__  $$| $$  /$$/| $$__  $$ /$$__  $$| $$  / $$
+    | $$  \__/| $$  | $$| $$      | $$  \__/| $$ /$$/ | $$  \ $$| $$  \ $$|  $$/ $$/
+    | $$      | $$$$$$$$| $$$$$   | $$      | $$$$$/  | $$$$$$$ | $$  | $$ \  $$$$/ 
+    | $$      | $$__  $$| $$__/   | $$      | $$  $$  | $$__  $$| $$  | $$  >$$  $$ 
+    | $$    $$| $$  | $$| $$      | $$    $$| $$\  $$ | $$  \ $$| $$  | $$ /$$/\  $$
+    |  $$$$$$/| $$  | $$| $$$$$$$$|  $$$$$$/| $$ \  $$| $$$$$$$/|  $$$$$$/| $$  \ $$
+     \______/ |__/  |__/|________/ \______/ |__/  \__/|_______/  \______/ |__/  |-->
+    
+    <div id="checkboxradio" class="type-c">
+      <div class="type">- CHECKBOX & RADIO -</div>
+      <div class="desc">
+        Elements That Mixed With the <span class="cod">button</span> Class Create Checkboxes.<br>
+        • The <span class="cod">--oColor</span> Variable Applies a Custom Color.
+      </div>
+      <!-- CHECKBOX -->
+      <div id="checkbox" class="cat-c">
+        <div class="cat">CHECKBOX</div>
         <div class="desc">
-          Classes <span class="cod">switch</span> and <span class="cod">switch-custom</span> can be Used to Create Switches.<br>
-          The <span class="cod">checkbox</span> Class can be Used to Create Checkboxes and Radio Buttons.
+          The <span class="cod">checkbox</span> Class Applied to an <span class="cod">input</span> Element can be Used to Create Checkboxes.<br>
+          • The <span class="cod">checkbox</span> Attribute Changes the Checkbox Type.
+        </div>
+        <div class="code">
+          &lt;input class="button <span class="high">checkbox</span>" type="checkbox"/><br>
+          <br>
+          &lt;input class="button <span class="high">checkbox</span>" type="checkbox" radio="<span class="high">reverse</span>"/><br>
+          <br>
+          &lt;input class="button <span class="high">checkbox</span>" type="checkbox" style="<span class="high">--oColor: #d4007c;</span>"/><br>
+          <br>
+          &lt;input class="button <span class="high">checkbox</span>" type="checkbox" radio="<span class="high">reverse</span>" style="<span class="high">--oColor: #d4007c;</span>"/>
+        </div>
+        <div class="display">
+          <!-- CHECKBOX -->
+          <input class="button checkbox" type="checkbox" checked="true"/>
+          <!-- CHECKBOX REVERSE -->
+          <input class="button checkbox" type="checkbox" checked="true" checkbox="reverse"/>
+          <!-- CHECKBOX CUSTOM COLOR -->
+          <input class="button checkbox" type="checkbox" checked="true" style="--oColor: #d4007c;"/>
+          <!-- CHECKBOX REVERSE CUSTOM COLOR -->
+          <input class="button checkbox" type="checkbox" checked="true" checkbox="reverse" style="--oColor: #d4007c;"/>
+        </div>
+      </div>
+      <!-- RADIO -->
+      <div id="radio" class="cat-c">
+        <div class="cat">RADIO</div>
+        <div class="desc">
+          The <span class="cod">radio</span> Class Applied to an <span class="cod">input</span> Element can be Used to Create Radio Buttons.<br>
+          • The <span class="cod">radio</span> Attribute Changes the Radio Type.
+        </div>
+        <div class="code">
+          &lt;input class="button <span class="high">radio</span>" type="radio"/><br>
+          <br>
+          &lt;input class="button <span class="high">radio</span>" type="radio" radio="<span class="high">reverse</span>"/><br>
+          <br>
+          &lt;input class="button <span class="high">radio</span>" type="radio" style="<span class="high">--oColor: #d4007c;</span>"/><br>
+          <br>
+          &lt;input class="button <span class="high">radio</span>" type="radio" radio="<span class="high">reverse</span>" style="<span class="high">--oColor: #d4007c;</span>"/>
+        </div>
+        <div class="display">
+          <div class="hc" style="gap: 10px;">
+            <!-- RADIO BUTTON -->
+            <input class="button radio" type="radio" name="radio" checked="true"/>
+            <!-- RADIO BUTTON REVERSE -->
+            <input class="button radio" type="radio" name="radio" radio="reverse"/>
+            <!-- RADIO BUTTON CUSTOM COLOR -->
+            <input class="button radio" type="radio" name="radio" style="--oColor: #d4007c;"/>
+            <!-- RADIO BUTTON REVERSE CUSTOM COLOR -->
+            <input class="button radio" type="radio" name="radio" radio="reverse" style="--oColor: #d4007c;"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!--$$$  /$$      /$$ /$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$ /$$$$$$$$  /$$$$$$ 
+     /$$__  $$| $$  /$ | $$|_  $$_/|__  $$__//$$__  $$| $$  | $$| $$_____/ /$$__  $$
+    | $$  \__/| $$ /$$$| $$  | $$     | $$  | $$  \__/| $$  | $$| $$      | $$  \__/
+    |  $$$$$$ | $$/$$ $$ $$  | $$     | $$  | $$      | $$$$$$$$| $$$$$   |  $$$$$$ 
+     \____  $$| $$$$_  $$$$  | $$     | $$  | $$      | $$__  $$| $$__/    \____  $$
+     /$$  \ $$| $$$/ \  $$$  | $$     | $$  | $$    $$| $$  | $$| $$       /$$  \ $$
+    |  $$$$$$/| $$/   \  $$ /$$$$$$   | $$  |  $$$$$$/| $$  | $$| $$$$$$$$|  $$$$$$/
+     \______/ |__/     \__/|______/   |__/   \______/ |__/  |__/|________/ \____-->
+
+     <div id="switches" class="type-c">
+      <div class="type">- SWITCHES -</div>
+      <div class="desc">
+        Elements That Mixed With the <span class="cod">button</span> Class Create Switches.<br>
+        • The <span class="cod">--oColor</span> Variable Applies a Custom Color.
+      </div>
+      <!-- SWITCH -->
+      <div id="switchesswitch" class="cat-c">
+        <div class="cat">SWITCH</div>
+        <div class="desc">
+          The <span class="cod">switch</span> Class Applied to an <span class="cod">input</span> Element can be Used to Create Switches.<br>
+          • The <span class="cod">switch</span> Attribute Changes the Switch Type.
         </div>
         <div class="code">
           &lt;input class="button <span class="high">switch</span>" type="checkbox"/><br>
           <br>
+          &lt;input class="button <span class="high">switch</span>" switch="<span class="high">small</span>" type="checkbox"/><br>
+          <br>
+          &lt;input class="button <span class="high">switch</span>" type="checkbox" style="<span class="high">--oColor: #d4007c;</span>"/><br>
+          <br>
+          &lt;input class="button <span class="high">switch</span>" switch="<span class="high">small</span>" type="checkbox" style="<span class="high">--oColor: #d4007c;</span>"/>
+        </div>
+        <div class="display">
+          <!-- SWITCH -->
+          <input class="button switch" type="checkbox"/>
+          <!-- SWITCH SMALL -->
+          <input class="button switch" switch="small" type="checkbox"/>
+          <!-- SWITCH CUSTOM COLOR -->
+          <input class="button switch" type="checkbox" style="--oColor: #d4007c;"/>
+          <!-- SWITCH SMALL CUSTOM COLOR -->
+          <input class="button switch" switch="small" type="checkbox" style="--oColor: #d4007c;"/>
+        </div>
+      </div>
+      <!-- SWITCH CUSTOM -->
+      <div id="switchescustom" class="cat-c">
+        <div class="cat">CUSTOM SWITCH</div>
+        <div class="desc">
+          The <span class="cod">switch-custom</span> Class can be Used to Create Custom Switches.
+        </div>
+        <div class="code">
           &lt;div class="button <span class="high">switch-custom</span>" style="width: 80px; height: 40px;"><br>
           &nbsp;&nbsp;&lt;input type="checkbox"/><br>
           &nbsp;&nbsp;&lt;div class="emote">😎&lt;/div><br>
           &nbsp;&nbsp;&lt;div class="emote">😴&lt;/div><br>
           &lt;/div><br>
           <br>
-          &lt;input class="button <span class="high">checkbox</span>" type="checkbox"/><br>
-          <br>
-          &lt;input class="button <span class="high">checkbox</span>" type="radio" name="radio"/>
+          &lt;div class="button <span class="high">switch-custom</span>" style="width: 80px; height: 40px; <span class="high">--oColor: #d4007c;</span>"><br>
+          &nbsp;&nbsp;&lt;input type="checkbox"/><br>
+          &nbsp;&nbsp;&lt;div class="emote">🤑&lt;/div><br>
+          &nbsp;&nbsp;&lt;div class="emote">🧐&lt;/div><br>
+          &lt;/div>
         </div>
-        <div class="display2">
-          <div class="hc" style="gap: 20px; align-items: center;">
-            <!-- SWITCH -->
-            <div class="hc">
-              <div class="text">Switch:</div>
-              <input class="button switch" type="checkbox"/>
-            </div>
-            <!-- SWITCH CUSTOM  -->
-            <div class="hc">
-              <div class="text">Custom Switch:</div>
-              <div class="button switch-custom" style="width: 80px; height: 40px;">
-                <input type="checkbox"/>
-                <div class="emote">😎</div>
-                <div class="emote">😴</div>
-              </div>
-            </div>
+        <div class="display">
+          <!-- SWITCH CUSTOM -->
+          <div class="button switch-custom" style="width: 80px; height: 40px;">
+            <input type="checkbox"/>
+            <div class="emote">😎</div>
+            <div class="emote">😴</div>
           </div>
-          <div class="hc" style="margin-top: 10px; gap: 20px; align-items: center;">
-            <!-- CHECKBOX -->
-            <div class="hc">
-              <div class="text">Checkbox:</div>
-              <input class="button checkbox" type="checkbox"/>
-            </div>
-            <!-- RADIO BUTTON -->
-            <div class="hc">
-              <div class="text">Radio:</div>
-              <input class="button checkbox" type="radio" name="radio" checked="true"/>
-              <input class="button checkbox" type="radio" name="radio"/>
-              <input class="button checkbox" type="radio" name="radio"/>
-            </div>
+          <!-- SWITCH CUSTOM CUSTOM COLOR -->
+          <div class="button switch-custom" style="width: 80px; height: 40px; --oColor: #d4007c;">
+            <input type="checkbox"/>
+            <div class="emote">🤑</div>
+            <div class="emote">🧐</div>
           </div>
         </div>
       </div>
-      <!-- DROPDOWN -->
+    </div>
+    
+      <!--$$$  /$$$$$$$$ /$$       /$$$$$$$$  /$$$$$$  /$$$$$$$$
+     /$$__  $$| $$_____/| $$      | $$_____/ /$$__  $$|__  $$__/
+    | $$  \__/| $$      | $$      | $$      | $$  \__/   | $$   
+    |  $$$$$$ | $$$$$   | $$      | $$$$$   | $$         | $$   
+     \____  $$| $$__/   | $$      | $$__/   | $$         | $$   
+     /$$  \ $$| $$      | $$      | $$      | $$    $$   | $$   
+    |  $$$$$$/| $$$$$$$$| $$$$$$$$| $$$$$$$$|  $$$$$$/   | $$   
+     \______/ |________/|________/|________/ \______/    |-->  
+
+    <div id="select" class="type-c">
+      <div class="type">- SELECT -</div>
+      <!-- SELECT -->
       <div class="cat-c">
-        <div class="cat">Dropdown</div>
+        <div class="cat">SELECT</div>
         <div class="desc">
-          The <span class="cod">dropdown</span> Class Mixed With a <span class="cod">select</span> Element can be Used to Create Dropdowns.
+          The <span class="cod">select</span> Class Applied to a <span class="cod">button</span> and Mixed With a <span class="cod">select</span> Element is Used to Create Selections.
         </div>
         <div class="code">
-          &lt;div class="button <span class="high">dropdown</span>"><br>
+          &lt;div class="button <span class="high">select</span>"><br>
           &nbsp;&nbsp;&lt;select><br>
           &nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="1">Option 1&lt;/option><br>
           &nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="2">Option 2&lt;/option><br>
@@ -392,7 +615,7 @@
         </div>
         <div class="display">
           <!-- DROPDOWN -->
-          <div class="button dropdown">
+          <div class="button select">
             <select>
               <option value="1">Option 1</option>
               <option value="2">Option 2</option>
@@ -403,7 +626,7 @@
       </div>
     </div>
 
-    <!--$$$$$  /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$ 
+      <!--$$$  /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$ 
      /$$__  $$| $$_____/| $$_____/| $$  /$$/| $$__  $$ /$$__  $$| $$__  $$
     | $$  \__/| $$      | $$      | $$ /$$/ | $$  \ $$| $$  \ $$| $$  \ $$
     |  $$$$$$ | $$$$$   | $$$$$   | $$$$$/  | $$$$$$$ | $$$$$$$$| $$$$$$$/
@@ -412,23 +635,119 @@
     |  $$$$$$/| $$$$$$$$| $$$$$$$$| $$ \  $$| $$$$$$$/| $$  | $$| $$  | $$
      \______/ |________/|________/|__/  \__/|_______/ |__/  |__/|__/  |-->
 
-    <div class="type-c">
+    <div id="seekbar" class="type-c">
       <div class="type">- SEEKBAR -</div>
-      <div class="desc">
-        The <span class="cod">seekbar</span> Class can be Used on Range Inputs to Create a Seekbar.
-      </div>
       <!-- SEEKBAR -->
       <div class="cat-c">
+        <div class="cat">SEEKBAR</div>
+        <div class="desc">
+          The <span class="cod">seekbar</span> Class can be Used on Range Inputs to Create a Seekbar.<br>
+          • The <span class="cod">--oBackground</span> Variable Applies a Custom Background Color.<br>
+          • The <span class="cod">--oColor</span> Variable Applies a Custom Thumb Color.
+        </div>
         <div class="code">
-          &lt;Input class="<span class="high">seekbar</span>" type="range"/>
+          &lt;Input class="<span class="high">seekbar</span>" type="range"/><br>
+          <br>
+          &lt;Input class="<span class="high">seekbar</span>" type="range" style="<span class="high">--oBackground: #4f3a50; --oColor: #d4007c;</span>"/>
         </div>
         <div class="display">
           <!-- SEEKBAR -->
-          <Input class="seekbar" type="range" style="width: 400px;"/>
+          <Input class="seekbar" type="range" style="width: 300px;"/>
+          <!-- SEEKBAR CUSTOM COLOR -->
+          <Input class="seekbar" type="range" style="width: 300px; --oBackground: #4f3a50; --oColor: #d4007c;"/>
         </div>
       </div>
     </div>
     
+    <!--       /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$ 
+    | $$       /$$__  $$ /$$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$
+    | $$      | $$  \ $$| $$  \ $$| $$  \ $$  | $$  | $$$$| $$| $$  \__/
+    | $$      | $$  | $$| $$$$$$$$| $$  | $$  | $$  | $$ $$ $$| $$ /$$$$
+    | $$      | $$  | $$| $$__  $$| $$  | $$  | $$  | $$  $$$$| $$|_  $$
+    | $$      | $$  | $$| $$  | $$| $$  | $$  | $$  | $$\  $$$| $$  \ $$
+    | $$$$$$$$|  $$$$$$/| $$  | $$| $$$$$$$/ /$$$$$$| $$ \  $$|  $$$$$$/
+    |________/ \______/ |__/  |__/|_______/ |______/|__/  \__/ \____-->
+
+    <div id="loading" class="type-c">
+      <div class="type">- LOADING -</div>
+      <div class="desc">
+        The <span class="cod">loading</span> Class is Used to Create Elements That Represent a Loading State.<br>
+        • The <span class="cod">--oColor</span> Variable Applies a Custom Color.
+      </div>      
+      <!-- DEFAULT -->
+      <div id="loadingdefault" class="cat-c">
+        <div class="cat">DEFAULT</div>
+        <div class="desc">
+          The Default Loading Type.
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">loading</span>">&lt;/div><br>
+          <br>
+          &lt;div class="<span class="high">loading</span>" style="<span class="high">--oColor: #d4007c;</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- DEFAULT -->
+          <div class="loading"></div>
+          <!-- DEFAULT CUSTOM COLOR -->
+          <div class="loading" style="--oColor: #d4007c;"></div>
+        </div>
+      </div>
+      <!-- DOTS -->
+      <div id="loadingdots" class="cat-c">
+        <div class="cat">DOTS</div>
+        <div class="desc">
+          The <span class="cod">dots</span> Type can be Used to Create Loading Dots.
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">loading</span>" type="<span class="high">dots</span>">&lt;/div><br>
+          <br>
+          &lt;div class="<span class="high">loading</span>" type="<span class="high">dots</span>" style="<span class="high">--oColor: #d4007c;</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- DOTS -->
+          <div class="loading" type="dots"></div>
+          <!-- DOTS CUSTOM COLOR -->
+          <div class="loading" type="dots" style="--oColor: #d4007c;"></div>
+        </div>
+      </div>
+      <!-- SPIN -->
+      <div id="loadingspin" class="cat-c">
+        <div class="cat">SPIN</div>
+        <div class="desc">
+          The <span class="cod">spin</span> Type can be Used to Create Spinning Circles.<br>
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">loading</span>" type="<span class="high">spin</span>">&lt;/div><br>
+          <br>
+          &lt;div class="<span class="high">loading</span>" type="<span class="high">spin</span>" style="<span class="high">--oColor: #d4007c;</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- SPIN -->
+          <div class="loading" type="spin"></div>
+          <!-- SPIN CUSTOM COLOR -->
+          <div class="loading" type="spin" style="--oColor: #d4007c;"></div>
+        </div>
+      </div>
+      <!-- PULSE -->
+      <div id="loadingpulse" class="cat-c">
+        <div class="cat">PULSE</div>
+        <div class="desc">
+          The <span class="cod">pulse</span> Type can be Used to Create a Pulsing Effect Circle.<br>
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">loading</span>" type="<span class="high">pulse</span>">&lt;/div><br>
+          <br>
+          &lt;div class="<span class="high">loading</span>" type="<span class="high">pulse</span>" style="<span class="high">--oColor: #d4007c;</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- PULSE -->
+          <div class="loading" type="pulse"></div>
+          <!-- PULSE CUSTOM COLOR -->
+          <div class="loading" type="pulse" style="--oColor: #d4007c;"></div>
+        </div>
+      </div>
+    </div>
+
     <!--$$$$$$ /$$$$$$$$ /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$$$$$$$ /$$$$$$ 
     | $$_____/| $$_____/| $$_____/| $$_____/ /$$__  $$|__  $$__//$$__  $$
     | $$      | $$      | $$      | $$      | $$  \__/   | $$  | $$  \__/
@@ -438,16 +757,16 @@
     | $$$$$$$$| $$      | $$      | $$$$$$$$|  $$$$$$/   | $$  |  $$$$$$/
     |________/|__/      |__/      |________/ \______/    |__/   \____-->
 
-     <div class="type-c">
+     <div id="effects" class="type-c" style="margin-bottom: 50px;">
       <div class="type">- EFFECTS -</div>
       <div class="desc">
-        Effects can be Applied to Elements.
+        Effects That can be Applied to Elements.
       </div>
       <!-- GLOW -->
-      <div class="cat-c">
-        <div class="cat">Glow</div>
+      <div id="effectglow" class="cat-c">
+        <div class="cat">GLOW</div>
         <div class="desc">
-          The <span class="cod">glow</span> Class Replaces the Element's Background Image to add a Glow Effect.
+          The <span class="cod">glow</span> Class Replaces the Element's Background to Create a Glow Effect.
         </div>
         <div class="code">
           &lt;div class="<span class="high">glow</span>">&lt;/div>
@@ -458,10 +777,10 @@
         </div>
       </div>
       <!-- NOISE -->
-      <div class="cat-c">
-        <div class="cat">Noise</div>
+      <div id="effectnoise" class="cat-c">
+        <div class="cat">NOISE</div>
         <div class="desc">
-          The <span class="cod">noise</span> Class Replaces the Element's Background Image to add a Noise Effect.
+          The <span class="cod">noise</span> Class Replaces the Element's Background to Create a Noise Effect.
         </div>
         <div class="code">
           &lt;div class="<span class="high">noise</span>">&lt;/div>
@@ -471,7 +790,104 @@
           <div class="noise" style="width: 80px; height: 40px; border-radius: var(--buttonCorner);"></div>
         </div>
       </div>
+      <!-- GLASS -->
+      <div id="effectglass" class="cat-c">
+        <div class="cat">GLASS</div>
+        <div class="desc">
+          The <span class="cod">glass</span> Class Adds a Shadow and Blurs the Background to Create a Glass Effect.
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">glass</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- GLASS -->
+          <div style="width: 120px; height: 120px; position: relative;">
+            <img style="width: 100px; height: 100px; position: relative; border-radius: var(--buttonCorner); object-fit: cover;" src="Data/Images/cp2077.jpg"></img>
+            <div class="glass" style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px; border-radius: var(--buttonCorner);"></div>
+          </div>
+        </div>
+      </div>
+      <!-- PULSE -->
+      <div id="effectpulse" class="cat-c">
+        <div class="cat">PULSE</div>
+        <div class="desc">
+          The <span class="cod">pulse</span> Class Adds a Shadow Around an Element to Create a Pulse Effect.<br>
+          • The <span class="cod">--oColor</span> Variable Applies a Custom Color.
+        </div>
+        <div class="code">
+          &lt;div class="<span class="high">pulse</span>">&lt;/div><br>
+          <br>
+          &lt;div class="<span class="high">pulse</span>" style="<span class="high">--oColor: #d4007c;</span>">&lt;/div>
+        </div>
+        <div class="display">
+          <!-- PULSE -->
+          <div class="pulse" style="width: 80px; height: 40px; border-radius: var(--buttonCorner); background-color: var(--button);"></div>
+          <!-- PULSE CUSTOM COLOR -->
+          <div class="pulse" style="width: 80px; height: 40px; border-radius: var(--buttonCorner); background-color: var(--button); --oColor: #d4007c;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="frameworkMenu" class="vc" style="height: 100%; visibility: hidden; opacity: 0; position: fixed; top: 0; left: 0; padding-top: 30px; background: var(--menu); overflow-y: scroll; transition: all .5s;">
+      <div class="leyend" onclick="document.getElementById('themes').scrollIntoView();">Theme</div>
+
+      <div class="leyend" onclick="document.getElementById('buttons').scrollIntoView();">Buttons ›</div>
+      <div class="leyend2" onclick="document.getElementById('buttonshape').scrollIntoView();">• Shape Attribute</div>
+      <div class="leyend2" onclick="document.getElementById('buttoncolor').scrollIntoView();">• Color Attribute</div>
+      <div class="leyend2" onclick="document.getElementById('buttonhover').scrollIntoView();">• Hover Attribute</div>
+      <div class="leyend2" onclick="document.getElementById('buttoncursor').scrollIntoView();">• Cursor Attribute</div>
+
+      <div class="leyend" onclick="document.getElementById('iconstext').scrollIntoView();">Icons & Text</div>
+
+      <div class="leyend" onclick="document.getElementById('inputs').scrollIntoView();">Inputs</div>
+
+      <div class="leyend" onclick="document.getElementById('checkboxradio').scrollIntoView();">Checkbox & Radio ›</div>
+      <div class="leyend2" onclick="document.getElementById('checkbox').scrollIntoView();">• Checkbox</div>
+      <div class="leyend2" onclick="document.getElementById('radio').scrollIntoView();">• Radio</div>
+
+      <div class="leyend" onclick="document.getElementById('switches').scrollIntoView();">Switches ›</div>
+      <div class="leyend2" onclick="document.getElementById('switchesswitch').scrollIntoView();">• Switch</div>
+      <div class="leyend2" onclick="document.getElementById('switchescustom').scrollIntoView();">• Custom Switch</div>
+
+      <div class="leyend" onclick="document.getElementById('select').scrollIntoView();">Select</div>
+
+      <div class="leyend" onclick="document.getElementById('seekbar').scrollIntoView();">Seekbar</div>
+
+      <div class="leyend" onclick="document.getElementById('loading').scrollIntoView();">Loading ›</div>
+      <div class="leyend2" onclick="document.getElementById('loadingdefault').scrollIntoView();">• Default</div>
+      <div class="leyend2" onclick="document.getElementById('loadingdots').scrollIntoView();">• Dots</div>
+      <div class="leyend2" onclick="document.getElementById('loadingspin').scrollIntoView();">• Spin</div>
+      <div class="leyend2" onclick="document.getElementById('loadingpulse').scrollIntoView();">• Pulse</div>
+
+      <div class="leyend" onclick="document.getElementById('effects').scrollIntoView();">Effects ›</div>
+      <div class="leyend2" onclick="document.getElementById('effectglow').scrollIntoView();">• Glow</div>
+      <div class="leyend2" onclick="document.getElementById('effectnoise').scrollIntoView();">• Noise</div>
+      <div class="leyend2" onclick="document.getElementById('effectglass').scrollIntoView();">• Glass</div>
+      <div class="leyend2" onclick="document.getElementById('effectpulse').scrollIntoView();">• Pulse</div>
+    </div>
+
+    <div onclick="hideMenu()" style="position: fixed; top: 0; left: 0; fill: var(--textPrimary); cursor: pointer;">
+      <svg class="svg" viewBox="0 0 24 24">
+        <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM17 17.25H7C6.59 17.25 6.25 16.91 6.25 16.5C6.25 16.09 6.59 15.75 7 15.75H17C17.41 15.75 17.75 16.09 17.75 16.5C17.75 16.91 17.41 17.25 17 17.25ZM17 12.75H7C6.59 12.75 6.25 12.41 6.25 12C6.25 11.59 6.59 11.25 7 11.25H17C17.41 11.25 17.75 11.59 17.75 12C17.75 12.41 17.41 12.75 17 12.75ZM17 8.25H7C6.59 8.25 6.25 7.91 6.25 7.5C6.25 7.09 6.59 6.75 7 6.75H17C17.41 6.75 17.75 7.09 17.75 7.5C17.75 7.91 17.41 8.25 17 8.25Z"/>
+      </svg>
     </div>
   </div>
 </body>
 </html>
+
+<script>
+let frameworkMenuChanging = false
+function hideMenu() {
+  if (frameworkMenuChanging) return
+  let el = document.getElementById('frameworkMenu')
+  if (el.style.visibility == 'visible') {
+    el.style.opacity = '0'
+    setTimeout(function(){
+      el.style.visibility = 'hidden'
+    }, 500)
+  } else {
+    el.style.visibility = 'visible'
+    el.style.opacity = '1'
+  }
+}
+</script>

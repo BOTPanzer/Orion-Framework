@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-              /$$        /$$$$$$        /$$    /$$$$$$ 
-            /$$$$       /$$__  $$     /$$$$   /$$__  $$
- /$$    /$$|_  $$      |__/  \ $$    |_  $$  |__/  \ $$
-|  $$  /$$/  | $$        /$$$$$$/      | $$    /$$$$$$/
- \  $$/$$/   | $$       /$$____/       | $$   /$$____/ 
-  \  $$$/    | $$      | $$            | $$  | $$      
-   \  $/    /$$$$$$ /$$| $$$$$$$$ /$$ /$$$$$$| $$$$$$$$
-    \_/    |______/|__/|________/|__/|______/|_______*/
+              /$$        /$$$$$$      /$$$$$$ 
+            /$$$$       /$$__  $$    /$$$_  $$
+ /$$    /$$|_  $$      |__/  \ $$   | $$$$\ $$
+|  $$  /$$/  | $$         /$$$$$/   | $$ $$ $$
+ \  $$/$$/   | $$        |___  $$   | $$\ $$$$
+  \  $$$/    | $$       /$$  \ $$   | $$ \ $$$
+   \  $/    /$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
+    \_/    |______/|__/ \______/|__/ \_____*/
 
 /* ASCII FONT: Big Money-ne - https://manytools.org/hacker-tools/ascii-banner */
 @font-face { font-family: Name; src: url('Data/Fonts/Name.ttf'); }
@@ -180,7 +180,6 @@ img {
   overflow: hidden;
   position: relative;
   transition: all .2s;
-  cursor: pointer;
 }
 
 .button::before {
@@ -270,7 +269,7 @@ img {
 }
 
 /*STATE ATTRIBUTE*/
-.button[cursor=click]:hover {
+.button[cursor=click]:hover, .button:not([cursor]):hover {
   cursor: pointer;
 }
 
@@ -286,14 +285,14 @@ img {
 
 
 
-/*$$$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$       /$$$$$$$$ /$$       /$$$$$$$$ /$$      /$$ /$$$$$$$$ /$$   /$$ /$$$$$$$$ /$$$$$$ 
-| $$__  $$| $$  | $$|__  $$__/|__  $$__//$$__  $$| $$$ | $$      | $$_____/| $$      | $$_____/| $$$    /$$$| $$_____/| $$$ | $$|__  $$__//$$__  $$
-| $$  \ $$| $$  | $$   | $$      | $$  | $$  \ $$| $$$$| $$      | $$      | $$      | $$      | $$$$  /$$$$| $$      | $$$$| $$   | $$  | $$  \__/
-| $$$$$$$ | $$  | $$   | $$      | $$  | $$  | $$| $$ $$ $$      | $$$$$   | $$      | $$$$$   | $$ $$/$$ $$| $$$$$   | $$ $$ $$   | $$  |  $$$$$$ 
-| $$__  $$| $$  | $$   | $$      | $$  | $$  | $$| $$  $$$$      | $$__/   | $$      | $$__/   | $$  $$$| $$| $$__/   | $$  $$$$   | $$   \____  $$
-| $$  \ $$| $$  | $$   | $$      | $$  | $$  | $$| $$\  $$$      | $$      | $$      | $$      | $$\  $ | $$| $$      | $$\  $$$   | $$   /$$  \ $$
-| $$$$$$$/|  $$$$$$/   | $$      | $$  |  $$$$$$/| $$ \  $$      | $$$$$$$$| $$$$$$$$| $$$$$$$$| $$ \/  | $$| $$$$$$$$| $$ \  $$   | $$  |  $$$$$$/
-|_______/  \______/    |__/      |__/   \______/ |__/  \__/      |________/|________/|________/|__/     |__/|________/|__/  \__/   |__/   \_____*/
+ /*$$$$$  /$$$$$$   /$$$$$$  /$$   /$$  /$$$$$$         /$$$           /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$$
+|_  $$_/ /$$__  $$ /$$__  $$| $$$ | $$ /$$__  $$       /$$ $$         |__  $$__/| $$_____/| $$  / $$|__  $$__/
+  | $$  | $$  \__/| $$  \ $$| $$$$| $$| $$  \__/      |  $$$             | $$   | $$      |  $$/ $$/   | $$   
+  | $$  | $$      | $$  | $$| $$ $$ $$|  $$$$$$        /$$ $$/$$         | $$   | $$$$$    \  $$$$/    | $$   
+  | $$  | $$      | $$  | $$| $$  $$$$ \____  $$      | $$  $$_/         | $$   | $$__/     >$$  $$    | $$   
+  | $$  | $$    $$| $$  | $$| $$\  $$$ /$$  \ $$      | $$\  $$          | $$   | $$       /$$/\  $$   | $$   
+ /$$$$$$|  $$$$$$/|  $$$$$$/| $$ \  $$|  $$$$$$/      |  $$$$/$$         | $$   | $$$$$$$$| $$  \ $$   | $$   
+|______/ \______/  \______/ |__/  \__/ \______/        \____/\_/         |__/   |________/|__/  |__/   |_*/
 
 /*TEXT*/
 .text {
@@ -330,6 +329,18 @@ img {
   margin: 7px;
 }
 
+
+
+
+ /*$$$$$ /$$   /$$ /$$$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$ 
+|_  $$_/| $$$ | $$| $$__  $$| $$  | $$|__  $$__//$$__  $$
+  | $$  | $$$$| $$| $$  \ $$| $$  | $$   | $$  | $$  \__/
+  | $$  | $$ $$ $$| $$$$$$$/| $$  | $$   | $$  |  $$$$$$ 
+  | $$  | $$  $$$$| $$____/ | $$  | $$   | $$   \____  $$
+  | $$  | $$\  $$$| $$      | $$  | $$   | $$   /$$  \ $$
+ /$$$$$$| $$ \  $$| $$      |  $$$$$$/   | $$  |  $$$$$$/
+|______/|__/  \__/|__/       \______/    |__/   \_____*/
+
 /*INPUT*/
 .input {
   min-height: 40px;
@@ -350,33 +361,135 @@ img {
   outline: none;
 }
 
+
+
+
+
+  /*$$$$$  /$$   /$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$$$$$$   /$$$$$$  /$$   /$$
+ /$$__  $$| $$  | $$| $$_____/ /$$__  $$| $$  /$$/| $$__  $$ /$$__  $$| $$  / $$
+| $$  \__/| $$  | $$| $$      | $$  \__/| $$ /$$/ | $$  \ $$| $$  \ $$|  $$/ $$/
+| $$      | $$$$$$$$| $$$$$   | $$      | $$$$$/  | $$$$$$$ | $$  | $$ \  $$$$/ 
+| $$      | $$__  $$| $$__/   | $$      | $$  $$  | $$__  $$| $$  | $$  >$$  $$ 
+| $$    $$| $$  | $$| $$      | $$    $$| $$\  $$ | $$  \ $$| $$  | $$ /$$/\  $$
+|  $$$$$$/| $$  | $$| $$$$$$$$|  $$$$$$/| $$ \  $$| $$$$$$$/|  $$$$$$/| $$  \ $$
+ \______/ |__/  |__/|________/ \______/ |__/  \__/|_______/  \______/ |__/  |_*/
+
+/*CHECKBOX*/
+.checkbox {
+  --oBorderR: 10px;
+  --oColor: var(--textPrimary);
+  width: 30px;
+  height: 30px;
+  appearance: none;
+}
+
+.checkbox:not([checkbox])::before {
+  width: 16px;
+  height: 16px;
+  top: 7px;
+  left: 7px;
+  border-radius: 5px;
+  background: transparent;
+}
+
+.checkbox:not([checkbox]):checked::before {
+  background: var(--oColor);
+}
+
+.checkbox[checkbox=reverse]::before {
+  box-sizing: border-box;
+  border: solid 0 transparent;
+}
+
+.checkbox[checkbox=reverse]:checked::before {
+  border: solid 7px var(--oColor);
+}
+
+.radio {
+  --oBorderR: 15px;
+  --oColor: var(--textPrimary);
+  width: 30px;
+  height: 30px;
+  appearance: none;
+}
+
+.radio:not([radio])::before {
+  width: 10px;
+  height: 10px;
+  top: 10px;
+  left: 10px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.radio:not([radio]):checked::before {
+  background: var(--oColor);
+}
+
+.radio[radio=reverse]::before {
+  box-sizing: border-box;
+  border: solid 0 transparent;
+}
+
+.radio[radio=reverse]:checked::before {
+  border: solid 10px var(--oColor);
+}
+
+
+
+
+
+  /*$$$$$  /$$      /$$ /$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$ /$$$$$$$$  /$$$$$$ 
+ /$$__  $$| $$  /$ | $$|_  $$_/|__  $$__//$$__  $$| $$  | $$| $$_____/ /$$__  $$
+| $$  \__/| $$ /$$$| $$  | $$     | $$  | $$  \__/| $$  | $$| $$      | $$  \__/
+|  $$$$$$ | $$/$$ $$ $$  | $$     | $$  | $$      | $$$$$$$$| $$$$$   |  $$$$$$ 
+ \____  $$| $$$$_  $$$$  | $$     | $$  | $$      | $$__  $$| $$__/    \____  $$
+ /$$  \ $$| $$$/ \  $$$  | $$     | $$  | $$    $$| $$  | $$| $$       /$$  \ $$
+|  $$$$$$/| $$/   \  $$ /$$$$$$   | $$  |  $$$$$$/| $$  | $$| $$$$$$$$|  $$$$$$/
+ \______/ |__/     \__/|______/   |__/   \______/ |__/  |__/|________/ \_____*/
+
 /*SWITCH*/
 .switch {
   --oBorderR: 15px;
+  --oColor: var(--textPrimary);
   width: 50px;
   height: 30px;
   appearance: none;
 }
 
-.switch::before {
+.switch:not([switch])::before {
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  left: 5px;
+  border-radius: 10px;
+  background: var(--oColor);
+}
+
+.switch:not([switch]):checked::before {
+  top: 5px;
+  left: 25px;
+}
+
+.switch[switch=small]::before {
   width: 10px;
   height: 10px;
   top: 10px;
-  right: 30px;
-  bottom: 10px;
   left: 10px;
   border-radius: 5px;
-  background: var(--textPrimary);
+  background: var(--oColor);
 }
 
-.switch:checked::before {
+.switch[switch=small]:checked::before {
   top: 10px;
-  right: 10px;
-  bottom: 10px;
   left: 30px;
 }
 
 /*CUSTOM SWITCH*/
+.switch-custom {
+  --oColor: var(--textPrimary);
+}
+
 .switch-custom input {
   width: 100%;
   height: 100%;
@@ -398,7 +511,7 @@ img {
   pointer-events: none;
   transition: all .2s;
   border-radius: var(--oBorderR);
-  background: var(--textPrimary);
+  background: var(--oColor);
 }
 
 .switch-custom input:checked::before {
@@ -416,31 +529,21 @@ img {
   transform: translateX(100%);
 }
 
-/*CHECKBOX*/
-.checkbox {
-  --oBorderR: 15px;
-  width: 30px;
-  height: 30px;
-  appearance: none;
-}
 
-.checkbox::before {
-  width: 10px;
-  height: 10px;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  border-radius: 5px;
-  background: transparent;
-}
 
-.checkbox:checked::before {
-  background: var(--textPrimary);
-}
 
-/*DROPDOWN*/
-.dropdown select {
+
+  /*$$$$$  /$$$$$$$$ /$$       /$$$$$$$$  /$$$$$$  /$$$$$$$$
+ /$$__  $$| $$_____/| $$      | $$_____/ /$$__  $$|__  $$__/
+| $$  \__/| $$      | $$      | $$      | $$  \__/   | $$   
+|  $$$$$$ | $$$$$   | $$      | $$$$$   | $$         | $$   
+ \____  $$| $$__/   | $$      | $$__/   | $$         | $$   
+ /$$  \ $$| $$      | $$      | $$      | $$    $$   | $$   
+|  $$$$$$/| $$$$$$$$| $$$$$$$$| $$$$$$$$|  $$$$$$/   | $$   
+ \______/ |________/|________/|________/ \______/    |_*/
+
+/*SELECT*/
+.select select {
   min-width: 150px;
   height: 40px;
   font-size: 15px;
@@ -449,6 +552,7 @@ img {
   text-indent: 20px;
   color: var(--textPrimary);
   background: var(--oBackground);
+  transition: all .2s;
   text-align: center;
   appearance: none;
   box-shadow: none;
@@ -456,7 +560,7 @@ img {
   border: 0;
 }
 
-.dropdown::before {
+.select::before {
   content: '▼';
   width: auto;
   height: 20px;
@@ -467,7 +571,6 @@ img {
   left: auto;
   border-radius: 5px;
 }
-
 
 
 
@@ -483,9 +586,11 @@ img {
 
 /*SEEKBAR*/
 .seekbar {
+  --oBackground: var(--button);
+  --oColor: var(--textPrimary);
   height: 12px;
   appearance: none;
-  background: var(--button);
+  background: var(--oBackground);
   border-radius: 6px;
 }
 
@@ -495,14 +600,163 @@ img {
   height: 18px;
   border-radius: 50%;
   background: transparent;
-  border: solid 9px var(--textPrimary);
+  border: solid 9px var(--oColor);
   background-clip: content-box;
   cursor: pointer;
   transition: all .2s;
 }
 
 .seekbar::-webkit-slider-thumb:hover {
-  border: solid 4px var(--textPrimary);
+  border: solid 4px var(--oColor);
+}
+
+
+
+
+
+/*$$        /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$ 
+| $$       /$$__  $$ /$$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$
+| $$      | $$  \ $$| $$  \ $$| $$  \ $$  | $$  | $$$$| $$| $$  \__/
+| $$      | $$  | $$| $$$$$$$$| $$  | $$  | $$  | $$ $$ $$| $$ /$$$$
+| $$      | $$  | $$| $$__  $$| $$  | $$  | $$  | $$  $$$$| $$|_  $$
+| $$      | $$  | $$| $$  | $$| $$  | $$  | $$  | $$\  $$$| $$  \ $$
+| $$$$$$$$|  $$$$$$/| $$  | $$| $$$$$$$/ /$$$$$$| $$ \  $$|  $$$$$$/
+|________/ \______/ |__/  |__/|_______/ |______/|__/  \__/ \_____*/
+
+/*DEFAULT*/
+.loading:not([type]) {
+  --oColor: var(--textPrimary);
+  width: 30px; 
+  height: 30px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--oColor);
+  animation: default 1s linear infinite;
+}
+
+@keyframes default {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*DOTS*/
+.loading[type=dots] {
+  --oColor: var(--textPrimary);
+  width: 10px;
+  height: 10px;
+  margin: 0 20px;
+  border-radius: 5px;
+  background: var(--oColor);
+  position: relative;
+  animation: dots .8s infinite;
+}
+
+.loading[type=dots]::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 5px;
+  background: var(--oColor);
+  transform: translateX(-20px);
+  pointer-events: none;
+  position: absolute;
+  animation: dot .8s infinite;
+}
+
+.loading[type=dots]::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 5px;
+  background: var(--oColor);
+  transform: translateX(20px);
+  pointer-events: none;
+  position: absolute;
+}
+
+@keyframes dot {
+  0% { transform: translateX(-20px); }
+  100% { transform: translateX(40px); }
+}
+
+@keyframes dots {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-20px); }
+}
+
+/*SPIN*/
+
+.loading[type=spin] {
+  --oColor: var(--textPrimary);
+  width: 50px; 
+  height: 50px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--oColor);
+  animation: spin 1.5s linear infinite;
+}
+
+.loading[type=spin]::before {
+  content: '';
+  width: 40px;
+  height: 40px;
+  margin: 3px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--oColor);
+  animation: spin 3s linear infinite;
+}
+
+.loading[type=spin]::after {
+  content: '';
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--oColor);
+  animation: spin 1s infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*PULSE*/
+.loading[type=pulse] {
+  --oColor: var(--textPrimary);
+  width: 20px; 
+  height: 20px; 
+  border-radius: 50%;
+  background: var(--oColor);
+  animation: pulse 1.5s infinite;
 }
 
 
@@ -533,6 +787,7 @@ img {
   60% { background-position: 0 0; }
 }
 
+/*NOISE*/
 .noise {
   background-image: url(data:image/png;base64,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);
   background-repeat: repeat;
@@ -551,6 +806,23 @@ img {
   80% { background-position: -6px 0 }
   90% { background-position: 4px 2px }
   100% { background-position: 2px 0 }
+}
+
+/*GLASS*/
+.glass {
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+  backdrop-filter: blur(6px);
+}
+
+/*PULSE*/
+.pulse {
+  --oColor: var(--textPrimary);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: var(--oColor) 0 0 0 0; }
+  60% { box-shadow: transparent 0 0 0 8px; }
 }
 
 
