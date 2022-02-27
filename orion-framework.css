@@ -16,16 +16,28 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-              /$$        /$$$$$$       /$$  
-            /$$$$       /$$__  $$    /$$$$  
- /$$    /$$|_  $$      |__/  \ $$   |_  $$  
-|  $$  /$$/  | $$         /$$$$$/     | $$  
- \  $$/$$/   | $$        |___  $$     | $$  
-  \  $$$/    | $$       /$$  \ $$     | $$  
-   \  $/    /$$$$$$ /$$|  $$$$$$//$$ /$$$$$$
-    \_/    |______/|__/ \______/|__/|_____*/
+              /$$ /$$   /$$      /$$$$$$ 
+            /$$$$| $$  | $$     /$$$_  $$
+ /$$    /$$|_  $$| $$  | $$    | $$$$\ $$
+|  $$  /$$/  | $$| $$$$$$$$    | $$ $$ $$
+ \  $$/$$/   | $$|_____  $$    | $$\ $$$$
+  \  $$$/    | $$      | $$    | $$ \ $$$
+   \  $/    /$$$$$$ /$$| $$ /$$|  $$$$$$/
+    \_/    |______/|__/|__/|__/ \_____*/
 
-/* ASCII FONT: Big Money-ne - https://manytools.org/hacker-tools/ascii-banner */
+
+
+
+
+ /*$      /$$  /$$$$$$  /$$$$$$ /$$   /$$
+| $$$    /$$$ /$$__  $$|_  $$_/| $$$ | $$
+| $$$$  /$$$$| $$  \ $$  | $$  | $$$$| $$
+| $$ $$/$$ $$| $$$$$$$$  | $$  | $$ $$ $$
+| $$  $$$| $$| $$__  $$  | $$  | $$  $$$$
+| $$\  $ | $$| $$  | $$  | $$  | $$\  $$$
+| $$ \/  | $$| $$  | $$ /$$$$$$| $$ \  $$
+|__/     |__/|__/  |__/|______/|__/  \_*/
+
 @font-face { font-family: Name; src: url('Data/Fonts/Name.ttf'); }
 @font-face { font-family: Main; src: url('Data/Fonts/Main.ttf'); }
 @font-face { font-family: Special; src: url('Data/Fonts/Special.ttf'); }
@@ -834,14 +846,14 @@ img {
 
 
 
-  /*$$$$$   /$$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$$       /$$      /$$ /$$$$$$$$ /$$   /$$ /$$   /$$
- /$$__  $$ /$$__  $$| $$$ | $$|__  $$__/| $$_____/| $$  / $$|__  $$__/      | $$$    /$$$| $$_____/| $$$ | $$| $$  | $$
-| $$  \__/| $$  \ $$| $$$$| $$   | $$   | $$      |  $$/ $$/   | $$         | $$$$  /$$$$| $$      | $$$$| $$| $$  | $$
-| $$      | $$  | $$| $$ $$ $$   | $$   | $$$$$    \  $$$$/    | $$         | $$ $$/$$ $$| $$$$$   | $$ $$ $$| $$  | $$
-| $$      | $$  | $$| $$  $$$$   | $$   | $$__/     >$$  $$    | $$         | $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$
-| $$    $$| $$  | $$| $$\  $$$   | $$   | $$       /$$/\  $$   | $$         | $$\  $ | $$| $$      | $$\  $$$| $$  | $$
-|  $$$$$$/|  $$$$$$/| $$ \  $$   | $$   | $$$$$$$$| $$  \ $$   | $$         | $$ \/  | $$| $$$$$$$$| $$ \  $$|  $$$$$$/
- \______/  \______/ |__/  \__/   |__/   |________/|__/  |__/   |__/         |__/     |__/|________/|__/  \__/ \_____*/
+  /*$$$$$  /$$$$$$$$ /$$   /$$       /$$      /$$ /$$$$$$$$ /$$   /$$ /$$   /$$
+ /$$__  $$|__  $$__/| $$  / $$      | $$$    /$$$| $$_____/| $$$ | $$| $$  | $$
+| $$  \__/   | $$   |  $$/ $$/      | $$$$  /$$$$| $$      | $$$$| $$| $$  | $$
+| $$         | $$    \  $$$$/       | $$ $$/$$ $$| $$$$$   | $$ $$ $$| $$  | $$
+| $$         | $$     >$$  $$       | $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$
+| $$    $$   | $$    /$$/\  $$      | $$\  $ | $$| $$      | $$\  $$$| $$  | $$
+|  $$$$$$/   | $$   | $$  \ $$      | $$ \/  | $$| $$$$$$$$| $$ \  $$|  $$$$$$/
+ \______/    |__/   |__/  |__/      |__/     |__/|________/|__/  \__/ \_____*/
 
 .ctx-menu {
   width: 200px;
@@ -927,30 +939,43 @@ img {
 
 /*MODULE*/
 .module {
+  min-width: 60px;
   width: 60px;
+  min-height: 60px;
   height: 60px;
-  color: var(--textPrimary);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.module div:nth-of-type(2) {
-  width: inherit;
-  height: inherit;
-  transition: all .2s;
+.module input {
+  min-width: 60px;
+  width: 60px;
+  min-height: 60px;
+  height: 60px;
+  margin: 0;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: all .3s;
   background: transparent;
   border-radius: var(--moduleCorner);
 }
 
-.module div:nth-of-type(2) img {
+.module input:checked, .module input:hover {
+  background: var(--module);
+}
+
+.module img {
   width: 26px;
   height: 26px;
   margin: 17px;
-  filter: var(--moduleFilter);
-  pointer-events: none;
   object-fit: contain;
+  pointer-events: none;
+  filter: var(--moduleFilter);
+  transform: translateY(-60px);
 }
 
-.module div:nth-of-type(1) {
+.module div {
   width: min-content;
   height: fit-content;
   margin-top: 5px;
@@ -968,21 +993,10 @@ img {
   transition-delay: 0s;
 }
 
-.module input {
-  width: 60px;
-  height: 60px;
-  margin: 0;
-  opacity: 0;
-  position: absolute;
-  cursor: pointer;
-}
-
-.module input:checked ~ div:nth-of-type(2), .module input:hover ~ div:nth-of-type(2) {
-  background: var(--module);
-}
-
-.module input:hover ~ div:nth-of-type(1) {
+.module input:hover ~ div {
   opacity: 1;
   transition: all .2s;
   transition-delay: 1s;
 }
+
+/* ASCII FONT: Big Money-ne - https://manytools.org/hacker-tools/ascii-banner */
