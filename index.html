@@ -125,7 +125,7 @@
 
 <body class="vc" style="overflow: auto; scroll-behavior: smooth;">
   <div class="vc" style="padding: 2%; display: flex; flex-direction: column; align-items: center;">
-    <div class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">Orion Framework v1.3.0</div>
+    <div class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">Orion Framework v1.5.0</div>
 
     <!--$$$$$$ /$$   /$$ /$$$$$$$$ /$$      /$$ /$$$$$$$$
     |__  $$__/| $$  | $$| $$_____/| $$$    /$$$| $$_____/
@@ -758,7 +758,7 @@
     | $$$$$$$$| $$      | $$      | $$$$$$$$|  $$$$$$/   | $$  |  $$$$$$/
     |________/|__/      |__/      |________/ \______/    |__/   \____-->
 
-     <div id="effects" class="type-c" style="margin-bottom: 50px;">
+     <div id="effects" class="type-c">
       <div class="type">- EFFECTS -</div>
       <div class="desc">
         Effects That can be Applied to Elements.
@@ -829,6 +829,91 @@
       </div>
     </div>
 
+       <!--$$  /$$$$$$ 
+      |__  $$ /$$__  $$
+          | $$| $$  \__/
+          | $$|  $$$$$$ 
+     /$$  | $$ \____  $$
+    | $$  | $$ /$$  \ $$
+    |  $$$$$$/|  $$$$$$/
+     \______/  \____-->
+
+    <div id="javascript" class="type-c" style="margin-bottom: 50px;">
+      <div class="type">- Java Script -</div>
+      <div class="desc">
+        JavaScript Funtions.
+      </div>      
+      <!-- NOTIFICATIONS -->
+      <div id="jsnotis" class="cat-c">
+        <div class="cat">NOTIFICATIONS</div>
+        <div class="desc">
+          The <span class="cod">createNoti(title, content, onClick)</span> Function Creates a Notification.<br>
+          • The <span class="cod">title (String)</span> Attribute Changes the Title.<br>
+          • The <span class="cod">content (String)</span> Attribute Changes the Content.<br>
+          • The <span class="cod">onClick (Function)</span> Attribute Adds a Click Function.
+        </div>
+        <div class="code">
+          createNoti('Title', 'Content', myClickFunction)
+        </div>
+        <div class="display">
+          <!-- NOTIFICATION TEST -->
+          <div class="button text" shape="plain" onclick="createNoti('Title', 'Content')">Notification Test</div>
+        </div>
+      </div>
+      <!-- DIALOG -->
+      <div id="jsdialogs" class="cat-c">
+        <div class="cat">DIALOGS</div>
+        <div class="desc">
+          The <span class="cod">createDialog(innerHTML, title, onClose)</span> Function Creates a Dialog and Returns it's ID.<br>
+          • The <span class="cod">innerHTML (String)</span> Attribute Adds Text Inside the Dialog.<br>
+          • The <span class="cod">title (String)</span> Attribute Changes the Title.<br>
+          • The <span class="cod">onClose (Function)</span> Attribute Replaces the Close Function.<br>
+          <br>
+          The <span class="cod">hideDialog(id)</span> Function Hides the Dialog With the Input ID.<br>
+          <br>
+          The <span class="cod">setDialogTitle(id, title)</span> Function Changes the Title From The Dialog With the Input ID.
+        </div>
+        <div class="code">
+          createDialog('innerHTML', 'Title', onClose) => id<br>
+          <br>
+          hideDialog(id)<br>
+          <br>
+          setDialogTitle(id, 'Title')
+        </div>
+        <div class="display">
+          <!-- DIALOG TEST -->
+          <div class="button text" shape="plain" onclick="createDialog(`<div style='padding: 20px'>Dialog Example<!div>`, 'Title')">Dialog Test</div>
+        </div>
+      </div>
+      <!-- CONTEXT MENU -->
+      <div id="jsmenu" class="cat-c">
+        <div class="cat">CONTEXT MENU</div>
+        <div class="desc">
+          The <span class="cod">createCTXMenu(event, elemArray)</span> Function Creates a Context Menu and Returns it's ID.<br>
+          • The <span class="cod">event (String)</span> Attribute Requires the Event Variable from the Listener.<br>
+          • The <span class="cod">elemArray (Array)</span> Attribute Changes the Title.<br>
+          <br>
+          The <span class="cod">closeCTXMenu(id)</span> Function Closes the Context Menu With the Input ID.<br>
+        </div>
+        <div class="code">
+          createCTXMenu(event, [<br>
+          &nbsp;&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;id: 'test',<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;label: 'Test Label',<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;click: function() {},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;frontElement: (HTML Element)<br>
+          &nbsp;&nbsp;}<br>
+          ]) => id<br>
+          <br>
+          closeCTXMenu(id)<br>
+        </div>
+        <div class="display">
+          <!-- DIALOG TEST -->
+          <div class="button text" shape="plain" onclick="createCTXMenu(event, [{id: 'test',label: 'Test Label',click: function() {}}])">Context Menu Test</div>
+        </div>
+      </div>
+    </div>
+
     <div id="frameworkMenu" class="vc" style="height: calc(100% - 50px) ; visibility: hidden; opacity: 0; top: 0; left: 0; position: fixed; padding: 30px 0 20px 0; background: var(--menu); overflow-y: scroll; transition: all .5s;">
       <div class="leyend" onclick="document.getElementById('themes').scrollIntoView();">Theme</div>
 
@@ -865,6 +950,11 @@
       <div class="leyend2" onclick="document.getElementById('effectnoise').scrollIntoView();">• Noise</div>
       <div class="leyend2" onclick="document.getElementById('effectglass').scrollIntoView();">• Glass</div>
       <div class="leyend2" onclick="document.getElementById('effectpulse').scrollIntoView();">• Pulse</div>
+
+      <div class="leyend" onclick="document.getElementById('javascript').scrollIntoView();">Java Script ›</div>
+      <div class="leyend2" onclick="document.getElementById('jsnotis').scrollIntoView();">• Notifications</div>
+      <div class="leyend2" onclick="document.getElementById('jsdialogs').scrollIntoView();">• Dialog</div>
+      <div class="leyend2" onclick="document.getElementById('jsmenu').scrollIntoView();">• Context Menu</div>
     </div>
 
     <div onclick="hideMenu()" style="position: fixed; top: 0; left: 0; fill: var(--textPrimary); cursor: pointer;">

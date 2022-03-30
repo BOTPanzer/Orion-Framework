@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-              /$$ /$$   /$$      /$$$$$$ 
-            /$$$$| $$  | $$     /$$$_  $$
- /$$    /$$|_  $$| $$  | $$    | $$$$\ $$
-|  $$  /$$/  | $$| $$$$$$$$    | $$ $$ $$
- \  $$/$$/   | $$|_____  $$    | $$\ $$$$
-  \  $$$/    | $$      | $$    | $$ \ $$$
-   \  $/    /$$$$$$ /$$| $$ /$$|  $$$$$$/
-    \_/    |______/|__/|__/|__/ \_____*/
+              /$$       /$$$$$$$      /$$$$$$ 
+            /$$$$      | $$____/     /$$$_  $$
+ /$$    /$$|_  $$      | $$         | $$$$\ $$
+|  $$  /$$/  | $$      | $$$$$$$    | $$ $$ $$
+ \  $$/$$/   | $$      |_____  $$   | $$\ $$$$
+  \  $$$/    | $$       /$$  \ $$   | $$ \ $$$
+   \  $/    /$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
+    \_/    |______/|__/ \______/|__/ \_____*/
 
 
 
@@ -42,9 +42,9 @@ let oNotiActive = false
 let oNotis = []
 let oNotisSaved = []
 
-function createNoti(title, content, click) {
-  oNotis.push({title, content, click})
-  oNotisSaved.push({title, content, click})
+function createNoti(title, content, onClick) {
+  oNotis.push({title, content, onClick})
+  oNotisSaved.push({title, content, onClick})
   if (!oNotiActive) oNotiManager()
 }
 
@@ -62,38 +62,46 @@ function oNotiManager() {
     //GET NOTI AND REMOVE FROM LIST
     let title = oNotis[0].title
     let content = oNotis[0].content
-    let click = oNotis[0].click
+    let click = oNotis[0].onClick
     oNotis.shift()
     //CREATE NOTI
     let id = "oNoti"+Date.now()
-    let html = `<div id="${id}" class="button" style="width: 230px; padding: 15px; gap: 10px; position: fixed; bottom: 20px; right: 20px; flex-direction: column; box-shadow: var(--shadow2); opacity: 0; z-index: 99996;">
-                  <div id="exit-${id}" style="width: 20px; height: 20px; position: absolute; top: 5px; right: 5px; line-height: 20px; font-size: 12px; text-align: center; font-family: Arial, Monospaced;">✕</div>
-                  <div style="width: 200px; font-size: 16px; line-height: normal; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">${title}</div>
-                  <div style="width: 200px; font-size: 14px; line-height: normal; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; color: var(--textSecondary);">${content}</div>
+    let html = `<div id="${id}" class="button noti">
+                  <div id="exit-${id}">✕</div>
+                  <div>${title}</div>
+                  <div>${content}</div>
                 </div>`
     document.body.insertAdjacentHTML('beforeend', html)
-    //SHOW NOTI
-    $(`#${id}`).fadeTo(100 , 1, function() {
-      const timeout = setTimeout(() => hideNoti(), 1500)
-      //NOTI LISTENERS
-      clickListener(id, function() {
-        if (typeof click === 'function') click()
-        clearTimeout(timeout)
-        hideNoti()
-      })
-      clickListener('exit-'+id, function() {
-        event.stopPropagation()
-        clearTimeout(timeout)
-        hideNoti()
-      })
+    //NOTI LISTENERS
+    const timeout = setTimeout(() => hideNoti(), 1500)
+    document.getElementById(id).addEventListener('click', function() {
+      if (typeof click === 'function') click()
+      clearTimeout(timeout)
+      hideNoti()
     })
-
+    document.getElementById('exit-'+id).addEventListener('click', function() {
+      event.stopPropagation()
+      clearTimeout(timeout)
+      hideNoti()
+    })
+    //HIDE FUNCTION
     function hideNoti() {
-      $(`#${id} *`).off()
-      $(`#${id}`).fadeTo(250 , 0, function() {
-        document.getElementById(id).remove()
-        setTimeout(nManager, 200)
-      })
+      //ADD AN EVENT THAT PREVENTS THE OTHERS 
+      document.getElementById(id).addEventListener('click', function(event) { event.stopImmediatePropagation() }, true) 
+      //HIDE NOTI ANIMATION
+      let op = 1
+      hideAnim()
+      function hideAnim() {
+        if (op > 0) {
+          op -= .1
+          document.getElementById(id).style.opacity = op
+          setTimeout(function() { hideAnim() }, 50)
+        } else {
+          //REMOVE NOTI
+          document.getElementById(id).remove()
+          setTimeout(nManager, 200)
+        }
+      }
     }
   }
 }
@@ -111,37 +119,66 @@ function oNotiManager() {
 | $$$$$$$/ /$$$$$$| $$  | $$| $$$$$$$$|  $$$$$$/|  $$$$$$/
 |_______/ |______/|__/  |__/|________/ \______/  \_____*/
 
-function createDialog(winhtml, title) {
+function createDialog(innerHTML, title, onClose) {
   //CREATE DIALOG
   let id = "oDialog"+Date.now()
   if (title == undefined) title = ''
-  let html = `<div id="${id}" class="vc" style="width: 100%; height: calc(100% - 20px); top: 20px; position: fixed; z-index: 99997; align-items: center; background-color: rgba(0, 0, 0, 0.5); opacity: 0;">
+  let html = `<div id="${id}" class="vc" style="width: 100%; height: calc(100% - 20px); top: 20px; position: fixed; z-index: 99996; align-items: center; background-color: rgba(0, 0, 0, 0.5); opacity: 0;">
                 <div id="box-${id}" class="vc" style="width: fit-content; max-width: calc(100% - 40px); height: fit-content; max-height: calc(100% - 40px); margin: auto; background: var(--background); border-radius: 10px; box-shadow: var(--shadow2); overflow: hidden;" onclick="event.stopPropagation()">
                   <div class="hc" style="width: 100%; height: 20px; flex-direction: row-reverse; background: var(--menu); position: relative;">
                     <div id="name-${id}" style="width: 100%; height: 20px; top: 0; left: 0; position: absolute; text-align: center; font-family: Name; color: var(--textTitleBar); pointer-events: none;">${title}</div>
                     <div id="exit-${id}" class="button-top button-exit">✕</div>
                   </div>
-                  <div id="window-${id}" class="vc">
-                    ${winhtml}
+                  <div id="window-${id}" class="vc" style="overflow: auto;">
+                    ${innerHTML}
                   </div>
                 </div>
               </div>`
   document.body.insertAdjacentHTML('beforeend', html)
-  //SHOW DIALOG
-  $(`#${id}`).fadeTo(150 , 1, function() {
-    //DIALOG LISTENERS
-    clickListener(id, function() { hideDialog(id) })
-    clickListener('exit-'+id, function() { hideDialog(id) })
-  })
+  //SHOW DIALOG ANIMATION
+  let op = 0
+  showAnim()
+  function showAnim() {
+    if (op < 1) {
+      op += .1
+      document.getElementById(id).style.opacity = op
+      setTimeout(function() { showAnim() }, 10)
+    } else {
+      //DIALOG LISTENERS
+      if (typeof onClose === 'function') {
+        document.getElementById(id).addEventListener('click', onClose)
+        document.getElementById('exit-'+id).addEventListener('click', onClose)
+      } else {
+        document.getElementById(id).addEventListener('click', function() { hideDialog(id) })
+        document.getElementById('exit-'+id).addEventListener('click', function() { hideDialog(id) })
+      }
+    }
+  }
   return id
 }
 
 function hideDialog(id) {
   if (document.getElementById(id) == null) return
-  $(`#${id} *`).off()
-  $(`#${id}`).fadeTo(250 , 0, function() {
-    document.getElementById(id).remove()
-  })
+  //ADD AN EVENT THAT PREVENTS THE OTHERS
+  document.getElementById(id).addEventListener('click', function(event) { event.stopImmediatePropagation() }, true)
+  //HIDE DIALOG ANIMATION
+  let op = 1
+  hideAnim()
+  function hideAnim() {
+    if (op > 0) {
+      op -= .1
+      document.getElementById(id).style.opacity = op
+      setTimeout(function() { hideAnim() }, 20)
+    } else {
+      //REMOVE DIALOG
+      document.getElementById(id).remove()
+    }
+  }
+}
+
+function setDialogTitle(id, title) {
+  if (document.getElementById('name-'+id) != null)
+    document.getElementById('name-'+id).innerHTML = title
 }
 
 
@@ -188,14 +225,15 @@ function createCTXMenu(event, permaArray) {
     cmenu.insertAdjacentHTML('beforeend', item)
     //ADD LISTENER
     if (click != null)
-    clickListener(`${id2}`, function() {
+    document.getElementById(id2).addEventListener('click', function() {
       closeCTXMenu(id)
       click()
     })
   }
   //GET MOUSE POSITION & SIZES
   const { clientX: mouseX, clientY: mouseY } = event
-  const { width: winW, height: winH } = win.getBounds()
+  const winW = document.body.clientWidth
+  const winH = document.body.clientHeight
   const menuW = cmenu.clientWidth+1
   const menuH = cmenu.clientHeight+1
   //OVERFLOW
@@ -208,18 +246,19 @@ function createCTXMenu(event, permaArray) {
   cmenu.style.top = posY+'px'
   cmenu.style.visibility = 'visible'
   //MENU LISTENERS
-  clickListener(id, function() { closeCTXMenu(id) })
+  document.getElementById(id).addEventListener('click', function() {
+    closeCTXMenu(id)
+  })
   return id
 }
 
 function closeCTXMenu(id) {
   if (document.getElementById(id) == null) return
-  $(`#${id} *`).off()
   document.getElementById(id).remove()
 }
 
 function CTXCopy(text) {
-  navigator.clipboard.writeText(text).then((err) => { if (err) createNoti('Assistant', "Couldn't Copy: "+err) })
+  navigator.clipboard.writeText(text).then((err) => { if (err) createNoti('Oriøn Assistant', "Couldn't Copy: "+err) })
 }
 
 function CTXCutInput(target) {
@@ -229,7 +268,7 @@ function CTXCutInput(target) {
     //CUT SELECTION
     let text = target.value.slice(ss, se)
     target.value = target.value.slice(0, ss)+target.value.slice(se)
-    navigator.clipboard.writeText(text).then((err) => { if (err) createNoti('Assistant', "Couldn't Cut: "+err) })
+    navigator.clipboard.writeText(text).then((err) => { if (err) createNoti('Oriøn Assistant', "Couldn't Cut: "+err) })
   }
 }
 
@@ -252,95 +291,6 @@ async function CTXPasteInput(target) {
 
 
 
- /*$       /$$$$$$  /$$$$$$  /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$$ /$$$$$$$   /$$$$$$ 
-| $$      |_  $$_/ /$$__  $$|__  $$__/| $$_____/| $$$ | $$| $$_____/| $$__  $$ /$$__  $$
-| $$        | $$  | $$  \__/   | $$   | $$      | $$$$| $$| $$      | $$  \ $$| $$  \__/
-| $$        | $$  |  $$$$$$    | $$   | $$$$$   | $$ $$ $$| $$$$$   | $$$$$$$/|  $$$$$$ 
-| $$        | $$   \____  $$   | $$   | $$__/   | $$  $$$$| $$__/   | $$__  $$ \____  $$
-| $$        | $$   /$$  \ $$   | $$   | $$      | $$\  $$$| $$      | $$  \ $$ /$$  \ $$
-| $$$$$$$$ /$$$$$$|  $$$$$$/   | $$   | $$$$$$$$| $$ \  $$| $$$$$$$$| $$  | $$|  $$$$$$/
-|________/|______/ \______/    |__/   |________/|__/  \__/|________/|__/  |__/ \_____*/
-
-function clickListener(id, click) {
-  $('#'+id).on('click', function() {
-    if (event.which != 1) return
-    if (click != undefined) click()
-  })
-}
-
-function clickCustomListener(id, mousedown, mouseup, click) {
-  $('#'+id).on('mousedown', function() {
-    if (event.which != 1) return
-    mousedown()
-  })
-  
-  $(window).on('mouseup', function() {
-    if (event.which != 1) return
-    mouseup()
-  })
-
-  $('#'+id).on('click', function() {
-    if (event.which != 1) return
-    click()
-  })
-}
-
-function clickRightListener(id, click) {
-  $('#'+id).on('contextmenu', function() {
-    if (event.which != 3) return
-    click()
-  })
-}
- 
-function checkboxListener(id, checked, unchecked) {
-  $('#'+id).on('change', function() {
-    if (this.checked)
-      checked()
-    else 
-      unchecked()
-  })
-}
-
-
-
-
-
- /*$$$$$$   /$$$$$$  /$$$$$$$$ /$$$$$$ 
-| $$__  $$ /$$__  $$|__  $$__//$$__  $$
-| $$  \ $$| $$  \ $$   | $$  | $$  \ $$
-| $$  | $$| $$$$$$$$   | $$  | $$$$$$$$
-| $$  | $$| $$__  $$   | $$  | $$__  $$
-| $$  | $$| $$  | $$   | $$  | $$  | $$
-| $$$$$$$/| $$  | $$   | $$  | $$  | $$
-|_______/ |__/  |__/   |__/  |__/  |_*/
-
-let json = {}
-
-function refreshData() {
-  let jsonPath = data.data+'settings.json'
-  if (fs.existsSync(jsonPath)) 
-    json = JSON.parse(fs.readFileSync(jsonPath))
-  else {
-    json = {}
-    fs.writeFile(jsonPath, json, function(err) {if (err) console.log(err)})
-  }
-}
-
-function setData(key, value) {
-  refreshData()
-  json[key] = value
-  fs.writeFileSync(data.data+'settings.json', JSON.stringify(json))
-}
-
-function getData(key) {
-  refreshData()
-  return json[key]
-}
-
-
-
-
-
  /*$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$$  /$$$$$$  /$$   /$$
 | $$__  $$ /$$__  $$ /$$__  $$| $$_____/ /$$__  $$| $$  | $$
 | $$  \ $$| $$  \ $$| $$  \__/| $$      | $$  \__/| $$  | $$
@@ -350,26 +300,31 @@ function getData(key) {
 | $$$$$$$/| $$  | $$|  $$$$$$/| $$$$$$$$|  $$$$$$/      | $$
 |_______/ |__/  |__/ \______/ |________/ \______/       |_*/
 
-const resizeBase64Image = (base64) => {
+const resizeBase64Image = (base64, maxWidth, maxHeight) => {
+  if (maxWidth == undefined) maxWidth = 128
+  if (maxHeight == undefined) maxHeight = 128
   return new Promise((resolve) => {
     let img = new Image()
     img.src = base64
     img.onload = () => {
       let canvas = document.createElement('canvas')
-      const MAX_WIDTH = 128
-      const MAX_HEIGHT = 128
       let width = img.width
       let height = img.height
 
+      //NO NEED TO RESIZE
+      if (maxWidth >= width && maxHeight >= height) {
+        resolve(base64)
+      }
+      //RESIZE
       if (width > height) {
-        if (width > MAX_WIDTH) {
-          height *= MAX_WIDTH / width
-          width = MAX_WIDTH
+        if (width > maxWidth) {
+          height *= maxWidth / width
+          width = maxWidth
         }
       } else {
-        if (height > MAX_HEIGHT) {
-          width *= MAX_HEIGHT / height
-          height = MAX_HEIGHT
+        if (height > maxHeight) {
+          width *= maxHeight / height
+          height = maxHeight
         }
       }
       canvas.width = width

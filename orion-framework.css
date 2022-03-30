@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-              /$$ /$$   /$$      /$$$$$$ 
-            /$$$$| $$  | $$     /$$$_  $$
- /$$    /$$|_  $$| $$  | $$    | $$$$\ $$
-|  $$  /$$/  | $$| $$$$$$$$    | $$ $$ $$
- \  $$/$$/   | $$|_____  $$    | $$\ $$$$
-  \  $$$/    | $$      | $$    | $$ \ $$$
-   \  $/    /$$$$$$ /$$| $$ /$$|  $$$$$$/
-    \_/    |______/|__/|__/|__/ \_____*/
+              /$$       /$$$$$$$      /$$$$$$ 
+            /$$$$      | $$____/     /$$$_  $$
+ /$$    /$$|_  $$      | $$         | $$$$\ $$
+|  $$  /$$/  | $$      | $$$$$$$    | $$ $$ $$
+ \  $$/$$/   | $$      |_____  $$   | $$\ $$$$
+  \  $$$/    | $$       /$$  \ $$   | $$ \ $$$
+   \  $/    /$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
+    \_/    |______/|__/ \______/|__/ \_____*/
 
 
 
@@ -59,26 +59,26 @@ html {
   user-select: none;
 
   /*THEME*/
-  --menu: #202225;
-  --background: #2F3136;
-  --scrollbar: #202225;
+  --menu: #252525;
+  --background: #1C1C1C;
+  --scrollbar: #2C2C2C;
   /*HOVER & SHADOWS*/
   --hover: rgba(87, 87, 87, 0.15);
   --click: rgba(110, 110, 110, 0.15);
   --shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; /*SMALL SHADOW*/
   --shadow2: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(126, 126, 126, 0.2) 0px 0px 0px 1px; /*BIG SHADOW*/
   /*COLORS*/
-  --accent: #ce2353;
-  --success: #00d12d;
-  --danger: #C70039;
-  --warning: #e9ab00;
+  --accent: #a5103b;
+  --success: #00a023;
+  --danger: #af0636;
+  --warning: #ce9700;
   --progress: #C7C9CA;
   /*TEXT*/
   --textTitleBar: #72767D;
   --textPrimary: #f5f5f5;
   --textSecondary: #C7C9CA;
   /*MAIN BUTTON*/
-  --button: #202225;
+  --button: #252525;
   --buttonBorderColor: transparent;
   --buttonBorderWidth: 0;
   --buttonCorner: 10px;
@@ -87,7 +87,7 @@ html {
   --topHover: #2a2e33;
   --topExitHover: #ED4245;
   /*MODULE*/
-  --module: #2F3136;
+  --module: #303030;
   --moduleFilter: brightness(0) invert(1); /*https://angel-rs.github.io/css-color-filter-generator/*/
   --moduleCorner: 10px;
 }
@@ -592,6 +592,7 @@ img {
 
 
 
+
   /*$$$$$  /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$ 
  /$$__  $$| $$_____/| $$_____/| $$  /$$/| $$__  $$ /$$__  $$| $$__  $$
 | $$  \__/| $$      | $$      | $$ /$$/ | $$  \ $$| $$  \ $$| $$  \ $$
@@ -840,6 +841,76 @@ img {
 @keyframes pulse {
   0% { box-shadow: var(--oColor) 0 0 0 0; }
   60% { box-shadow: transparent 0 0 0 8px; }
+}
+
+
+
+
+
+ /*$   /$$  /$$$$$$  /$$$$$$$$ /$$$$$$  /$$$$$$ 
+| $$$ | $$ /$$__  $$|__  $$__/|_  $$_/ /$$__  $$
+| $$$$| $$| $$  \ $$   | $$     | $$  | $$  \__/
+| $$ $$ $$| $$  | $$   | $$     | $$  |  $$$$$$ 
+| $$  $$$$| $$  | $$   | $$     | $$   \____  $$
+| $$\  $$$| $$  | $$   | $$     | $$   /$$  \ $$
+| $$ \  $$|  $$$$$$/   | $$    /$$$$$$|  $$$$$$/
+|__/  \__/ \______/    |__/   |______/ \_____*/
+
+.noti {
+  width: 230px;
+  max-width: 230px;
+  padding: 15px;
+  gap: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow2);
+  animation: notiAppear .15s;
+  z-index: 99997;
+}
+
+@keyframes notiAppear {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0); }
+}
+
+.noti:hover div:nth-child(1) {
+  opacity: 1;
+}
+
+.noti div:nth-child(1) {
+  width: 20px; 
+  height: 20px; 
+  position: absolute; 
+  top: 5px; 
+  right: 5px; 
+  line-height: 20px; 
+  font-size: 12px; 
+  text-align: center; 
+  font-family: Arial, Monospaced;
+  opacity: 0;
+  transition: all .3s;
+}
+
+.noti div:nth-child(2), .noti div:nth-child(3) {
+  width: 200px; 
+  font-size: 16px;
+  line-height: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.noti div:nth-child(3) {
+  font-size: 14px;
+}
+
+.noti div:nth-child(3) {
+  -webkit-line-clamp: 2; 
+  color: var(--textSecondary);
 }
 
 
