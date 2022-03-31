@@ -7,10 +7,17 @@
 </head>
 
 <style>
-  .leyend {
+  .leyen {
     padding: 10px 20px 0 20px;
     font-size: 18px;
     font-weight: bold;
+    color: var(--textPrimary);
+    cursor: pointer;
+  }
+
+  .leyend {
+    padding: 10px 20px 0 25px;
+    font-size: 18px;
     color: var(--textPrimary);
     cursor: pointer;
   }
@@ -125,7 +132,18 @@
 
 <body class="vc" style="overflow: auto; scroll-behavior: smooth;">
   <div class="vc" style="padding: 2%; display: flex; flex-direction: column; align-items: center;">
-    <div class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">Orion Framework v1.5.0</div>
+    <div id="title" class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">Orion Framework v1.5.0</div>
+
+     <!--$$$   /$$$$$$   /$$$$$$ 
+    /$$__  $$ /$$__  $$ /$$__  $$
+   | $$  \__/| $$  \__/| $$  \__/
+   | $$      |  $$$$$$ |  $$$$$$ 
+   | $$       \____  $$ \____  $$
+   | $$    $$ /$$  \ $$ /$$  \ $$
+   |  $$$$$$/|  $$$$$$/|  $$$$$$/
+    \______/  \______/  \____--> 
+
+    <div id="css" class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">CSS</div>
 
     <!--$$$$$$ /$$   /$$ /$$$$$$$$ /$$      /$$ /$$$$$$$$
     |__  $$__/| $$  | $$| $$_____/| $$$    /$$$| $$_____/
@@ -829,6 +847,10 @@
       </div>
     </div>
 
+
+
+
+
        <!--$$  /$$$$$$ 
       |__  $$ /$$__  $$
           | $$| $$  \__/
@@ -838,40 +860,61 @@
     |  $$$$$$/|  $$$$$$/
      \______/  \____-->
 
-    <div id="javascript" class="type-c" style="margin-bottom: 50px;">
-      <div class="type">- Java Script -</div>
-      <div class="desc">
-        JavaScript Funtions.
-      </div>      
+    <div id="js" class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">JS</div>
+
+     <!--  /$$  /$$$$$$  /$$$$$$$$ /$$$$$$  /$$$$$$ 
+    | $$$ | $$ /$$__  $$|__  $$__/|_  $$_/ /$$__  $$
+    | $$$$| $$| $$  \ $$   | $$     | $$  | $$  \__/
+    | $$ $$ $$| $$  | $$   | $$     | $$  |  $$$$$$ 
+    | $$  $$$$| $$  | $$   | $$     | $$   \____  $$
+    | $$\  $$$| $$  | $$   | $$     | $$   /$$  \ $$
+    | $$ \  $$|  $$$$$$/   | $$    /$$$$$$|  $$$$$$/
+    |__/  \__/ \______/    |__/   |______/ \____-->
+                                                    
+    <div id="notis" class="type-c" style="margin-bottom: 50px;">
+      <div class="type">- NOTIFICATIONS -</div>
       <!-- NOTIFICATIONS -->
-      <div id="jsnotis" class="cat-c">
+      <div class="cat-c">
         <div class="cat">NOTIFICATIONS</div>
         <div class="desc">
-          The <span class="cod">createNoti(title, content, onClick)</span> Function Creates a Notification.<br>
-          • The <span class="cod">title (String)</span> Attribute Changes the Title.<br>
-          • The <span class="cod">content (String)</span> Attribute Changes the Content.<br>
-          • The <span class="cod">onClick (Function)</span> Attribute Adds a Click Function.
+          <span class="cod">createNoti(title, content, onClick)</span> Creates a Notification.<br>
+          • <span class="cod">title</span> (String) to Use as Title.<br>
+          • <span class="cod">content</span> (String) to Use as Content.<br>
+          • <span class="cod">onClick</span> (Function) to Run on Click.
         </div>
         <div class="code">
-          createNoti('Title', 'Content', myClickFunction)
+          createNoti('Title', 'Content', clickFunction)
         </div>
         <div class="display">
           <!-- NOTIFICATION TEST -->
           <div class="button text" shape="plain" onclick="createNoti('Title', 'Content')">Notification Test</div>
         </div>
       </div>
+    </div>
+
+     <!--$$$$  /$$$$$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$   /$$$$$$ 
+    | $$__  $$|_  $$_/ /$$__  $$| $$       /$$__  $$ /$$__  $$ /$$__  $$
+    | $$  \ $$  | $$  | $$  \ $$| $$      | $$  \ $$| $$  \__/| $$  \__/
+    | $$  | $$  | $$  | $$$$$$$$| $$      | $$  | $$| $$ /$$$$|  $$$$$$ 
+    | $$  | $$  | $$  | $$__  $$| $$      | $$  | $$| $$|_  $$ \____  $$
+    | $$  | $$  | $$  | $$  | $$| $$      | $$  | $$| $$  \ $$ /$$  \ $$
+    | $$$$$$$/ /$$$$$$| $$  | $$| $$$$$$$$|  $$$$$$/|  $$$$$$/|  $$$$$$/
+    |_______/ |______/|__/  |__/|________/ \______/  \______/  \____-->
+
+    <div id="dialogs" class="type-c" style="margin-bottom: 50px;">
+      <div class="type">- DIALOGS -</div>
       <!-- DIALOG -->
-      <div id="jsdialogs" class="cat-c">
+      <div class="cat-c">
         <div class="cat">DIALOGS</div>
         <div class="desc">
-          The <span class="cod">createDialog(innerHTML, title, onClose)</span> Function Creates a Dialog and Returns it's ID.<br>
-          • The <span class="cod">innerHTML (String)</span> Attribute Adds Text Inside the Dialog.<br>
-          • The <span class="cod">title (String)</span> Attribute Changes the Title.<br>
-          • The <span class="cod">onClose (Function)</span> Attribute Replaces the Close Function.<br>
+          <span class="cod">createDialog(innerHTML, title, onClose)</span> Creates a Dialog and Returns it's ID.<br>
+          • <span class="cod">innerHTML</span> (String) to Add Inside the Dialog.<br>
+          • <span class="cod">title</span> (String) to Use as Title.<br>
+          • <span class="cod">onClose</span> (Function) to Replace the Default Close Function.<br>
           <br>
-          The <span class="cod">hideDialog(id)</span> Function Hides the Dialog With the Input ID.<br>
+          <span class="cod">hideDialog(id)</span> Closes the Dialog With the Inputted ID.<br>
           <br>
-          The <span class="cod">setDialogTitle(id, title)</span> Function Changes the Title From The Dialog With the Input ID.
+          <span class="cod">setDialogTitle(id, title)</span> Changes the Title of The Dialog With the Inputted ID.
         </div>
         <div class="code">
           createDialog('innerHTML', 'Title', onClose) => id<br>
@@ -885,15 +928,28 @@
           <div class="button text" shape="plain" onclick="createDialog(`<div style='padding: 20px'>Dialog Example<!div>`, 'Title')">Dialog Test</div>
         </div>
       </div>
+    </div>
+
+     <!--     /$$ /$$$$$$$$ /$$   /$$ /$$   /$$  /$$$$$$ 
+    | $$$    /$$$| $$_____/| $$$ | $$| $$  | $$ /$$__  $$
+    | $$$$  /$$$$| $$      | $$$$| $$| $$  | $$| $$  \__/
+    | $$ $$/$$ $$| $$$$$   | $$ $$ $$| $$  | $$|  $$$$$$ 
+    | $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$ \____  $$
+    | $$\  $ | $$| $$      | $$\  $$$| $$  | $$ /$$  \ $$
+    | $$ \/  | $$| $$$$$$$$| $$ \  $$|  $$$$$$/|  $$$$$$/
+    |__/     |__/|________/|__/  \__/ \______/  \____--> 
+
+    <div id="menus" class="type-c" style="margin-bottom: 50px;">
+      <div class="type">- CONTEXT MENUS -</div>
       <!-- CONTEXT MENU -->
-      <div id="jsmenu" class="cat-c">
+      <div class="cat-c">
         <div class="cat">CONTEXT MENU</div>
         <div class="desc">
-          The <span class="cod">createCTXMenu(event, elemArray)</span> Function Creates a Context Menu and Returns it's ID.<br>
-          • The <span class="cod">event (String)</span> Attribute Requires the Event Variable from the Listener.<br>
-          • The <span class="cod">elemArray (Array)</span> Attribute Changes the Title.<br>
+          <span class="cod">createCTXMenu(event, elemArray)</span> Creates a Context Menu and Returns it's ID.<br>
+          • <span class="cod">event</span> Requires the Event Variable from the Listener.<br>
+          • <span class="cod">items</span> (Array) of Menu Items to Add.<br>
           <br>
-          The <span class="cod">closeCTXMenu(id)</span> Function Closes the Context Menu With the Input ID.<br>
+          <span class="cod">closeCTXMenu(id)</span> Closes the Context Menu With the Inputted ID.<br>
         </div>
         <div class="code">
           createCTXMenu(event, [<br>
@@ -912,49 +968,76 @@
           <div class="button text" shape="plain" onclick="createCTXMenu(event, [{id: 'test',label: 'Test Label',click: function() {}}])">Context Menu Test</div>
         </div>
       </div>
+      <!-- CONTEXT FUNCTIONS -->
+      <div id="menusfunctions" class="cat-c">
+        <div class="cat">CONTEXT FUNCTIONS</div>
+        <div class="desc">
+          <span class="cod">CTXCopy(text)</span> Copies the Inputted Text.<br>
+          <br>
+          <span class="cod">CTXCutInput(target)</span> Cuts the Target Text (Must be an Input Element).<br>
+          <br>
+          <span class="cod">CTXPasteInput(target)</span> Pastes Clipboard to the Target (Must be an Input Element).<br>
+        </div>
+        <div class="code">
+          CTXCopy('Text')<br>
+          <br>
+          CTXCutInput(target)<br>
+          <br>
+          CTXPasteInput(target)<br>
+        </div>
+      </div>
     </div>
 
+
+
+
+
+     <!--     /$$ /$$$$$$$$ /$$   /$$ /$$   /$$
+    | $$$    /$$$| $$_____/| $$$ | $$| $$  | $$
+    | $$$$  /$$$$| $$      | $$$$| $$| $$  | $$
+    | $$ $$/$$ $$| $$$$$   | $$ $$ $$| $$  | $$
+    | $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$
+    | $$\  $ | $$| $$      | $$\  $$$| $$  | $$
+    | $$ \/  | $$| $$$$$$$$| $$ \  $$|  $$$$$$/
+    |__/     |__/|________/|__/  \__/ \____-->  
+
     <div id="frameworkMenu" class="vc" style="height: calc(100% - 50px) ; visibility: hidden; opacity: 0; top: 0; left: 0; position: fixed; padding: 30px 0 20px 0; background: var(--menu); overflow-y: scroll; transition: all .5s;">
-      <div class="leyend" onclick="document.getElementById('themes').scrollIntoView();">Theme</div>
-
-      <div class="leyend" onclick="document.getElementById('buttons').scrollIntoView();">Buttons ›</div>
-      <div class="leyend2" onclick="document.getElementById('buttonshape').scrollIntoView();">• Shape Attribute</div>
-      <div class="leyend2" onclick="document.getElementById('buttoncolor').scrollIntoView();">• Color Attribute</div>
-      <div class="leyend2" onclick="document.getElementById('buttonhover').scrollIntoView();">• Hover Attribute</div>
-      <div class="leyend2" onclick="document.getElementById('buttoncursor').scrollIntoView();">• Cursor Attribute</div>
-
-      <div class="leyend" onclick="document.getElementById('iconstext').scrollIntoView();">Icons & Text</div>
-
-      <div class="leyend" onclick="document.getElementById('inputs').scrollIntoView();">Inputs</div>
-
-      <div class="leyend" onclick="document.getElementById('checkboxradio').scrollIntoView();">Checkbox & Radio ›</div>
-      <div class="leyend2" onclick="document.getElementById('checkbox').scrollIntoView();">• Checkbox</div>
-      <div class="leyend2" onclick="document.getElementById('radio').scrollIntoView();">• Radio</div>
-
-      <div class="leyend" onclick="document.getElementById('switches').scrollIntoView();">Switches ›</div>
-      <div class="leyend2" onclick="document.getElementById('switchesswitch').scrollIntoView();">• Switch</div>
-      <div class="leyend2" onclick="document.getElementById('switchescustom').scrollIntoView();">• Custom Switch</div>
-
-      <div class="leyend" onclick="document.getElementById('select').scrollIntoView();">Select</div>
-
-      <div class="leyend" onclick="document.getElementById('seekbar').scrollIntoView();">Seekbar</div>
-
-      <div class="leyend" onclick="document.getElementById('loading').scrollIntoView();">Loading ›</div>
-      <div class="leyend2" onclick="document.getElementById('loadingdefault').scrollIntoView();">• Default</div>
-      <div class="leyend2" onclick="document.getElementById('loadingdots').scrollIntoView();">• Dots</div>
-      <div class="leyend2" onclick="document.getElementById('loadingspin').scrollIntoView();">• Spin</div>
-      <div class="leyend2" onclick="document.getElementById('loadingpulse').scrollIntoView();">• Pulse</div>
-
-      <div class="leyend" onclick="document.getElementById('effects').scrollIntoView();">Effects ›</div>
-      <div class="leyend2" onclick="document.getElementById('effectglow').scrollIntoView();">• Glow</div>
-      <div class="leyend2" onclick="document.getElementById('effectnoise').scrollIntoView();">• Noise</div>
-      <div class="leyend2" onclick="document.getElementById('effectglass').scrollIntoView();">• Glass</div>
-      <div class="leyend2" onclick="document.getElementById('effectpulse').scrollIntoView();">• Pulse</div>
-
-      <div class="leyend" onclick="document.getElementById('javascript').scrollIntoView();">Java Script ›</div>
-      <div class="leyend2" onclick="document.getElementById('jsnotis').scrollIntoView();">• Notifications</div>
-      <div class="leyend2" onclick="document.getElementById('jsdialogs').scrollIntoView();">• Dialog</div>
-      <div class="leyend2" onclick="document.getElementById('jsmenu').scrollIntoView();">• Context Menu</div>
+      <!-- TITLE --> 
+      <div class="leyen" onclick="scrollElem('title')">Orion Framework</div>
+      <!-- CSS --> 
+      <div class="leyen" onclick="scrollElem('css')">CSS</div>
+      <div class="leyend" onclick="scrollElem('themes')">Theme</div>
+      <div class="leyend" onclick="scrollElem('buttons')">Buttons ›</div>
+      <div class="leyend2" onclick="scrollElem('buttonshape')">• Shape Attribute</div>
+      <div class="leyend2" onclick="scrollElem('buttoncolor')">• Color Attribute</div>
+      <div class="leyend2" onclick="scrollElem('buttonhover')">• Hover Attribute</div>
+      <div class="leyend2" onclick="scrollElem('buttoncursor')">• Cursor Attribute</div>
+      <div class="leyend" onclick="scrollElem('iconstext')">Icons & Text</div>
+      <div class="leyend" onclick="scrollElem('inputs')">Inputs</div>
+      <div class="leyend" onclick="scrollElem('checkboxradio')">Checkbox & Radio ›</div>
+      <div class="leyend2" onclick="scrollElem('checkbox')">• Checkbox</div>
+      <div class="leyend2" onclick="scrollElem('radio')">• Radio</div>
+      <div class="leyend" onclick="scrollElem('switches')">Switches ›</div>
+      <div class="leyend2" onclick="scrollElem('switchesswitch')">• Switch</div>
+      <div class="leyend2" onclick="scrollElem('switchescustom')">• Custom Switch</div>
+      <div class="leyend" onclick="scrollElem('select')">Select</div>
+      <div class="leyend" onclick="scrollElem('seekbar')">Seekbar</div>
+      <div class="leyend" onclick="scrollElem('loading')">Loading ›</div>
+      <div class="leyend2" onclick="scrollElem('loadingdefault')">• Default</div>
+      <div class="leyend2" onclick="scrollElem('loadingdots')">• Dots</div>
+      <div class="leyend2" onclick="scrollElem('loadingspin')">• Spin</div>
+      <div class="leyend2" onclick="scrollElem('loadingpulse')">• Pulse</div>
+      <div class="leyend" onclick="scrollElem('effects')">Effects ›</div>
+      <div class="leyend2" onclick="scrollElem('effectglow')">• Glow</div>
+      <div class="leyend2" onclick="scrollElem('effectnoise')">• Noise</div>
+      <div class="leyend2" onclick="scrollElem('effectglass')">• Glass</div>
+      <div class="leyend2" onclick="scrollElem('effectpulse')">• Pulse</div>
+      <!-- JS --> 
+      <div class="leyen" onclick="scrollElem('js')">JS</div>
+      <div class="leyend" onclick="scrollElem('notis')">Notifications</div>
+      <div class="leyend" onclick="scrollElem('dialogs')">Dialogs</div>
+      <div class="leyend" onclick="scrollElem('menus')">Context Menus</div>
+      <div class="leyend2" onclick="scrollElem('menusfunctions')">• Context Functions</div>
     </div>
 
     <div onclick="hideMenu()" style="position: fixed; top: 0; left: 0; fill: var(--textPrimary); cursor: pointer;">
@@ -980,6 +1063,9 @@
       el.style.opacity = '1'
     }
   }
+
+  function scrollElem(id) {
+    document.getElementById(id).scrollIntoView()
+  }
 </script>
 </html>
-
