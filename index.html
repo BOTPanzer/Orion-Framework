@@ -131,17 +131,25 @@
 </style>
 
 <body class="vc" style="overflow: auto; scroll-behavior: smooth;">
-  <div class="vc" style="padding: 2%; display: flex; flex-direction: column; align-items: center;">
-    <div id="title" class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">Orion Framework v1.5.0</div>
+  <div id="body" class="vc" style="padding: 2%; display: flex; flex-direction: column; align-items: center;">
 
-     <!--$$$   /$$$$$$   /$$$$$$ 
-    /$$__  $$ /$$__  $$ /$$__  $$
-   | $$  \__/| $$  \__/| $$  \__/
-   | $$      |  $$$$$$ |  $$$$$$ 
-   | $$       \____  $$ \____  $$
-   | $$    $$ /$$  \ $$ /$$  \ $$
-   |  $$$$$$/|  $$$$$$/|  $$$$$$/
-    \______/  \______/  \____--> 
+    <div id="title" class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">Orion Framework v1.5.6</div>
+
+    <div class="type-c" style="padding-top: 0;">
+      <div class="desc">
+        Oriøn Framework is a Simple CSS & JS Based Framework Made With Personalization in Mind. 
+        This Project got Separated from The Oriøn Assistant in an Attempt to Make it Available for Everyone.
+      </div>
+    </div>
+    
+      <!--$$$   /$$$$$$   /$$$$$$ 
+     /$$__  $$ /$$__  $$ /$$__  $$
+    | $$  \__/| $$  \__/| $$  \__/
+    | $$      |  $$$$$$ |  $$$$$$ 
+    | $$       \____  $$ \____  $$
+    | $$    $$ /$$  \ $$ /$$  \ $$
+    |  $$$$$$/|  $$$$$$/|  $$$$$$/
+     \______/  \______/  \____--> 
 
     <div id="css" class="type" style="font-size: 50px; line-height: 50px; margin-bottom: 50px;">CSS</div>
 
@@ -425,7 +433,7 @@
       <div class="type">- INPUTS -</div>
       <div class="desc">
         Elements That Mixed With the <span class="cod">button</span> Class Create Inputs.
-      </div>      
+      </div>
       <!-- INPUTS -->
       <div class="cat-c">
         <div class="cat">INPUTS</div>
@@ -450,6 +458,26 @@
               <path class="st0" d="M2.2,21.8c-0.3-0.3-0.3-0.7,0-1l1.9-1.9c0.3-0.3,0.7-0.3,1,0s0.3,0.7,0,1l-1.9,1.9C3.1,21.9,2.9,22,2.7,22S2.3,21.9,2.2,21.8z"/>
               <path class="st0" d="M21.7,9.1c-0.8-3.3-3.5-6-6.8-6.8C7.9,0.5,1.5,6.9,3.3,13.9c0.8,3.3,3.5,6,6.8,6.8C17.1,22.5,23.5,16.1,21.7,9.1z M18.6,10c-0.1-0.3,0.1-0.7,0.5-0.7c0.3-0.1,0.6,0.1,0.7,0.4c0.1,0.6,0.2,1.2,0.2,1.8c0,0.3,0,0.7-0.1,1c-0.1,0.4-0.5,0.5-0.8,0.5c-0.2-0.1-0.5-0.3-0.5-0.6l0,0c0-0.3,0.1-0.5,0.1-0.8C18.8,10.9,18.7,10.4,18.6,10z M12.5,19C8.4,19,5,15.6,5,11.5S8.4,4,12.5,4c2.4,0,4.6,1.2,6,3c0.2,0.3,0.2,0.7-0.1,0.9C18.1,8,17.7,8,17.5,7.7l0,0c-1.1-1.5-2.9-2.5-5-2.5C9,5.3,6.3,8,6.3,11.5s2.8,6.3,6.3,6.3c0.6,0,1.2-0.1,1.8-0.3l0,0c0.4-0.1,0.8,0,0.9,0.4c0.1,0.3-0.1,0.7-0.5,0.8C14,18.9,13.2,19,12.5,19z"/>
             </svg>
+          </div>
+        </div>
+      </div>
+      <!-- INPUT LABELS -->
+      <div id="inputlabel" class="cat-c">
+        <div class="cat">INPUT LABELS</div>
+        <div class="desc">
+          The <span class="cod">input-label</span> Class is Used to add a Label to Inputs When the Placeholder Isn't Visible.
+        </div>
+        <div class="code">
+          &lt;div class="button" style="width: 200px;"><br>
+          &nbsp;&nbsp;&lt;input class="input" shape="text" placeholder="Input"/><br>
+          &nbsp;&nbsp;&lt;span class="<span class="high">input-label</span>">Input Label</span><br>
+          &lt;/div><br>
+        </div>
+        <div class="display">
+          <!-- INPUT LABEL  -->
+          <div class="button" style="width: 200px;">
+            <input class="input" shape="text" spellcheck="false" placeholder="Input" maxlength="30" value="Label Visible"/>
+            <span class="input-label">Input Label</span>
           </div>
         </div>
       </div>
@@ -877,13 +905,15 @@
       <div class="cat-c">
         <div class="cat">NOTIFICATIONS</div>
         <div class="desc">
-          <span class="cod">createNoti(title, content, onClick)</span> Creates a Notification.<br>
+          <span class="cod">createNoti(title, content, options)</span> Creates a Notification.<br>
           • <span class="cod">title</span> (String) to Use as Title.<br>
           • <span class="cod">content</span> (String) to Use as Content.<br>
-          • <span class="cod">onClick</span> (Function) to Run on Click.
+          • <span class="cod">options</span> (Object) of Options.
         </div>
         <div class="code">
-          createNoti('Title', 'Content', clickFunction)
+          createNoti('Title', 'Content', {<br>
+          &nbsp;&nbsp;onClick: (Function) to Run on Click<br>
+          })
         </div>
         <div class="display">
           <!-- NOTIFICATION TEST -->
@@ -907,25 +937,56 @@
       <div class="cat-c">
         <div class="cat">DIALOGS</div>
         <div class="desc">
-          <span class="cod">createDialog(innerHTML, title, onClose)</span> Creates a Dialog and Returns it's ID.<br>
+          <span class="cod">createDialog(innerHTML, title, options)</span> Creates a Dialog and Returns it's ID.<br>
           • <span class="cod">innerHTML</span> (String) to Add Inside the Dialog.<br>
           • <span class="cod">title</span> (String) to Use as Title.<br>
-          • <span class="cod">onClose</span> (Function) to Replace the Default Close Function.<br>
+          • <span class="cod">options</span> (Object) of Options.<br>
           <br>
-          <span class="cod">hideDialog(id)</span> Closes the Dialog With the Inputted ID.<br>
+          <span class="cod">closeDialog(id)</span> Closes the Dialog With the Inputted ID.<br>
           <br>
           <span class="cod">setDialogTitle(id, title)</span> Changes the Title of The Dialog With the Inputted ID.
         </div>
         <div class="code">
-          createDialog('innerHTML', 'Title', onClose) => id<br>
+          createDialog('innerHTML', 'Title', {<br>
+          &nbsp;&nbsp;preventClose: (Boolean) to Prevent Dialog from Being Closed,<br>
+          &nbsp;&nbsp;onClose: (Function) to Replace the Default Close Function<br>
+          }) => id<br>
           <br>
-          hideDialog(id)<br>
+          closeDialog(id)<br>
           <br>
-          setDialogTitle(id, 'Title')
+          setDialogTitle(id, 'Title')<br>
         </div>
         <div class="display">
           <!-- DIALOG TEST -->
-          <div class="button text" shape="plain" onclick="createDialog(`<div style='padding: 20px'>Dialog Example<!div>`, 'Title')">Dialog Test</div>
+          <div class="button text" shape="plain" onclick="dBuilderTest('')">Dialog Test</div>
+        </div>
+      </div>
+      <!-- DIALOG BUILDER -->
+      <div id="dialogbuilder" class="cat-c">
+        <div class="cat">DIALOG BUILDER</div>
+        <div class="desc">
+          <span class="cod">dialogBuilder(type, options)</span> Returns a Dialog of the Specified Type.<br>
+          • <span class="cod">type</span> (String) to Specify the Type of the Dialog (alert/confirm).<br>
+          • <span class="cod">options</span> (Object) of options depending of the dialog.<br>
+        </div>
+        <div class="code">
+          db = dialogBuilder('alert', { content: 'Content' }) => {<br>
+          &nbsp;&nbsp;innerHTML: (String) the innerHTML Required for the Dialog,<br>
+          &nbsp;&nbsp;confirmId: (String) the Confirm Button ID<br>
+          }<br>
+          <br>
+          db = dialogBuilder('confirm', { content: 'Content' }) => {<br>
+          &nbsp;&nbsp;innerHTML: (String) the innerHTML Required for the Dialog,<br>
+          &nbsp;&nbsp;confirmId: (String) the Confirm Button ID,<br>
+          &nbsp;&nbsp;cancelId: (String) the Cancel Button ID<br>
+          }<br>
+          <br>
+          createDialog(db.innerHTML, 'Title')
+        </div>
+        <div class="display">
+          <!-- DIALOG BUILDER TEST -->
+          <div class="button text" shape="plain" onclick="dBuilderTest('alert')">Alert Test</div>
+          <div class="button text" shape="plain" onclick="dBuilderTest('confirm')">Confirm Test</div>
         </div>
       </div>
     </div>
@@ -945,9 +1006,10 @@
       <div class="cat-c">
         <div class="cat">CONTEXT MENU</div>
         <div class="desc">
-          <span class="cod">createCTXMenu(event, elemArray)</span> Creates a Context Menu and Returns it's ID.<br>
+          <span class="cod">createCTXMenu(event, elemArray, title)</span> Creates a Context Menu and Returns it's ID.<br>
           • <span class="cod">event</span> Requires the Event Variable from the Listener.<br>
-          • <span class="cod">items</span> (Array) of Menu Items to Add.<br>
+          • <span class="cod">items</span> (Object) of Menu Items to Add.<br>
+          • <span class="cod">title</span> (String) to Use as Title.<br>
           <br>
           <span class="cod">closeCTXMenu(id)</span> Closes the Context Menu With the Inputted ID.<br>
         </div>
@@ -959,13 +1021,13 @@
           &nbsp;&nbsp;&nbsp;&nbsp;click: function() {},<br>
           &nbsp;&nbsp;&nbsp;&nbsp;frontElement: (HTML Element)<br>
           &nbsp;&nbsp;}<br>
-          ]) => id<br>
+          ], 'Title') => id<br>
           <br>
           closeCTXMenu(id)<br>
         </div>
         <div class="display">
           <!-- DIALOG TEST -->
-          <div class="button text" shape="plain" onclick="createCTXMenu(event, [{id: 'test',label: 'Test Label',click: function() {}}])">Context Menu Test</div>
+          <div class="button text" shape="plain" onclick="createCTXMenu(event, [{id: 'test',label: 'Test Label',click: function() {}}], 'Title')">Context Menu Test</div>
         </div>
       </div>
       <!-- CONTEXT FUNCTIONS -->
@@ -976,7 +1038,7 @@
           <br>
           <span class="cod">CTXCutInput(target)</span> Cuts the Target Text (Must be an Input Element).<br>
           <br>
-          <span class="cod">CTXPasteInput(target)</span> Pastes Clipboard to the Target (Must be an Input Element).<br>
+          <span class="cod">CTXPasteInput(target)</span> (Async) Pastes Clipboard to the Target (Must be an Input Element).<br>
         </div>
         <div class="code">
           CTXCopy('Text')<br>
@@ -999,56 +1061,82 @@
     | $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$
     | $$\  $ | $$| $$      | $$\  $$$| $$  | $$
     | $$ \/  | $$| $$$$$$$$| $$ \  $$|  $$$$$$/
-    |__/     |__/|________/|__/  \__/ \____-->  
+    |__/     |__/|________/|__/  \__/ \____-->
 
-    <div id="frameworkMenu" class="vc" style="height: calc(100% - 50px) ; visibility: hidden; opacity: 0; top: 0; left: 0; position: fixed; padding: 30px 0 20px 0; background: var(--menu); overflow-y: scroll; transition: all .5s;">
-      <!-- TITLE --> 
-      <div class="leyen" onclick="scrollElem('title')">Orion Framework</div>
-      <!-- CSS --> 
-      <div class="leyen" onclick="scrollElem('css')">CSS</div>
-      <div class="leyend" onclick="scrollElem('themes')">Theme</div>
-      <div class="leyend" onclick="scrollElem('buttons')">Buttons ›</div>
-      <div class="leyend2" onclick="scrollElem('buttonshape')">• Shape Attribute</div>
-      <div class="leyend2" onclick="scrollElem('buttoncolor')">• Color Attribute</div>
-      <div class="leyend2" onclick="scrollElem('buttonhover')">• Hover Attribute</div>
-      <div class="leyend2" onclick="scrollElem('buttoncursor')">• Cursor Attribute</div>
-      <div class="leyend" onclick="scrollElem('iconstext')">Icons & Text</div>
-      <div class="leyend" onclick="scrollElem('inputs')">Inputs</div>
-      <div class="leyend" onclick="scrollElem('checkboxradio')">Checkbox & Radio ›</div>
-      <div class="leyend2" onclick="scrollElem('checkbox')">• Checkbox</div>
-      <div class="leyend2" onclick="scrollElem('radio')">• Radio</div>
-      <div class="leyend" onclick="scrollElem('switches')">Switches ›</div>
-      <div class="leyend2" onclick="scrollElem('switchesswitch')">• Switch</div>
-      <div class="leyend2" onclick="scrollElem('switchescustom')">• Custom Switch</div>
-      <div class="leyend" onclick="scrollElem('select')">Select</div>
-      <div class="leyend" onclick="scrollElem('seekbar')">Seekbar</div>
-      <div class="leyend" onclick="scrollElem('loading')">Loading ›</div>
-      <div class="leyend2" onclick="scrollElem('loadingdefault')">• Default</div>
-      <div class="leyend2" onclick="scrollElem('loadingdots')">• Dots</div>
-      <div class="leyend2" onclick="scrollElem('loadingspin')">• Spin</div>
-      <div class="leyend2" onclick="scrollElem('loadingpulse')">• Pulse</div>
-      <div class="leyend" onclick="scrollElem('effects')">Effects ›</div>
-      <div class="leyend2" onclick="scrollElem('effectglow')">• Glow</div>
-      <div class="leyend2" onclick="scrollElem('effectnoise')">• Noise</div>
-      <div class="leyend2" onclick="scrollElem('effectglass')">• Glass</div>
-      <div class="leyend2" onclick="scrollElem('effectpulse')">• Pulse</div>
-      <!-- JS --> 
-      <div class="leyen" onclick="scrollElem('js')">JS</div>
-      <div class="leyend" onclick="scrollElem('notis')">Notifications</div>
-      <div class="leyend" onclick="scrollElem('dialogs')">Dialogs</div>
-      <div class="leyend" onclick="scrollElem('menus')">Context Menus</div>
-      <div class="leyend2" onclick="scrollElem('menusfunctions')">• Context Functions</div>
+    <div id="frameworkMenu" class="vc" style="height: calc(100% - 40px); visibility: hidden; opacity: 0; top: 0; left: 0; position: fixed; padding-top: 40px; background: var(--menu); transition: all .5s;">
+      <div class="vc" style="height: 100%; padding-bottom: 20px; overflow-y: scroll; transition: all .5s;">
+        <!-- TITLE --> 
+        <div class="leyen" onclick="scrollElem('body')">Orion Framework</div>
+        <!-- CSS --> 
+        <div class="leyen" onclick="scrollElem('css')">CSS</div>
+        <div class="leyend" onclick="scrollElem('themes')">Theme</div>
+        <div class="leyend" onclick="scrollElem('buttons')">Buttons ›</div>
+        <div class="leyend2" onclick="scrollElem('buttonshape')">• Shape Attribute</div>
+        <div class="leyend2" onclick="scrollElem('buttoncolor')">• Color Attribute</div>
+        <div class="leyend2" onclick="scrollElem('buttonhover')">• Hover Attribute</div>
+        <div class="leyend2" onclick="scrollElem('buttoncursor')">• Cursor Attribute</div>
+        <div class="leyend" onclick="scrollElem('iconstext')">Icons & Text</div>
+        <div class="leyend" onclick="scrollElem('inputs')">Inputs ›</div>
+        <div class="leyend2" onclick="scrollElem('inputlabel')">• Input Labels</div>
+        <div class="leyend" onclick="scrollElem('checkboxradio')">Checkbox & Radio ›</div>
+        <div class="leyend2" onclick="scrollElem('checkbox')">• Checkbox</div>
+        <div class="leyend2" onclick="scrollElem('radio')">• Radio</div>
+        <div class="leyend" onclick="scrollElem('switches')">Switches ›</div>
+        <div class="leyend2" onclick="scrollElem('switchesswitch')">• Switch</div>
+        <div class="leyend2" onclick="scrollElem('switchescustom')">• Custom Switch</div>
+        <div class="leyend" onclick="scrollElem('select')">Select</div>
+        <div class="leyend" onclick="scrollElem('seekbar')">Seekbar</div>
+        <div class="leyend" onclick="scrollElem('loading')">Loading ›</div>
+        <div class="leyend2" onclick="scrollElem('loadingdefault')">• Default</div>
+        <div class="leyend2" onclick="scrollElem('loadingdots')">• Dots</div>
+        <div class="leyend2" onclick="scrollElem('loadingspin')">• Spin</div>
+        <div class="leyend2" onclick="scrollElem('loadingpulse')">• Pulse</div>
+        <div class="leyend" onclick="scrollElem('effects')">Effects ›</div>
+        <div class="leyend2" onclick="scrollElem('effectglow')">• Glow</div>
+        <div class="leyend2" onclick="scrollElem('effectnoise')">• Noise</div>
+        <div class="leyend2" onclick="scrollElem('effectglass')">• Glass</div>
+        <div class="leyend2" onclick="scrollElem('effectpulse')">• Pulse</div>
+        <!-- JS --> 
+        <div class="leyen" onclick="scrollElem('js')">JS</div>
+        <div class="leyend" onclick="scrollElem('notis')">Notifications</div>
+        <div class="leyend" onclick="scrollElem('dialogs')">Dialogs ›</div>
+        <div class="leyend2" onclick="scrollElem('dialogbuilder')">• Dialog Builder</div>
+        <div class="leyend" onclick="scrollElem('menus')">Context Menus ›</div>
+        <div class="leyend2" onclick="scrollElem('menusfunctions')">• Context Functions</div>
+      </div>
     </div>
+
+
 
     <div onclick="hideMenu()" style="position: fixed; top: 0; left: 0; fill: var(--textPrimary); cursor: pointer;">
       <svg class="svg" viewBox="0 0 24 24">
         <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM17 17.25H7C6.59 17.25 6.25 16.91 6.25 16.5C6.25 16.09 6.59 15.75 7 15.75H17C17.41 15.75 17.75 16.09 17.75 16.5C17.75 16.91 17.41 17.25 17 17.25ZM17 12.75H7C6.59 12.75 6.25 12.41 6.25 12C6.25 11.59 6.59 11.25 7 11.25H17C17.41 11.25 17.75 11.59 17.75 12C17.75 12.41 17.41 12.75 17 12.75ZM17 8.25H7C6.59 8.25 6.25 7.91 6.25 7.5C6.25 7.09 6.59 6.75 7 6.75H17C17.41 6.75 17.75 7.09 17.75 7.5C17.75 7.91 17.41 8.25 17 8.25Z"/>
       </svg>
     </div>
+
   </div>
 </body>
 
 <script>
+  function dBuilderTest(type) {
+    let content = 'Low damage, and the ability to jump over enemy walls. Hog Riders prioritize defensive structures above all other targets, and will bypass all other types of enemy buildings and troops while any defence remain on the battlefield.'
+    if (type == '') {
+      createDialog(`<div style='width: 460px; max-width: 460px; padding: 20px;'>${content}<!div>`, 'Dialog')
+    } else {
+      let db = dialogBuilder(type, {
+        content: content
+      })
+      let id = createDialog(db.innerHTML, type, {})
+      document.getElementById(db.confirmId).addEventListener('click', function() {
+        closeDialog(id)
+      })
+      if (document.getElementById(db.cancelId) != null)
+      document.getElementById(db.cancelId).addEventListener('click', function() {
+        closeDialog(id)
+      })
+    }
+  }
+
   let frameworkMenuChanging = false
   function hideMenu() {
     if (frameworkMenuChanging) return

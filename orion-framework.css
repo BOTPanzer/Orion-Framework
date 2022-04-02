@@ -17,11 +17,11 @@
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
               /$$       /$$$$$$$      /$$$$$$ 
-            /$$$$      | $$____/     /$$$_  $$
- /$$    /$$|_  $$      | $$         | $$$$\ $$
-|  $$  /$$/  | $$      | $$$$$$$    | $$ $$ $$
- \  $$/$$/   | $$      |_____  $$   | $$\ $$$$
-  \  $$$/    | $$       /$$  \ $$   | $$ \ $$$
+            /$$$$      | $$____/     /$$__  $$
+ /$$    /$$|_  $$      | $$         | $$  \__/
+|  $$  /$$/  | $$      | $$$$$$$    | $$$$$$$ 
+ \  $$/$$/   | $$      |_____  $$   | $$__  $$
+  \  $$$/    | $$       /$$  \ $$   | $$  \ $$
    \  $/    /$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
     \_/    |______/|__/ \______/|__/ \_____*/
 
@@ -367,6 +367,7 @@ img {
   font-family: inherit;
   color: inherit;
   background: transparent;
+  position: relative;
   border: none;
 }
 
@@ -376,6 +377,21 @@ img {
 
 .input:focus {
   outline: none;
+}
+
+.input:not(:placeholder-shown) ~ .input-label {
+  opacity: 1;
+}
+
+.input-label {
+  position: absolute;
+  pointer-events: none;
+  font-size: 10px;
+  left: 8px;
+  top: -2px;
+  opacity: 0;
+  color: var(--textSecondary);
+  transition: .2s all;
 }
 
 
@@ -932,6 +948,7 @@ img {
   top: 0;
   left: 0;
   position: fixed;
+  text-align: center;
   z-index: 69420;
   visibility: hidden;
   background: var(--button);
