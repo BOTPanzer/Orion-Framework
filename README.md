@@ -8,7 +8,7 @@
 
 <p align="center">
   Orion Framework is a HTML, CSS & JS framework<br>
-  initialy designed for Orion Assistant
+  initially designed for Orion Assistant
 </p>
 
 
