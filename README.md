@@ -13,4 +13,4 @@
 
 
 # Documentation
-To see all available elements check out the [docs page](https://botpanzer.github.io/Orion-Framework/)
+To see all available elements check out the [docs page](https://botpanzer.github.io/Orion-Framework/).
