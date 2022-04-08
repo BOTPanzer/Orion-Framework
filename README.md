@@ -1,4 +1,16 @@
-# Orion-Framework
-CSS Framework for Orion Assistant
+<p align="center">
+  <a href="https://botpanzer.github.io/Orion-Framework/">
+    <img src="https://github.com/BOTPanzer/Orion-Framework/blob/main/Data/Images/logo.png" width="150">
+  </a>
+</p>
 
-To see all Available Elements Check out the [Docs File](https://botpanzer.github.io/Orion-Framework/)
+<h3 align="center">Oriøn Framework</h3>
+
+<p align="center">
+  Orion Framework is a HTML, CSS & JS framework<br>
+  initialy designed for Orion Assistant
+</p>
+
+
+# Documentation
+To see all available elements check out the [docs page](https://botpanzer.github.io/Orion-Framework/)
