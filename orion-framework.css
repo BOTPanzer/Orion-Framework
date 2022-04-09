@@ -17,13 +17,13 @@
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
              /$$$$$$       /$$$$$$      /$$$$$$ 
-            /$$__  $$     /$$$_  $$    /$$$_  $$
- /$$    /$$|__/  \ $$    | $$$$\ $$   | $$$$\ $$
-|  $$  /$$/  /$$$$$$/    | $$ $$ $$   | $$ $$ $$
- \  $$/$$/  /$$____/     | $$\ $$$$   | $$\ $$$$
-  \  $$$/  | $$          | $$ \ $$$   | $$ \ $$$
-   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
-    \_/    |________/|__/ \______/|__/ \_____*/
+            /$$__  $$     /$$$_  $$    /$$__  $$
+ /$$    /$$|__/  \ $$    | $$$$\ $$   |__/  \ $$
+|  $$  /$$/  /$$$$$$/    | $$ $$ $$     /$$$$$$/
+ \  $$/$$/  /$$____/     | $$\ $$$$    /$$____/ 
+  \  $$$/  | $$          | $$ \ $$$   | $$      
+   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$| $$$$$$$$
+    \_/    |________/|__/ \______/|__/|_______*/
 
 
 
@@ -193,7 +193,7 @@ img {
   border-radius: var(--oBorderR);
   overflow: hidden;
   position: relative;
-  transition: border .2s, outline .2s, background .2s, color .2s, fill .2s;
+  transition: border .2s, outline .2s, background .2s, color .2s, fill .2s, transform .2s;
 }
 
 .button::before {
@@ -495,8 +495,9 @@ img {
 .checkbox {
   --oBorderR: 10px;
   --oColor: var(--text1);
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  margin: 0;
   appearance: none;
 }
 
@@ -538,8 +539,9 @@ img {
 .radio {
   --oBorderR: 15px;
   --oColor: var(--text1);
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  margin: 0;
   appearance: none;
 }
 

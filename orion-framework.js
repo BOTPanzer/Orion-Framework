@@ -17,13 +17,13 @@
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
              /$$$$$$       /$$$$$$      /$$$$$$ 
-            /$$__  $$     /$$$_  $$    /$$$_  $$
- /$$    /$$|__/  \ $$    | $$$$\ $$   | $$$$\ $$
-|  $$  /$$/  /$$$$$$/    | $$ $$ $$   | $$ $$ $$
- \  $$/$$/  /$$____/     | $$\ $$$$   | $$\ $$$$
-  \  $$$/  | $$          | $$ \ $$$   | $$ \ $$$
-   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
-    \_/    |________/|__/ \______/|__/ \_____*/
+            /$$__  $$     /$$$_  $$    /$$__  $$
+ /$$    /$$|__/  \ $$    | $$$$\ $$   |__/  \ $$
+|  $$  /$$/  /$$$$$$/    | $$ $$ $$     /$$$$$$/
+ \  $$/$$/  /$$____/     | $$\ $$$$    /$$____/ 
+  \  $$$/  | $$          | $$ \ $$$   | $$      
+   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$| $$$$$$$$
+    \_/    |________/|__/ \______/|__/|_______*/
 
 
 
@@ -1119,7 +1119,7 @@ customElements.define('o-checkbox', class extends HTMLElement {
 |__/  |__/|__/  |__/|_______/ |______/ \_____*/
 
 customElements.define('o-radio', class extends HTMLElement {
-  static get observedAttributes() { return ['background', 'color', 'type', 'checked'] }
+  static get observedAttributes() { return ['background', 'color', 'type', 'name', 'checked'] }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -1132,6 +1132,10 @@ customElements.define('o-radio', class extends HTMLElement {
   //TYPE ATTRIBUTE
   get type() { return getStringAtt(this, 'type') }
   set type(val) { setStringAtt(this, 'type', val, ['reverse']) }
+
+  //NAME ATTRIBUTE
+  get name() { this.shadowRoot.querySelector('input').name }
+  set name(val) { this.shadowRoot.querySelector('input').name }
 
   //CHECKED ATTRIBUTE
   get checked() { return this.shadowRoot.querySelector('input').checked }
@@ -1148,7 +1152,7 @@ customElements.define('o-radio', class extends HTMLElement {
     //INPUT
     const input = document.createElement('input')
     input.classList.add('button', 'radio')
-    input.type = 'checkbox'
+    input.type = 'radio'
     shadow.appendChild(input)
   }
 
@@ -1169,6 +1173,10 @@ customElements.define('o-radio', class extends HTMLElement {
           input.setAttribute('radio', val)
         else
           input.removeAttribute('radio')
+        break
+      //NAME
+      case 'name':
+        input.name = val
         break
       //CHECKED
       case 'checked':
@@ -1338,6 +1346,85 @@ customElements.define('o-card', class extends HTMLElement {
       //CHECKED
       case 'text':
         text.textContent = val
+        break
+    }
+  }
+})
+
+
+
+
+
+ /*$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$
+| $$__  $$ /$$__  $$| $$__  $$|_  $$_/ /$$__  $$
+| $$  \ $$| $$  \ $$| $$  \ $$  | $$  | $$  \ $$
+| $$$$$$$/| $$$$$$$$| $$  | $$  | $$  | $$  | $$
+| $$__  $$| $$__  $$| $$  | $$  | $$  | $$  | $$
+| $$  \ $$| $$  | $$| $$  | $$  | $$  | $$  | $$
+| $$  | $$| $$  | $$| $$$$$$$/ /$$$$$$|  $$$$$$/
+|__/  |__/|__/  |__/|_______/ |______/ \_____*/
+
+customElements.define('o-module', class extends HTMLElement {
+  static get observedAttributes() { return ['image', 'name', 'checked'] }
+
+  //TYPE ATTRIBUTE
+  get image() { return getStringAtt(this, 'image') }
+  set image(val) { setStringAtt(this, 'image', val) }
+
+  //TYPE ATTRIBUTE
+  get name() { return getStringAtt(this, 'name') }
+  set name(val) { setStringAtt(this, 'name', val) }
+
+  //CHECKED ATTRIBUTE
+  get checked() { return this.shadowRoot.querySelector('input').checked }
+  set checked(val) { this.shadowRoot.querySelector('input').checked = val }
+
+  /*<div id="${id}" class="module">
+    <input id="check-${id}" type="radio" name="module">
+    <img src="${image}"></img>
+    <div id="name-${id}">${name}</div>
+  </div>*/
+
+  //CONSTRUCTOR
+  constructor() {
+    super()
+    const shadow = this.attachShadow({mode: 'open'})
+    //STYLE
+    const style = document.createElement('style')
+    style.textContent = `@import url('orion-framework.css')`
+    shadow.appendChild(style)
+    //DIV
+    const div = document.createElement('div')
+    div.classList.add('module')
+    shadow.appendChild(div)
+    //INPUT
+    const input = document.createElement('input')
+    input.classList.add('button', 'radio')
+    input.type = 'radio'
+    shadow.appendChild(input)
+  }
+
+  attributeChangedCallback(name, oldVal, val) {
+    const input = this.shadowRoot.querySelector('input')
+    switch(name) {
+      //BACKGROUND
+      case 'background':
+        input.style.setProperty('--oBackground', getOrionColor(val))
+        break
+      //COLOR
+      case 'color':
+        input.style.setProperty('--oColor', getOrionColor(val))
+        break
+      //TYPE
+      case 'type':
+        if (val == 'reverse')
+          input.setAttribute('radio', val)
+        else
+          input.removeAttribute('radio')
+        break
+      //CHECKED
+      case 'checked':
+        input.checked = this.hasAttribute('checked')
         break
     }
   }

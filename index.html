@@ -29,9 +29,12 @@
   }
 
   .legbox div {
+    max-height: 250px;
     margin-left: 20px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    transition: max-height .5s;
   }
 
   .legbox input {
@@ -45,7 +48,7 @@
   }
 
   .legbox input:not(:checked) ~ div {
-    display: none;
+    max-height: 0;
   }
 
   .leg {
@@ -298,7 +301,7 @@
           <span class="leg2" onclick="scrollElem('checkbox-type')">Type</span>
         </div>
       </div>
-      <!-- RADIO --> 
+      <!-- RADIO
       <div class="legbox">
         <span class="leg" onclick="scrollElem('radio')">Radio</span>
         <input type="checkbox">
@@ -307,7 +310,7 @@
           <span class="leg2" onclick="scrollElem('radio-colors')">Colors</span>
           <span class="leg2" onclick="scrollElem('radio-type')">Type</span>
         </div>
-      </div>
+      </div--> 
       <!-- SEEKBAR --> 
       <div class="legbox">
         <span class="leg" onclick="scrollElem('seekbar')">Seekbar</span>
@@ -401,7 +404,7 @@
     |_______/  \______/  \______/  \____-->
 
     <div id="docs" class="vc" style="width: calc(100% - 250px); padding: 2% 0; align-items: center; background: var(--background); border-top-left-radius: 30px; overflow: auto; scroll-behavior: smooth; position: relative;">
-      <div id="title" class="title">Orion Framework v2.0.0</div>
+      <div id="title" class="title">Orion Framework v2.0.2</div>
 
       <div class="type-c" style="padding-top: 0;">
         <div class="desc">
@@ -959,16 +962,16 @@
       | $$  | $$| $$  | $$| $$$$$$$/ /$$$$$$|  $$$$$$/
       |__/  |__/|__/  |__/|_______/ |______/ \____-->
 
-      <div id="radio" class="type-c">
+      <!--div id="radio" class="type-c">
         <div class="type">- RADIO BUTTON -</div>
         <div class="cat-c">
           <div class="desc">
             To create a radio button, use the <span class="cod">o-radio</span> element. 
-            You can use the <span class="cod">checked</span> attribute to check it.
+            You can use the <span class="cod">checked</span> attribute to check it and the <span class="cod">name</span> attribute to change it's name.
           </div>
           <div class="display">
-            <o-radio></o-radio>
-            <o-radio checked></o-radio>
+            <o-radio name="radio1"></o-radio>
+            <o-radio name="radio1" checked></o-radio>
           </div>
           <div class="code">
             &lt;o-radio>&lt;/o-radio><br>
@@ -976,7 +979,7 @@
             &lt;o-radio <span class="high">checked</span>>&lt;/o-radio><br>
           </div>
         </div>
-        <!-- COLORS -->
+        <-- COLORS --
         <div id="radio-colors" class="cat-c">
           <div class="cat">COLORS</div>
           <div class="desc">
@@ -992,7 +995,7 @@
             &lt;o-radio <span class="high">color</span>="#d4007c" checked>&lt;/o-radio><br>
           </div>
         </div>
-        <!-- TYPE -->
+        <-- TYPE --
         <div id="radio-type" class="cat-c">
           <div class="cat">TYPE</div>
           <div class="desc">
@@ -1009,7 +1012,7 @@
             &lt;o-radio <span class="high">type</span>="reverse" checked>&lt;/o-radio><br>
           </div>
         </div>
-      </div>
+      </div-->
 
         <!--$$$  /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$ 
        /$$__  $$| $$_____/| $$_____/| $$  /$$/| $$__  $$ /$$__  $$| $$__  $$
