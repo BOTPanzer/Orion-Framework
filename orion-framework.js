@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-             /$$$$$$       /$$$$$$      /$$$$$$ 
-            /$$__  $$     /$$$_  $$    /$$__  $$
- /$$    /$$|__/  \ $$    | $$$$\ $$   |__/  \ $$
-|  $$  /$$/  /$$$$$$/    | $$ $$ $$     /$$$$$$/
- \  $$/$$/  /$$____/     | $$\ $$$$    /$$____/ 
-  \  $$$/  | $$          | $$ \ $$$   | $$      
-   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$| $$$$$$$$
-    \_/    |________/|__/ \______/|__/|_______*/
+             /$$$$$$       /$$$$$$  /$$   /$$
+            /$$__  $$     /$$$_  $$| $$  | $$
+ /$$    /$$|__/  \ $$    | $$$$\ $$| $$  | $$
+|  $$  /$$/  /$$$$$$/    | $$ $$ $$| $$$$$$$$
+ \  $$/$$/  /$$____/     | $$\ $$$$|_____  $$
+  \  $$$/  | $$          | $$ \ $$$      | $$
+   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$   | $$
+    \_/    |________/|__/ \______/|__/   |_*/
 
 
 
@@ -1134,30 +1134,45 @@ customElements.define('o-radio', class extends HTMLElement {
   set type(val) { setStringAtt(this, 'type', val, ['reverse']) }
 
   //NAME ATTRIBUTE
-  get name() { this.shadowRoot.querySelector('input').name }
-  set name(val) { this.shadowRoot.querySelector('input').name }
+  get name() { this.querySelector('input').name }
+  set name(val) { this.querySelector('input').name }
 
   //CHECKED ATTRIBUTE
-  get checked() { return this.shadowRoot.querySelector('input').checked }
-  set checked(val) { this.shadowRoot.querySelector('input').checked = val }
+  get checked() { return this.querySelector('input').checked }
+  set checked(val) { this.querySelector('input').checked = val }
 
   //CONSTRUCTOR
   constructor() {
     super()
-    const shadow = this.attachShadow({mode: 'open'})
-    //STYLE
-    const style = document.createElement('style')
-    style.textContent = `@import url('orion-framework.css')`
-    shadow.appendChild(style)
-    //INPUT
+  }
+
+  connectedCallback() {
     const input = document.createElement('input')
     input.classList.add('button', 'radio')
     input.type = 'radio'
-    shadow.appendChild(input)
+    //BACKGROUND
+    let background = this.background
+    input.style.setProperty('--oBackground', getOrionColor(background))
+    //COLOR
+    let color = this.color
+    input.style.setProperty('--oColor', getOrionColor(color))
+    //TYPE
+    let type = this.type
+    if (type == 'reverse')
+      input.setAttribute('radio', type)
+    else
+      input.removeAttribute('radio')
+    //NAME
+    input.name = getStringAtt(this, 'name')
+    //CHECKED
+    input.checked = this.hasAttribute('checked')
+    //APPEND
+    this.appendChild(input)
   }
 
   attributeChangedCallback(name, oldVal, val) {
-    const input = this.shadowRoot.querySelector('input')
+    const input = this.querySelector('input')
+    if (input == null) return
     switch(name) {
       //BACKGROUND
       case 'background':
@@ -1355,85 +1370,6 @@ customElements.define('o-card', class extends HTMLElement {
 
 
 
- /*$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$
-| $$__  $$ /$$__  $$| $$__  $$|_  $$_/ /$$__  $$
-| $$  \ $$| $$  \ $$| $$  \ $$  | $$  | $$  \ $$
-| $$$$$$$/| $$$$$$$$| $$  | $$  | $$  | $$  | $$
-| $$__  $$| $$__  $$| $$  | $$  | $$  | $$  | $$
-| $$  \ $$| $$  | $$| $$  | $$  | $$  | $$  | $$
-| $$  | $$| $$  | $$| $$$$$$$/ /$$$$$$|  $$$$$$/
-|__/  |__/|__/  |__/|_______/ |______/ \_____*/
-
-customElements.define('o-module', class extends HTMLElement {
-  static get observedAttributes() { return ['image', 'name', 'checked'] }
-
-  //TYPE ATTRIBUTE
-  get image() { return getStringAtt(this, 'image') }
-  set image(val) { setStringAtt(this, 'image', val) }
-
-  //TYPE ATTRIBUTE
-  get name() { return getStringAtt(this, 'name') }
-  set name(val) { setStringAtt(this, 'name', val) }
-
-  //CHECKED ATTRIBUTE
-  get checked() { return this.shadowRoot.querySelector('input').checked }
-  set checked(val) { this.shadowRoot.querySelector('input').checked = val }
-
-  /*<div id="${id}" class="module">
-    <input id="check-${id}" type="radio" name="module">
-    <img src="${image}"></img>
-    <div id="name-${id}">${name}</div>
-  </div>*/
-
-  //CONSTRUCTOR
-  constructor() {
-    super()
-    const shadow = this.attachShadow({mode: 'open'})
-    //STYLE
-    const style = document.createElement('style')
-    style.textContent = `@import url('orion-framework.css')`
-    shadow.appendChild(style)
-    //DIV
-    const div = document.createElement('div')
-    div.classList.add('module')
-    shadow.appendChild(div)
-    //INPUT
-    const input = document.createElement('input')
-    input.classList.add('button', 'radio')
-    input.type = 'radio'
-    shadow.appendChild(input)
-  }
-
-  attributeChangedCallback(name, oldVal, val) {
-    const input = this.shadowRoot.querySelector('input')
-    switch(name) {
-      //BACKGROUND
-      case 'background':
-        input.style.setProperty('--oBackground', getOrionColor(val))
-        break
-      //COLOR
-      case 'color':
-        input.style.setProperty('--oColor', getOrionColor(val))
-        break
-      //TYPE
-      case 'type':
-        if (val == 'reverse')
-          input.setAttribute('radio', val)
-        else
-          input.removeAttribute('radio')
-        break
-      //CHECKED
-      case 'checked':
-        input.checked = this.hasAttribute('checked')
-        break
-    }
-  }
-})
-
-
-
-
-
  /*$        /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$
 | $$       /$$__  $$ /$$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$
 | $$      | $$  \ $$| $$  \ $$| $$  \ $$  | $$  | $$$$| $$| $$  \__/
@@ -1481,6 +1417,83 @@ customElements.define('o-loading', class extends HTMLElement {
           div.setAttribute('type', val)
         else
           div.removeAttribute('type')
+        break
+    }
+  }
+})
+
+
+
+
+
+ /*$      /$$  /$$$$$$  /$$$$$$$  /$$   /$$ /$$       /$$$$$$$$
+| $$$    /$$$ /$$__  $$| $$__  $$| $$  | $$| $$      | $$_____/
+| $$$$  /$$$$| $$  \ $$| $$  \ $$| $$  | $$| $$      | $$      
+| $$ $$/$$ $$| $$  | $$| $$  | $$| $$  | $$| $$      | $$$$$   
+| $$  $$$| $$| $$  | $$| $$  | $$| $$  | $$| $$      | $$__/   
+| $$\  $ | $$| $$  | $$| $$  | $$| $$  | $$| $$      | $$      
+| $$ \/  | $$|  $$$$$$/| $$$$$$$/|  $$$$$$/| $$$$$$$$| $$$$$$$$
+|__/     |__/ \______/ |_______/  \______/ |________/|_______*/
+
+customElements.define('o-module', class extends HTMLElement {
+  static get observedAttributes() { return ['background', 'color', 'image', 'name', 'checked'] }
+
+  //BACKGROUND ATTRIBUTE
+  get background() { return getStringAtt(this, 'background') }
+  set background(val) { setStringAtt(this, 'background', val) }
+
+  //COLOR ATTRIBUTE
+  get color() { return getStringAtt(this, 'color') }
+  set color(val) { setStringAtt(this, 'color', val) }
+  
+  //IMAGE ATTRIBUTE
+  get image() { return getStringAtt(this, 'image') }
+  set image(val) { setStringAtt(this, 'image', val) }
+
+  //NAME ATTRIBUTE
+  get name() { return getStringAtt(this, 'name') }
+  set name(val) { setStringAtt(this, 'name', val) }
+
+  //CHECKED ATTRIBUTE
+  get checked() { return this.querySelector('input').checked }
+  set checked(val) { this.querySelector('input').checked = val }
+
+  //CONSTRUCTOR
+  constructor() {
+    super()
+  }
+
+  connectedCallback() {
+    this.innerHTML = `<div class="module">
+                        <input type="radio" name="module">
+                        <img src="${this.image}"></img>
+                        <div>${this.name}</div>
+                      </div>`
+  }
+
+  attributeChangedCallback(name, oldVal, val) {
+    const input = this.querySelector('input')
+    if (input == null) return
+    switch(name) {
+      //BACKGROUND
+      case 'background':
+        input.style.setProperty('--oBackground', getOrionColor(val))
+        break
+      //COLOR
+      case 'color':
+        input.style.setProperty('--oColor', getOrionColor(val))
+        break
+      //IMAGE
+      case 'image':
+        input.image = val
+        break
+      //NAME
+      case 'name':
+        input.name = val
+        break
+      //CHECKED
+      case 'checked':
+        input.checked = this.hasAttribute('checked')
         break
     }
   }
