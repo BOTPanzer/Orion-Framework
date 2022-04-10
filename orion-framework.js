@@ -536,11 +536,7 @@ function getOrionColor(val) {
 |_______/  \______/    |__/      |__/   \______/ |__/  \_*/
 
 customElements.define('o-button', class extends HTMLElement {
-  static get observedAttributes() { return ['height', 'background', 'color', 'type', 'content', 'hover', 'cursor', 'lefticon', 'righticon'] }
-
-  //HEIGHT ATTRIBUTE
-  get height() { return getStringAtt(this, 'height') }
-  set height(val) { setStringAtt(this, 'height', val) }
+  static get observedAttributes() { return ['background', 'color', 'type', 'content', 'hover', 'cursor', 'lefticon', 'righticon'] }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -585,43 +581,21 @@ customElements.define('o-button', class extends HTMLElement {
     //DIV
     const div = document.createElement('div')
     div.classList.add('button', 'button-text')
-    div.style.width = 'inherit'
-    div.style.height = 'inherit'
+    div.style.width = '100%'
+    div.style.height = '100%'
     shadow.appendChild(div)
     //SLOT
     const slot = document.createElement('slot')
     div.appendChild(slot)
   }
+
+  connectedCallback() {
+    this.style.position = 'relative'
+  }
   
   attributeChangedCallback(name, oldVal, val) {
     const div = this.shadowRoot.querySelector('div')
     switch(name) {
-      //WIDTH
-      case 'width':
-        if (this.width == '') 
-          div.style.width = ''
-        else switch(this.content) {
-          //TEXT CONTENT
-          case 'text':
-          case '':
-            let padding = 20
-            if (this.lefticon) padding = padding - 10
-            if (this.righticon) padding = padding - 10
-            div.style.width = `calc(${this.width} - ${padding}px)`
-          break
-          //OTHER CONTENT
-          default:
-            div.style.width = this.width
-            break
-        }
-        break
-      //HEIGHT
-      case 'height':
-        if (this.height == '') 
-          div.style.height = ''
-        else 
-          div.style.height = this.height
-        break
       //BACKGROUND
       case 'background':
         div.style.setProperty('--oBackground', getOrionColor(this.background))
@@ -770,7 +744,7 @@ customElements.define('o-input', class extends HTMLElement {
     //DIV
     const div = document.createElement('div')
     div.classList.add('button')
-    div.style.width = 'inherit'
+    div.style.width = '100%'
     shadow.appendChild(div)
     //INPUT
     const input = document.createElement('input')
@@ -786,6 +760,7 @@ customElements.define('o-input', class extends HTMLElement {
   }
 
   connectedCallback() {
+    this.style.position = 'relative'
     if (this.style.width == '') 
       this.style.width = '200px'
   }
@@ -1260,7 +1235,7 @@ customElements.define('o-radio', class extends HTMLElement {
  \______/ |________/|________/|__/  \__/|_______/ |__/  |__/|__/  |_*/
 
 customElements.define('o-seekbar', class extends HTMLElement {
-  static get observedAttributes() { return ['width', 'background', 'color', 'min', 'max', 'value'] }
+  static get observedAttributes() { return ['background', 'color', 'min', 'max', 'value'] }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -1295,6 +1270,10 @@ customElements.define('o-seekbar', class extends HTMLElement {
     input.classList.add('seekbar')
     input.type = 'range'
     shadow.appendChild(input)
+  }
+
+  connectedCallback() {
+    this.style.position = 'relative'
   }
 
   attributeChangedCallback(name, oldVal, val) {
