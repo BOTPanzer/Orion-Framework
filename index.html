@@ -405,7 +405,7 @@
     |_______/  \______/  \______/  \____-->
 
     <div id="docs" class="vc" style="width: calc(100% - 250px); padding: 2% 0; align-items: center; background: var(--background); border-top-left-radius: 30px; overflow: auto; scroll-behavior: smooth; position: relative;">
-      <div id="title" class="title">Orion Framework v2.0.4</div>
+      <div id="title" class="title">Orion Framework v2.0.8</div>
 
       <div class="type-c" style="padding-top: 0;">
         <div class="desc">
@@ -525,12 +525,11 @@
         <div class="cat-c">
           <div class="desc">
             To create a button, use the <span class="cod">o-button</span> element. 
-            You can use the <span class="cod">width</span> and <span class="cod">height</span> attributes to change it's size.
             To modify the text, change it's innerHTML.
           </div>
           <div class="display">
             <o-button></o-button>
-            <o-button width="100px" height="40px"></o-button>
+            <o-button style="width: 100px; height: 40px;"></o-button>
             <o-button>Button</o-button>
           </div>
           <div class="code">
@@ -681,14 +680,14 @@
         <div class="cat-c">
           <div class="desc">
             To create an input, use the <span class="cod">o-input</span> element. 
-            You can use the <span class="cod">width</span> attribute to change it's width and the <span class="cod">value</span> attribute to change it's text. 
+            You can use the <span class="cod">value</span> attribute to change it's text. 
           </div>
           <div class="display">
-            <o-input width="100px"></o-input>
+            <o-input></o-input>
             <o-input value="Text"></o-input>
           </div>
           <div class="code">
-            &lt;o-input <span class="high">width</span>="100px">&lt;/o-input><br>
+            &lt;o-input>&lt;/o-input><br>
             <br>
             &lt;o-input <span class="high">value</span>="Text">&lt;/o-input><br>
           </div>
@@ -789,16 +788,19 @@
         <div class="cat-c">
           <div class="desc">
             To create a simple switch, use the <span class="cod">o-switch</span> element. 
-            You can use the <span class="cod">checked</span> attribute to check it.
+            You can use the <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to check it and disable it.
           </div>
           <div class="display">
             <o-switch></o-switch>
             <o-switch checked></o-switch>
+            <o-switch disabled></o-switch>
           </div>
           <div class="code">
             &lt;o-switch>&lt;/o-switch><br>
             <br>
             &lt;o-switch <span class="high">checked</span>>&lt;/o-switch><br>
+            <br>
+            &lt;o-switch <span class="high">disabled</span>>&lt;/o-switch>
           </div>
         </div>
         <!-- COLORS -->
@@ -850,16 +852,19 @@
         <div class="cat-c">
           <div class="desc">
             To create an emote switch, use the <span class="cod">o-eswitch</span> element. 
-            You can use the <span class="cod">checked</span> attribute to check it.
+            You can use the <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to check it and disable it.
           </div>
           <div class="display">
             <o-eswitch></o-eswitch>
             <o-eswitch checked></o-eswitch>
+            <o-eswitch disabled></o-eswitch>
           </div>
           <div class="code">
             &lt;o-eswitch>&lt;/o-eswitch><br>
             <br>
             &lt;o-eswitch <span class="high">checked</span>>&lt;/o-eswitch><br>
+            <br>
+            &lt;o-eswitch <span class="high">disabled</span>>&lt;/o-eswitch>
           </div>
         </div>
         <!-- COLORS -->
@@ -907,16 +912,19 @@
         <div class="cat-c">
           <div class="desc">
             To create a checkbox, use the <span class="cod">o-checkbox</span> element. 
-            You can use the <span class="cod">checked</span> attribute to check it.
+            You can use the <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to check it and disable it.
           </div>
           <div class="display">
             <o-checkbox></o-checkbox>
             <o-checkbox checked></o-checkbox>
+            <o-checkbox disabled></o-checkbox>
           </div>
           <div class="code">
             &lt;o-checkbox>&lt;/o-checkbox><br>
             <br>
             &lt;o-checkbox <span class="high">checked</span>>&lt;/o-checkbox><br>
+            <br>
+            &lt;o-checkbox <span class="high">disabled</span>>&lt;/o-checkbox>
           </div>
         </div>
         <!-- COLORS -->
@@ -968,16 +976,19 @@
         <div class="cat-c">
           <div class="desc">
             To create a radio button, use the <span class="cod">o-radio</span> element. 
-            You can use the <span class="cod">checked</span> attribute to check it and the <span class="cod">name</span> attribute to change it's name.
+            You can use the <span class="cod">name</span>, <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to change it's name, check it and disable it.
           </div>
           <div class="display">
             <o-radio name="1"></o-radio>
             <o-radio name="1" checked></o-radio>
+            <o-radio name="1" disabled></o-radio>
           </div>
           <div class="code">
             &lt;o-radio <span class="high">name</span>="1">&lt;/o-radio><br>
             <br>
             &lt;o-radio <span class="high">name</span>="1" <span class="high">checked</span>>&lt;/o-radio><br>
+            <br>
+            &lt;o-radio <span class="high">name</span>="1" <span class="high">disabled</span>>&lt;/o-radio>
           </div>
         </div>
         <!-- COLORS -->
@@ -1029,16 +1040,12 @@
         <div class="cat-c">
           <div class="desc">
             To create a seekbar, use the <span class="cod">o-seekbar</span> element. 
-            You can use the <span class="cod">width</span> attribute to change it's width.
           </div>
           <div class="display">
-            <o-seekbar></o-seekbar>
-            <o-seekbar width="200px"></o-seekbar>
+            <o-seekbar style="width: 200px"></o-seekbar>
           </div>
           <div class="code">
-            &lt;o-seekbar>&lt;/o-seekbar><br>
-            <br>
-            &lt;o-seekbar <span class="high">width</span>="200px">&lt;/o-seekbar>
+            &lt;o-seekbar>&lt;/o-seekbar>
           </div>
         </div>
         <!-- COLORS -->
@@ -1064,10 +1071,10 @@
             You can also change your seekbar's data with the <span class="cod">min</span>, <span class="cod">max</span> & <span class="cod">value</span> attributes.
           </div>
           <div class="display">
-            <o-seekbar width="300px" min="0" max="10" value="7"></o-seekbar>
+            <o-seekbar min="0" max="10" value="7" style="width: 300px"></o-seekbar>
           </div>
           <div class="code">
-            &lt;o-seekbar <span class="high">width</span>="300px" <span class="high">min</span>="0" <span class="high">max</span>="10" <span class="high">value</span>="7">&lt;/o-seekbar>
+            &lt;o-seekbar <span class="high">min</span>="0" <span class="high">max</span>="10" <span class="high">value</span>="7" style="width: 300px">&lt;/o-seekbar>
           </div>
         </div>
       </div>

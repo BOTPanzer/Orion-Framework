@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-             /$$$$$$       /$$$$$$  /$$   /$$
-            /$$__  $$     /$$$_  $$| $$  | $$
- /$$    /$$|__/  \ $$    | $$$$\ $$| $$  | $$
-|  $$  /$$/  /$$$$$$/    | $$ $$ $$| $$$$$$$$
- \  $$/$$/  /$$____/     | $$\ $$$$|_____  $$
-  \  $$$/  | $$          | $$ \ $$$      | $$
-   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$   | $$
-    \_/    |________/|__/ \______/|__/   |_*/
+             /$$$$$$       /$$$$$$      /$$$$$$ 
+            /$$__  $$     /$$$_  $$    /$$__  $$
+ /$$    /$$|__/  \ $$    | $$$$\ $$   | $$  \ $$
+|  $$  /$$/  /$$$$$$/    | $$ $$ $$   |  $$$$$$/
+ \  $$/$$/  /$$____/     | $$\ $$$$    >$$__  $$
+  \  $$$/  | $$          | $$ \ $$$   | $$  \ $$
+   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
+    \_/    |________/|__/ \______/|__/ \_____*/
 
 
 
@@ -193,6 +193,7 @@ img {
   border-radius: var(--oBorderR);
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
   transition: border .2s, outline .2s, background .2s, color .2s, fill .2s, transform .2s;
 }
 
@@ -280,7 +281,7 @@ img {
 /*ICONS & TEXT*/
 .button-text {
   width: fit-content;
-  min-width: 20px;
+  min-width: 40px;
   height: 40px;
   min-height: 40px;
   font-size: 15px;
@@ -288,14 +289,15 @@ img {
   padding: 0 10px;
   align-items: center;
   text-align: center;
+  justify-content: inherit;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .button-emote {
   min-width: 40px;
-  min-height: 40px;
   max-width: 40px;
+  min-height: 40px;
   max-height: 40px;
   font-size: 20px;
   line-height: 40px;
@@ -346,6 +348,7 @@ img {
   background: transparent;
   position: relative;
   border: none;
+  box-sizing: border-box;
   transition: margin .2s;
 }
 
@@ -583,6 +586,7 @@ img {
 .seekbar {
   --oBackground: var(--button);
   --oColor: var(--text1);
+  width: inherit;
   height: 12px;
   appearance: none;
   background: var(--oBackground);

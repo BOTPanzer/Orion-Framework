@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-             /$$$$$$       /$$$$$$  /$$   /$$
-            /$$__  $$     /$$$_  $$| $$  | $$
- /$$    /$$|__/  \ $$    | $$$$\ $$| $$  | $$
-|  $$  /$$/  /$$$$$$/    | $$ $$ $$| $$$$$$$$
- \  $$/$$/  /$$____/     | $$\ $$$$|_____  $$
-  \  $$$/  | $$          | $$ \ $$$      | $$
-   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$   | $$
-    \_/    |________/|__/ \______/|__/   |_*/
+             /$$$$$$       /$$$$$$      /$$$$$$ 
+            /$$__  $$     /$$$_  $$    /$$__  $$
+ /$$    /$$|__/  \ $$    | $$$$\ $$   | $$  \ $$
+|  $$  /$$/  /$$$$$$/    | $$ $$ $$   |  $$$$$$/
+ \  $$/$$/  /$$____/     | $$\ $$$$    >$$__  $$
+  \  $$$/  | $$          | $$ \ $$$   | $$  \ $$
+   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
+    \_/    |________/|__/ \______/|__/ \_____*/
 
 
 
@@ -536,11 +536,7 @@ function getOrionColor(val) {
 |_______/  \______/    |__/      |__/   \______/ |__/  \_*/
 
 customElements.define('o-button', class extends HTMLElement {
-  static get observedAttributes() { return ['width', 'height', 'background', 'color', 'type', 'content', 'hover', 'cursor', 'lefticon', 'righticon'] }
-
-  //WIDTH ATTRIBUTE
-  get width() { return getStringAtt(this, 'width') }
-  set width(val) { setStringAtt(this, 'width', val) }
+  static get observedAttributes() { return ['height', 'background', 'color', 'type', 'content', 'hover', 'cursor', 'lefticon', 'righticon'] }
 
   //HEIGHT ATTRIBUTE
   get height() { return getStringAtt(this, 'height') }
@@ -589,6 +585,8 @@ customElements.define('o-button', class extends HTMLElement {
     //DIV
     const div = document.createElement('div')
     div.classList.add('button', 'button-text')
+    div.style.width = 'inherit'
+    div.style.height = 'inherit'
     shadow.appendChild(div)
     //SLOT
     const slot = document.createElement('slot')
@@ -712,13 +710,14 @@ customElements.define('o-button', class extends HTMLElement {
 
 customElements.define('o-input', class extends HTMLElement {
   static get observedAttributes() { 
-    return ['width', 'value', 'background', 'color', 'transparent', 'placeholder', 
+    return ['value', 'background', 'color', 'transparent', 'placeholder', 
             'label', 'showlabel', 'type', 'max', 'disabled'] 
   }
-
-  //WIDTH ATTRIBUTE
-  get width() { return getStringAtt(this, 'width') }
-  set width(val) { setStringAtt(this, 'width', val) }
+  
+  //ELEMENTS
+  get div() { return this.shadowRoot.querySelector('div') }
+  get input() { return this.shadowRoot.querySelector('input') }
+  get span() { return this.shadowRoot.querySelector('span') }
   
   //VALUE ATTRIBUTE
   get value() { return this.shadowRoot.querySelector('input').value }
@@ -757,8 +756,8 @@ customElements.define('o-input', class extends HTMLElement {
   set max(val) { setStringAtt(this, 'max', val) }
 
   //DISABLED ATTRIBUTE
-  get disabled() { return getBooleanAtt(this, 'disabled') }
-  set disabled(val) { setBooleanAtt(this, 'disabled', val) }
+  get disabled() { return this.input.disabled }
+  set disabled(val) { this.input.disabled = val }
 
   //CONSTRUCTOR
   constructor() {
@@ -771,7 +770,7 @@ customElements.define('o-input', class extends HTMLElement {
     //DIV
     const div = document.createElement('div')
     div.classList.add('button')
-    div.style.width = '200px'
+    div.style.width = 'inherit'
     shadow.appendChild(div)
     //INPUT
     const input = document.createElement('input')
@@ -786,78 +785,72 @@ customElements.define('o-input', class extends HTMLElement {
     div.appendChild(label)
   }
 
+  connectedCallback() {
+    if (this.style.width == '') 
+      this.style.width = '200px'
+  }
+
   attributeChangedCallback(name, oldVal, val) {
-    const div = this.shadowRoot.querySelector('div')
-    const input = this.shadowRoot.querySelector('input')
-    const span = this.shadowRoot.querySelector('span')
     switch(name) {
-      //WIDTH
-      case 'width':
-        if (this.width != '')
-          div.style.width = this.width
-        else
-          div.style.width = '200px'
-        break
       //VALUE
       case 'value':
-        input.value = val
+        this.input.value = val
         break
       //BACKGROUND
       case 'background':
-        div.style.setProperty('--oBackground', getOrionColor(val))
+        this.div.style.setProperty('--oBackground', getOrionColor(val))
         break
       //COLOR
       case 'color':
-        div.style.setProperty('--oColor', getOrionColor(val))
+        this.div.style.setProperty('--oColor', getOrionColor(val))
         break
       //TRANSPARENT
       case 'transparent':
-        //TRANSPARENT
         if (this.hasAttribute('transparent')) {
-          setStringAtt(div, 'shape', 'ghost')
-          setStringAtt(div, 'hover', 'none')
-          div.style.setProperty('--oBorderR', 0)
-          input.style.width = '100%'
-          input.style.padding = '0'
-          span.style.left = '0'
+          setStringAtt(this.div, 'shape', 'ghost')
+          setStringAtt(this.div, 'hover', 'none')
+          this.div.style.setProperty('--oBorderR', 0)
+          this.input.style.width = '100%'
+          this.input.style.padding = '0'
+          this.span.style.left = '0'
         } else {
-          setStringAtt(div, 'shape', 'plain')
-          setStringAtt(div, 'hover', '')
-          div.style.setProperty('--oBorderR', 'var(--buttonCorner)')
-          input.style.width = 'calc(100% - 20px)'
-          input.style.padding = '0 10px'
-          span.style.left = '10px'
+          setStringAtt(this.div, 'shape', 'plain')
+          setStringAtt(this.div, 'hover', '')
+          this.div.style.setProperty('--oBorderR', 'var(--buttonCorner)')
+          this.input.style.width = 'calc(100% - 20px)'
+          this.input.style.padding = '0 10px'
+          this.span.style.left = '10px'
         }
         break
       //PLACEHOLDER
       case 'placeholder':
-        input.placeholder = val
+        this.input.placeholder = val
         break
       //LABEL
       case 'label':
-        span.innerHTML = val
+        this.span.innerHTML = val
         break
       //SHOWLABEL
       case 'showlabel':
         if (this.hasAttribute('showlabel')) 
-          span.style.opacity = '1'
+          this.span.style.opacity = '1'
         else 
-          span.style.opacity = ''
+          this.span.style.opacity = ''
         break
       //TYPE
       case 'type':
         if (val == '' || val == null) 
-          input.type = 'text'
+          this.input.type = 'text'
         else 
-          input.type = val
+          this.input.type = val
         break
       //MAX
       case 'max':
-        input.maxLength = val
+        this.input.maxLength = val
         break
       //DISABLED
       case 'disabled':
-        input.disabled = this.hasAttribute('disabled')
+        this.input.disabled = this.hasAttribute('disabled')
         break
     }
   }
@@ -877,7 +870,21 @@ customElements.define('o-input', class extends HTMLElement {
  \______/ |__/     \__/|______/   |__/   \______/ |__/  |_*/
 
 customElements.define('o-switch', class extends HTMLElement {
-  static get observedAttributes() { return ['background', 'color', 'type', 'checked'] }
+  static get observedAttributes() { return ['checked', 'disabled', 'background', 'color', 'type'] }
+  
+  //ELEMENTS
+  get input() { return this.shadowRoot.querySelector('input') }
+
+  //FUNCTIONS
+  get toggle() { this.input.click(); return this.input.checked }
+
+  //CHECKED ATTRIBUTE
+  get checked() { return this.input.checked }
+  set checked(val) { this.input.checked = val }
+
+  //DISABLED ATTRIBUTE
+  get disabled() { return this.input.disabled }
+  set disabled(val) { this.input.disabled = val }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -890,10 +897,6 @@ customElements.define('o-switch', class extends HTMLElement {
   //TYPE ATTRIBUTE
   get type() { return getStringAtt(this, 'type') }
   set type(val) { setStringAtt(this, 'type', val, ['small']) }
-
-  //CHECKED ATTRIBUTE
-  get checked() { return this.shadowRoot.querySelector('input').checked }
-  set checked(val) { this.shadowRoot.querySelector('input').checked = val }
 
   //CONSTRUCTOR
   constructor() {
@@ -911,28 +914,31 @@ customElements.define('o-switch', class extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldVal, val) {
-    const input = this.shadowRoot.querySelector('input')
     switch(name) {
+      //CHECKED
+      case 'checked':
+        this.input.checked = this.hasAttribute('checked')
+        break
+      //DISABLED
+      case 'disabled':
+        this.input.disabled = this.hasAttribute('disabled')
+        break
       //BACKGROUND
       case 'background':
-        input.style.setProperty('--oBackground', getOrionColor(val))
+        this.input.style.setProperty('--oBackground', getOrionColor(val))
         break
       //COLOR
       case 'color':
-        input.style.setProperty('--oColor', getOrionColor(val))
+        this.input.style.setProperty('--oColor', getOrionColor(val))
         break
       //TYPE
       case 'type':
         if (val == 'small')
-          input.setAttribute('switch', val)
+          this.input.setAttribute('switch', val)
         else
-          input.removeAttribute('switch')
+          this.input.removeAttribute('switch')
         break
-      //CHECKED
-      case 'checked':
-        input.checked = this.hasAttribute('checked')
-        break
-    }
+      }
   }
 })
 
@@ -950,7 +956,22 @@ customElements.define('o-switch', class extends HTMLElement {
 |________/|__/ \______/ |__/     \__/|______/   |__/   \______/ |__/  |_*/
 
 customElements.define('o-eswitch', class extends HTMLElement {
-  static get observedAttributes() { return ['background', 'color', 'left', 'right', 'checked'] }
+  static get observedAttributes() { return ['checked', 'disabled', 'background', 'color', 'left', 'right'] }
+  
+  //ELEMENTS
+  get div() { return this.shadowRoot.querySelector('div') }
+  get input() { return this.shadowRoot.querySelector('input') }
+
+  //FUNCTIONS
+  get toggle() { this.input.click(); return this.input.checked }
+
+  //CHECKED ATTRIBUTE
+  get checked() { return this.input.checked }
+  set checked(val) { this.input.checked = val }
+
+  //DISABLED ATTRIBUTE
+  get disabled() { return this.input.disabled }
+  set disabled(val) { this.input.disabled = val }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -967,10 +988,6 @@ customElements.define('o-eswitch', class extends HTMLElement {
   //COLOR ATTRIBUTE
   get right() { return getStringAtt(this, 'right') }
   set right(val) { setStringAtt(this, 'right', val) }
-
-  //CHECKED ATTRIBUTE
-  get checked() { return this.shadowRoot.querySelector('input').checked }
-  set checked(val) { this.shadowRoot.querySelector('input').checked = val }
 
   //CONSTRUCTOR
   constructor() {
@@ -1003,30 +1020,32 @@ customElements.define('o-eswitch', class extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldVal, val) {
-    const div = this.shadowRoot.querySelector('div')
-    const input = this.shadowRoot.querySelector('input')
     switch(name) {
+      //CHECKED
+      case 'checked':
+        this.input.checked = this.hasAttribute('checked')
+        break
+      //DISABLED
+      case 'disabled':
+        this.input.disabled = this.hasAttribute('disabled')
+        break
       //BACKGROUND
       case 'background':
-        div.style.setProperty('--oBackground', getOrionColor(val))
+        this.div.style.setProperty('--oBackground', getOrionColor(val))
         break
       //COLOR
       case 'color':
-        div.style.setProperty('--oColor', getOrionColor(val))
+        this.div.style.setProperty('--oColor', getOrionColor(val))
         break
       //LEFT
       case 'left':
-        let leftDiv = div.querySelector("#leftSwitchDiv")
+        let leftDiv = this.div.querySelector("#leftSwitchDiv")
         leftDiv.innerHTML = this.left
         break
       //RIGHT
       case 'right':
-        let rightDiv = div.querySelector("#rightSwitchDiv")
+        let rightDiv = this.div.querySelector("#rightSwitchDiv")
         rightDiv.innerHTML = this.right
-        break
-      //CHECKED
-      case 'checked':
-        input.checked = this.hasAttribute('checked')
         break
     }
   }
@@ -1046,7 +1065,21 @@ customElements.define('o-eswitch', class extends HTMLElement {
  \______/ |__/  |__/|________/ \______/ |__/  \__/|_______/  \______/ |__/  |_*/
 
 customElements.define('o-checkbox', class extends HTMLElement {
-  static get observedAttributes() { return ['background', 'color', 'type', 'checked'] }
+  static get observedAttributes() { return ['checked', 'disabled', 'background', 'color', 'type'] }
+  
+  //ELEMENTS
+  get input() { return this.shadowRoot.querySelector('input') }
+
+  //FUNCTIONS
+  get toggle() { this.input.click(); return this.input.checked }
+
+  //CHECKED ATTRIBUTE
+  get checked() { return this.input.checked }
+  set checked(val) { this.input.checked = val }
+
+  //DISABLED ATTRIBUTE
+  get disabled() { return this.input.disabled }
+  set disabled(val) { this.input.disabled = val }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -1059,10 +1092,6 @@ customElements.define('o-checkbox', class extends HTMLElement {
   //TYPE ATTRIBUTE
   get type() { return getStringAtt(this, 'type') }
   set type(val) { setStringAtt(this, 'type', val, ['reverse']) }
-
-  //CHECKED ATTRIBUTE
-  get checked() { return this.shadowRoot.querySelector('input').checked }
-  set checked(val) { this.shadowRoot.querySelector('input').checked = val }
 
   //CONSTRUCTOR
   constructor() {
@@ -1080,26 +1109,29 @@ customElements.define('o-checkbox', class extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldVal, val) {
-    const input = this.shadowRoot.querySelector('input')
     switch(name) {
+      //CHECKED
+      case 'checked':
+        this.input.checked = this.hasAttribute('checked')
+        break
+      //DISABLED
+      case 'disabled':
+        this.input.disabled = this.hasAttribute('disabled')
+        break
       //BACKGROUND
       case 'background':
-        input.style.setProperty('--oBackground', getOrionColor(val))
+        this.input.style.setProperty('--oBackground', getOrionColor(val))
         break
       //COLOR
       case 'color':
-        input.style.setProperty('--oColor', getOrionColor(val))
+        this.input.style.setProperty('--oColor', getOrionColor(val))
         break
       //TYPE
       case 'type':
         if (val == 'reverse')
-          input.setAttribute('checkbox', val)
+          this.input.setAttribute('checkbox', val)
         else
-          input.removeAttribute('checkbox')
-        break
-      //CHECKED
-      case 'checked':
-        input.checked = this.hasAttribute('checked')
+          this.input.removeAttribute('checkbox')
         break
     }
   }
@@ -1119,7 +1151,25 @@ customElements.define('o-checkbox', class extends HTMLElement {
 |__/  |__/|__/  |__/|_______/ |______/ \_____*/
 
 customElements.define('o-radio', class extends HTMLElement {
-  static get observedAttributes() { return ['background', 'color', 'type', 'name', 'checked'] }
+  static get observedAttributes() { return ['name', 'checked', 'disabled', 'background', 'color', 'type'] }
+  
+  //ELEMENTS
+  get input() { return this.querySelector('input') }
+
+  //FUNCTIONS
+  get toggle() { this.input.click(); return this.input.checked }
+
+  //NAME ATTRIBUTE
+  get name() { this.input.name }
+  set name(val) { this.input.name = val }
+
+  //CHECKED ATTRIBUTE
+  get checked() { return this.input.checked }
+  set checked(val) { this.input.checked = val }
+
+  //DISABLED ATTRIBUTE
+  get disabled() { return this.input.disabled }
+  set disabled(val) { this.input.disabled = val }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -1133,14 +1183,6 @@ customElements.define('o-radio', class extends HTMLElement {
   get type() { return getStringAtt(this, 'type') }
   set type(val) { setStringAtt(this, 'type', val, ['reverse']) }
 
-  //NAME ATTRIBUTE
-  get name() { this.querySelector('input').name }
-  set name(val) { this.querySelector('input').name }
-
-  //CHECKED ATTRIBUTE
-  get checked() { return this.querySelector('input').checked }
-  set checked(val) { this.querySelector('input').checked = val }
-
   //CONSTRUCTOR
   constructor() {
     super()
@@ -1150,6 +1192,12 @@ customElements.define('o-radio', class extends HTMLElement {
     const input = document.createElement('input')
     input.classList.add('button', 'radio')
     input.type = 'radio'
+    //NAME
+    input.name = getStringAtt(this, 'name')
+    //CHECKED
+    input.checked = this.hasAttribute('checked')
+    //DISABLED
+    input.disabled = this.hasAttribute('disabled')
     //BACKGROUND
     let background = this.background
     input.style.setProperty('--oBackground', getOrionColor(background))
@@ -1162,40 +1210,39 @@ customElements.define('o-radio', class extends HTMLElement {
       input.setAttribute('radio', type)
     else
       input.removeAttribute('radio')
-    //NAME
-    input.name = getStringAtt(this, 'name')
-    //CHECKED
-    input.checked = this.hasAttribute('checked')
     //APPEND
     this.appendChild(input)
   }
 
   attributeChangedCallback(name, oldVal, val) {
-    const input = this.querySelector('input')
-    if (input == null) return
+    if (this.input == null) return
     switch(name) {
+      //NAME
+      case 'name':
+        this.input.name = val
+        break
+      //CHECKED
+      case 'checked':
+        this.input.checked = this.hasAttribute('checked')
+        break
+      //DISABLED
+      case 'disabled':
+        this.input.disabled = this.hasAttribute('disabled')
+        break
       //BACKGROUND
       case 'background':
-        input.style.setProperty('--oBackground', getOrionColor(val))
+        this.input.style.setProperty('--oBackground', getOrionColor(val))
         break
       //COLOR
       case 'color':
-        input.style.setProperty('--oColor', getOrionColor(val))
+        this.input.style.setProperty('--oColor', getOrionColor(val))
         break
       //TYPE
       case 'type':
         if (val == 'reverse')
-          input.setAttribute('radio', val)
+          this.input.setAttribute('radio', val)
         else
-          input.removeAttribute('radio')
-        break
-      //NAME
-      case 'name':
-        input.name = val
-        break
-      //CHECKED
-      case 'checked':
-        input.checked = this.hasAttribute('checked')
+          this.input.removeAttribute('radio')
         break
     }
   }
@@ -1216,10 +1263,6 @@ customElements.define('o-radio', class extends HTMLElement {
 
 customElements.define('o-seekbar', class extends HTMLElement {
   static get observedAttributes() { return ['width', 'background', 'color', 'min', 'max', 'value'] }
-
-  //WIDTH ATTRIBUTE
-  get width() { return getStringAtt(this, 'width') }
-  set width(val) { setStringAtt(this, 'width', val) }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -1259,10 +1302,6 @@ customElements.define('o-seekbar', class extends HTMLElement {
   attributeChangedCallback(name, oldVal, val) {
     const input = this.shadowRoot.querySelector('input')
     switch(name) {
-      //WIDTH
-      case 'width':
-        input.style.width = this.width
-        break
       //BACKGROUND
       case 'background':
         input.style.setProperty('--oBackground', getOrionColor(val))
@@ -1436,15 +1475,18 @@ customElements.define('o-loading', class extends HTMLElement {
 |__/     |__/ \______/ |_______/  \______/ |________/|_______*/
 
 customElements.define('o-module', class extends HTMLElement {
-  static get observedAttributes() { return ['background', 'color', 'image', 'name', 'checked'] }
+  static get observedAttributes() { return ['image', 'name', 'checked', 'button'] }
+  
+  //ELEMENTS
+  get div() { return this.querySelector('div') }
+  get input() { return this.querySelector('input') }
+
+  //FUNCTIONS
+  get toggle() { this.input.click(); return this.input.checked }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
   set background(val) { setStringAtt(this, 'background', val) }
-
-  //COLOR ATTRIBUTE
-  get color() { return getStringAtt(this, 'color') }
-  set color(val) { setStringAtt(this, 'color', val) }
   
   //IMAGE ATTRIBUTE
   get image() { return getStringAtt(this, 'image') }
@@ -1455,8 +1497,12 @@ customElements.define('o-module', class extends HTMLElement {
   set name(val) { setStringAtt(this, 'name', val) }
 
   //CHECKED ATTRIBUTE
-  get checked() { return this.querySelector('input').checked }
-  set checked(val) { this.querySelector('input').checked = val }
+  get checked() { return this.input.checked }
+  set checked(val) { this.input.checked = val }
+
+  //BUTTON ATTRIBUTE
+  get button() { return getBooleanAtt(this, 'button') }
+  set button(val) { setBooleanAtt(this, 'button', val) }
 
   //CONSTRUCTOR
   constructor() {
@@ -1469,31 +1515,31 @@ customElements.define('o-module', class extends HTMLElement {
                         <img src="${this.image}"></img>
                         <div>${this.name}</div>
                       </div>`
+    if (this.hasAttribute('button'))
+      this.input.classList.add('button')
   }
 
   attributeChangedCallback(name, oldVal, val) {
-    const input = this.querySelector('input')
-    if (input == null) return
+    if (this.input == null) return
     switch(name) {
-      //BACKGROUND
-      case 'background':
-        input.style.setProperty('--oBackground', getOrionColor(val))
-        break
-      //COLOR
-      case 'color':
-        input.style.setProperty('--oColor', getOrionColor(val))
-        break
       //IMAGE
-      case 'image':
-        input.image = val
+      case 'image': 
+        this.input.image = val
         break
       //NAME
       case 'name':
-        input.name = val
+        this.input.name = val
         break
       //CHECKED
       case 'checked':
-        input.checked = this.hasAttribute('checked')
+        this.input.checked = this.hasAttribute('checked')
+        break
+      //BUTTON
+      case 'button':
+        if (this.hasAttribute('button'))
+          this.input.classList.add('button')
+        else
+          this.input.classList.remove('button')
         break
     }
   }
