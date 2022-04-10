@@ -281,7 +281,7 @@ function dialogBuilder(type, options) {
       dialog.inputId = 'input-'+id
       dialog.confirmId = 'confirm-'+id
       dialog.innerHTML = `<div class="vc" style="width: 500px; max-width: 500px; position: relative; padding: 20px; text-align: center; font-size: 15px;">
-                            <o-input id="${dialog.inputId}" width="100%" placeholder="${placeholder}" label="${label}"></o-input>
+                            <o-input id="${dialog.inputId}" placeholder="${placeholder}" label="${label}" style="width: 100%;"></o-input>
                             <o-button id="${dialog.confirmId}" type="ghost" style="margin: 20px 0 0 auto;">Confirm</o-button>
                           </div>`
       break
@@ -810,14 +810,12 @@ customElements.define('o-input', class extends HTMLElement {
           setStringAtt(this.div, 'shape', 'ghost')
           setStringAtt(this.div, 'hover', 'none')
           this.div.style.setProperty('--oBorderR', 0)
-          this.input.style.width = '100%'
           this.input.style.padding = '0'
           this.span.style.left = '0'
         } else {
           setStringAtt(this.div, 'shape', 'plain')
           setStringAtt(this.div, 'hover', '')
           this.div.style.setProperty('--oBorderR', 'var(--buttonCorner)')
-          this.input.style.width = 'calc(100% - 20px)'
           this.input.style.padding = '0 10px'
           this.span.style.left = '10px'
         }

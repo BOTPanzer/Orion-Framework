@@ -337,7 +337,7 @@ img {
 |______/|__/  \__/|__/       \______/    |_*/
 
 .input {
-  width: calc(100% - 20px);
+  width: inherit;
   min-height: 40px;
   max-height: 40px;
   padding: 0 10px;
