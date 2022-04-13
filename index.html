@@ -405,7 +405,7 @@
     |_______/  \______/  \______/  \____-->
 
     <div id="docs" class="vc" style="width: calc(100% - 250px); padding: 2% 0; align-items: center; background: var(--background); border-top-left-radius: 30px; overflow: auto; scroll-behavior: smooth; position: relative;">
-      <div id="title" class="title">Orion Framework v2.0.8</div>
+      <div id="title" class="title">Orion Framework v2.1.0</div>
 
       <div class="type-c" style="padding-top: 0;">
         <div class="desc">
@@ -413,7 +413,7 @@
           This project got separated from Oriøn Assistant in an attempt to make it available for everyone.
         </div>
       </div>
-      
+
        <!--  /$$ /$$$$$$$$ /$$      /$$ /$$      
       | $$  | $$|__  $$__/| $$$    /$$$| $$      
       | $$  | $$   | $$   | $$$$  /$$$$| $$      
@@ -580,7 +580,7 @@
         <div id="button-content" class="cat-c">
           <div class="cat">CONTENT</div>
           <div class="desc">
-            To prepare your button to it's content, you can use the <span class="cod">content</span> attribute.<br>
+            To prepare your button to it's content, you can use the <span class="cod">content</span> attribute. Additionally, to make the content vertical use the <span class="cod">vertical</span> attribute.<br>
             Content value can set to <span class="cod">text</span> (default), <span class="cod">textbox</span> (text without padding), <span class="cod">emote</span> and <span class="cod">box</span> (makes it a container).
           </div>
           <div class="display">
@@ -1560,20 +1560,11 @@
           <div class="cat">FUNCTIONS</div>
           <div class="desc">
             These are some of the (functions) related to context menus:<br>
-            &nbsp;&nbsp;• <span class="cod">closeCTXMenu(id)</span> closes the menu with the specified ID.<br>
-            &nbsp;&nbsp;• <span class="cod">CTXCopy(text)</span> copies the specified text.<br>
-            &nbsp;&nbsp;• <span class="cod">CTXCutInput(target)</span> cuts the target (must be an input) text.<br>
-            &nbsp;&nbsp;• <span class="cod">CTXPasteInput(target)</span> (async) pastes clipboard to the target (must be an input).
+            &nbsp;&nbsp;• <span class="cod">closeCTXMenu(id)</span> closes the menu with the specified ID.
           </div>
           <div class="code">
             let id = createCTXMenu()<br>
-            closeCTXMenu(<span class="high">id</span>)<br>
-            <br>
-            CTXCopy(<span class="high">'Text'</span>)<br>
-            <br>
-            CTXCutInput(<span class="high">target</span>)<br>
-            <br>
-            CTXPasteInput(<span class="high">target</span>)<br>
+            <span class="high">closeCTXMenu(id)</span>
           </div>
         </div>
       </div>

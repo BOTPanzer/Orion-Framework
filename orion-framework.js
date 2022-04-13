@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-             /$$$$$$       /$$$$$$      /$$$$$$ 
-            /$$__  $$     /$$$_  $$    /$$__  $$
- /$$    /$$|__/  \ $$    | $$$$\ $$   | $$  \ $$
-|  $$  /$$/  /$$$$$$/    | $$ $$ $$   |  $$$$$$/
- \  $$/$$/  /$$____/     | $$\ $$$$    >$$__  $$
-  \  $$$/  | $$          | $$ \ $$$   | $$  \ $$
-   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
-    \_/    |________/|__/ \______/|__/ \_____*/
+             /$$$$$$        /$$        /$$$$$$ 
+            /$$__  $$     /$$$$       /$$$_  $$
+ /$$    /$$|__/  \ $$    |_  $$      | $$$$\ $$
+|  $$  /$$/  /$$$$$$/      | $$      | $$ $$ $$
+ \  $$/$$/  /$$____/       | $$      | $$\ $$$$
+  \  $$$/  | $$            | $$      | $$ \ $$$
+   \  $/   | $$$$$$$$ /$$ /$$$$$$ /$$|  $$$$$$/
+    \_/    |________/|__/|______/|__/ \_____*/
 
 
 
@@ -375,37 +375,101 @@ function closeCTXMenu(id) {
     document.getElementById(id).remove()
 }
 
-function CTXCopy(text) {
-  //CHECK ARGS
-  if (typeof text !== 'string') return
-  //COPY TO CLIP
-  navigator.clipboard.writeText(text).then((err) => { if (err) createNoti('Oriøn Assistant', "Couldn't Copy: "+err) })
+
+
+
+
+ /*$       /$$$$$$  /$$$$$$  /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$$ /$$$$$$$   /$$$$$$ 
+| $$      |_  $$_/ /$$__  $$|__  $$__/| $$_____/| $$$ | $$| $$_____/| $$__  $$ /$$__  $$
+| $$        | $$  | $$  \__/   | $$   | $$      | $$$$| $$| $$      | $$  \ $$| $$  \__/
+| $$        | $$  |  $$$$$$    | $$   | $$$$$   | $$ $$ $$| $$$$$   | $$$$$$$/|  $$$$$$ 
+| $$        | $$   \____  $$   | $$   | $$__/   | $$  $$$$| $$__/   | $$__  $$ \____  $$
+| $$        | $$   /$$  \ $$   | $$   | $$      | $$\  $$$| $$      | $$  \ $$ /$$  \ $$
+| $$$$$$$$ /$$$$$$|  $$$$$$/   | $$   | $$$$$$$$| $$ \  $$| $$$$$$$$| $$  | $$|  $$$$$$/
+|________/|______/ \______/    |__/   |________/|__/  \__/|________/|__/  |__/ \_____*/ 
+
+function clickListener(id, func) {
+  if (typeof id !== 'string') return
+  if (typeof func !== 'function') return
+  //ADD LISTENER
+  const elem = document.getElementById(id)
+  if (elem != null) elem.onclick = func
 }
 
-function CTXCutInput(target) {
-  const ss = target.selectionStart
-  const se = target.selectionEnd
-  if (ss != undefined && se != undefined) {
-    //CUT SELECTION
-    let text = target.value.slice(ss, se)
-    target.value = target.value.slice(0, ss)+target.value.slice(se)
-    navigator.clipboard.writeText(text).then((err) => { if (err) createNoti('Oriøn Assistant', "Couldn't Cut: "+err) })
+function duobleClickListener(id, func) {
+  if (typeof id !== 'string') return
+  if (typeof func !== 'function') return
+  //ADD LISTENER
+  const elem = document.getElementById(id)
+  if (elem != null) elem.ondblclick = func
+}
+
+function longpressListener(id, func, time) {
+  if (typeof id !== 'string') return
+  if (typeof func !== 'function') return
+  if (typeof time !== 'number') return
+  //TIMER
+  let timer = null
+  //ADD LISTENER
+  const elem = document.getElementById(id)
+  if (elem != null) {
+    elem.onmouseup = function() { clearTimeout(timer) }
+    elem.onmousedown = function() { timer = setTimeout(func, time) }
   }
 }
 
-async function CTXPasteInput(target) {
-  const clip = await navigator.clipboard.readText()
-  const ss = target.selectionStart
-  const se = target.selectionEnd
-  if (ss != undefined && se != undefined)
-    //PASTE FROM SELECTION START TO END
-    target.value = target.value.slice(0, ss)+clip+target.value.slice(se)
-  else if (ss != undefined)
-    //PASTE AT SELECTION START
-    target.value = target.value.slice(0, ss)+clip+target.value.slice(ss)
-  else
-    //NO SELECTION => PASTE AT END
-    target.value = target.value+clip
+function contextListener(id, func) {
+  if (typeof id !== 'string') return
+  if (typeof func !== 'function') return
+  //ADD LISTENER
+  const elem = document.getElementById(id)
+  if (elem != null) elem.oncontextmenu = func
+}
+
+function changeListener(id, func) {
+  if (typeof id !== 'string') return
+  if (typeof func !== 'function') return
+  //ADD LISTENER
+  const elem = document.getElementById(id)
+  if (elem != null) elem.onchange = func
+}
+
+function inputListener(id, func) {
+  if (typeof id !== 'string') return
+  if (typeof func !== 'function') return
+  //ADD LISTENER
+  const elem = document.getElementById(id)
+  if (elem != null) elem.oninput = func
+}
+
+function keydownListener(id, func) {
+  if (typeof id !== 'string') return
+  if (typeof func !== 'function') return
+  //ADD LISTENER
+  const elem = document.getElementById(id)
+  if (elem != null) elem.onkeydown = func
+}
+
+function dropListener(id, over, leave, drop) {
+  if (typeof id !== 'string') return
+  if (typeof over !== 'function') return
+  if (typeof leave !== 'function') return
+  if (typeof drop !== 'function') return
+  //ADD LISTENERS
+  const elem = document.getElementById(id)
+  if (elem != null) {
+    elem.ondragover = () => { 
+      event.preventDefault()
+      event.stopPropagation()
+      over()
+    }
+    elem.ondragleave = () => { 
+      event.preventDefault()
+      event.stopPropagation()
+      leave() 
+    }
+    elem.ondrop = drop
+  }
 }
 
 
@@ -536,7 +600,10 @@ function getOrionColor(val) {
 |_______/  \______/    |__/      |__/   \______/ |__/  \_*/
 
 customElements.define('o-button', class extends HTMLElement {
-  static get observedAttributes() { return ['background', 'color', 'type', 'content', 'hover', 'cursor', 'lefticon', 'righticon'] }
+  static get observedAttributes() { return ['background', 'color', 'type', 'content', 'vertical', 'hover', 'cursor', 'lefticon', 'righticon'] }
+
+  //ELEMENTS
+  get div() { return this.shadowRoot.querySelector('div') }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -553,6 +620,10 @@ customElements.define('o-button', class extends HTMLElement {
   //CONTENT ATTRIBUTE
   get content() { return getStringAtt(this, 'content') }
   set content(val) { setStringAtt(this, 'content', val) }
+
+  //VERTICAL ATTRIBUTE
+  get vertical() { return getBooleanAtt(this, 'vertical') }
+  set vertical(val) { setBooleanAtt(this, 'vertical', val) }
 
   //HOVER ATTRIBUTE
   get hover() { return getStringAtt(this, 'hover') }
@@ -594,75 +665,81 @@ customElements.define('o-button', class extends HTMLElement {
   }
   
   attributeChangedCallback(name, oldVal, val) {
-    const div = this.shadowRoot.querySelector('div')
     switch(name) {
       //BACKGROUND
       case 'background':
-        div.style.setProperty('--oBackground', getOrionColor(this.background))
+        this.div.style.setProperty('--oBackground', getOrionColor(this.background))
         break
       //COLOR
       case 'color':
-        div.style.setProperty('--oColor', getOrionColor(this.color))
+        this.div.style.setProperty('--oColor', getOrionColor(this.color))
         break
       //TYPE
       case 'type':
-        setStringAtt(div, 'shape', this.type)
+        setStringAtt(this.div, 'shape', this.type)
         break
       //CONTENT
       case 'content':
-        div.style.padding = ''
+        this.div.style.padding = ''
         if (this.content == 'emote') {
-          div.classList.add('button-emote')
-          div.classList.remove('button-text')
+          this.div.classList.add('button-emote')
+          this.div.classList.remove('button-text')
         } else if (this.content == 'box') {
-          div.classList.remove('button-emote', 'button-text')
+          this.div.classList.remove('button-emote', 'button-text')
         } else {
-          div.classList.remove('button-emote')
-          div.classList.add('button-text')
+          this.div.classList.remove('button-emote')
+          this.div.classList.add('button-text')
           if (this.content == 'textbox')
-            div.style.padding = '0'
+          this.div.style.padding = '0'
         }
+        break
+      //VERTICAL
+      case 'vertical':
+        if (this.hasAttribute('vertical'))
+          this.div.style.flexDirection = 'column'
+        else
+          this.div.style.flexDirection = 'row'
         break
       //HOVER
       case 'hover':
-        setStringAtt(div, 'hover', this.hover)
+        setStringAtt(this.div, 'hover', this.hover)
         break
       //CURSOR
       case 'cursor':
-        setStringAtt(div, 'cursor', this.cursor)
+        setStringAtt(this.div, 'cursor', this.cursor)
         break
       //LEFT ICON
       case 'lefticon':
-        let leftImg = div.querySelector("#leftButtonImg")
+        let leftImg = this.div.querySelector("#leftButtonImg")
         if (this.lefticon != '') {
           if (leftImg == null) {
             leftImg = document.createElement('img')
             leftImg.id = 'leftButtonImg'
             leftImg.classList.add('button-image')
-            div.prepend(leftImg)
+            this.div.prepend(leftImg)
           }
           leftImg.src = this.lefticon
-          div.style.paddingLeft = '0'
+          this.div.style.paddingLeft = '0'
         } else if (leftImg != null) {
           leftImg.remove()
-          div.style.paddingLeft = ''
+          this.div.style.paddingLeft = ''
         }
         break
       //RIGHT ICON
       case 'righticon':
-        let rightImg = div.querySelector("#rightButtonImg")
+        let rightImg = this.div.querySelector("#rightButtonImg")
         if (this.righticon != '') {
           if (rightImg == null) {
             rightImg = document.createElement('img')
             rightImg.id = 'rightButtonImg'
             rightImg.classList.add('button-image')
-            div.append(rightImg)
+            this.div.append(rightImg)
           }
           rightImg.src = this.righticon
-          div.style.paddingRight = '0'
+          this.div.style.paddingRight = '0'
         } else if (rightImg != null) {
           rightImg.remove()
-          div.style.paddingRight = ''
+          this.div.style.paddingRight = ''
         }
         break
     }
@@ -691,11 +768,11 @@ customElements.define('o-input', class extends HTMLElement {
   //ELEMENTS
   get div() { return this.shadowRoot.querySelector('div') }
   get input() { return this.shadowRoot.querySelector('input') }
-  get span() { return this.shadowRoot.querySelector('span') }
+  get label() { return this.shadowRoot.querySelector('span') }
   
   //VALUE ATTRIBUTE
-  get value() { return this.shadowRoot.querySelector('input').value }
-  set value(val) { this.shadowRoot.querySelector('input').value = val }
+  get value() { return this.input.value }
+  set value(val) { this.input.value = val }
 
   //BACKGROUND ATTRIBUTE
   get background() { return getStringAtt(this, 'background') }
@@ -751,7 +828,6 @@ customElements.define('o-input', class extends HTMLElement {
     input.classList.add('input')
     input.type = 'text'
     input.spellcheck = false
-    input.oninput = function() { this.value = input.value }
     div.appendChild(input)
     //LABEL
     const label = document.createElement('span')
@@ -786,13 +862,13 @@ customElements.define('o-input', class extends HTMLElement {
           setStringAtt(this.div, 'hover', 'none')
           this.div.style.setProperty('--oBorderR', 0)
           this.input.style.padding = '0'
-          this.span.style.left = '0'
+          this.label.style.left = '0'
         } else {
           setStringAtt(this.div, 'shape', 'plain')
           setStringAtt(this.div, 'hover', '')
           this.div.style.setProperty('--oBorderR', 'var(--buttonCorner)')
           this.input.style.padding = '0 10px'
-          this.span.style.left = '10px'
+          this.label.style.left = '10px'
         }
         break
       //PLACEHOLDER
@@ -801,14 +877,14 @@ customElements.define('o-input', class extends HTMLElement {
         break
       //LABEL
       case 'label':
-        this.span.innerHTML = val
+        this.label.innerHTML = val
         break
       //SHOWLABEL
       case 'showlabel':
         if (this.hasAttribute('showlabel')) 
-          this.span.style.opacity = '1'
+          this.label.style.opacity = '1'
         else 
-          this.span.style.opacity = ''
+          this.label.style.opacity = ''
         break
       //TYPE
       case 'type':
@@ -1452,7 +1528,7 @@ customElements.define('o-loading', class extends HTMLElement {
 |__/     |__/ \______/ |_______/  \______/ |________/|_______*/
 
 customElements.define('o-module', class extends HTMLElement {
-  static get observedAttributes() { return ['image', 'name', 'checked', 'button'] }
+  static get observedAttributes() { return ['checked', 'disabled', 'button', 'image', 'name'] }
   
   //ELEMENTS
   get div() { return this.querySelector('div') }
@@ -1461,9 +1537,17 @@ customElements.define('o-module', class extends HTMLElement {
   //FUNCTIONS
   get toggle() { this.input.click(); return this.input.checked }
 
-  //BACKGROUND ATTRIBUTE
-  get background() { return getStringAtt(this, 'background') }
-  set background(val) { setStringAtt(this, 'background', val) }
+  //CHECKED ATTRIBUTE
+  get checked() { return this.input.checked }
+  set checked(val) { this.input.checked = val }
+
+  //DISABLED ATTRIBUTE
+  get disabled() { return this.input.disabled }
+  set disabled(val) { this.input.disabled = val }
+
+  //BUTTON ATTRIBUTE
+  get button() { return getBooleanAtt(this, 'button') }
+  set button(val) { setBooleanAtt(this, 'button', val) }
   
   //IMAGE ATTRIBUTE
   get image() { return getStringAtt(this, 'image') }
@@ -1472,14 +1556,6 @@ customElements.define('o-module', class extends HTMLElement {
   //NAME ATTRIBUTE
   get name() { return getStringAtt(this, 'name') }
   set name(val) { setStringAtt(this, 'name', val) }
-
-  //CHECKED ATTRIBUTE
-  get checked() { return this.input.checked }
-  set checked(val) { this.input.checked = val }
-
-  //BUTTON ATTRIBUTE
-  get button() { return getBooleanAtt(this, 'button') }
-  set button(val) { setBooleanAtt(this, 'button', val) }
 
   //CONSTRUCTOR
   constructor() {
@@ -1499,17 +1575,13 @@ customElements.define('o-module', class extends HTMLElement {
   attributeChangedCallback(name, oldVal, val) {
     if (this.input == null) return
     switch(name) {
-      //IMAGE
-      case 'image': 
-        this.input.image = val
-        break
-      //NAME
-      case 'name':
-        this.input.name = val
-        break
       //CHECKED
       case 'checked':
         this.input.checked = this.hasAttribute('checked')
+        break
+      //DISABLED
+      case 'disabled':
+        this.input.disabled = this.hasAttribute('disabled')
         break
       //BUTTON
       case 'button':
@@ -1517,6 +1589,14 @@ customElements.define('o-module', class extends HTMLElement {
           this.input.classList.add('button')
         else
           this.input.classList.remove('button')
+        break
+      //IMAGE
+      case 'image': 
+        this.input.image = val
+        break
+      //NAME
+      case 'name':
+        this.input.name = val
         break
     }
   }

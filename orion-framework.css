@@ -16,14 +16,14 @@
 | $$      | $$  | $$| $$  | $$| $$ \/  | $$| $$$$$$$$| $$/   \  $$|  $$$$$$/| $$  | $$| $$ \  $$
 |__/      |__/  |__/|__/  |__/|__/     |__/|________/|__/     \__/ \______/ |__/  |__/|__/  \__/
 
-             /$$$$$$       /$$$$$$      /$$$$$$ 
-            /$$__  $$     /$$$_  $$    /$$__  $$
- /$$    /$$|__/  \ $$    | $$$$\ $$   | $$  \ $$
-|  $$  /$$/  /$$$$$$/    | $$ $$ $$   |  $$$$$$/
- \  $$/$$/  /$$____/     | $$\ $$$$    >$$__  $$
-  \  $$$/  | $$          | $$ \ $$$   | $$  \ $$
-   \  $/   | $$$$$$$$ /$$|  $$$$$$//$$|  $$$$$$/
-    \_/    |________/|__/ \______/|__/ \_____*/
+             /$$$$$$        /$$        /$$$$$$ 
+            /$$__  $$     /$$$$       /$$$_  $$
+ /$$    /$$|__/  \ $$    |_  $$      | $$$$\ $$
+|  $$  /$$/  /$$$$$$/      | $$      | $$ $$ $$
+ \  $$/$$/  /$$____/       | $$      | $$\ $$$$
+  \  $$$/  | $$            | $$      | $$ \ $$$
+   \  $/   | $$$$$$$$ /$$ /$$$$$$ /$$|  $$$$$$/
+    \_/    |________/|__/|______/|__/ \_____*/
 
 
 
@@ -48,6 +48,7 @@ html {
   scroll-behavior: smooth;
   background: var(--background);
   color: var(--text1);
+  fill: var(--text1);
   font-family: Main;
   overflow: hidden;
 
@@ -87,7 +88,7 @@ html {
   --topHover: #2a2e33;
   --topExitHover: #ED4245;
   /*MODULE*/
-  --module: #232629;
+  --module: #272a2e;
   --moduleFilter: brightness(0) invert(1); /*https://angel-rs.github.io/css-color-filter-generator/*/
   --moduleCorner: 10px;
 }
@@ -194,7 +195,7 @@ img {
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
-  transition: border .2s, outline .2s, background .2s, color .2s, fill .2s, transform .2s;
+  transition: transform .2s;
 }
 
 .button::before {
@@ -245,6 +246,7 @@ img {
 
 .button[shape=ghost] {
   background: transparent;
+  --oBorderC: transparent;
   border: none;
 }
 
