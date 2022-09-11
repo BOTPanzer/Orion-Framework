@@ -7,7 +7,7 @@
 <h3 align="center">Oriøn Framework</h3>
 
 <p align="center">
-  Orion Framework is a HTML, CSS & JS framework<br>
+  Orion Framework is an HTML, CSS & JS framework<br>
   initially designed for Orion Assistant
 </p>
 
