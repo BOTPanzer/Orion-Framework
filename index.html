@@ -253,7 +253,7 @@
         <span class="legdot"></span>
         <div>
           <span class="leg2" onclick="scrollElem('button-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('button-type')">Type</span>
+          <span class="leg2" onclick="scrollElem('button-shape')">Shape</span>
           <span class="leg2" onclick="scrollElem('button-content')">Content</span>
           <span class="leg2" onclick="scrollElem('button-hover')">Hover</span>
           <span class="leg2" onclick="scrollElem('button-cursor')">Cursor</span>
@@ -405,7 +405,7 @@
     |_______/  \______/  \______/  \____-->
 
     <div id="docs" class="vc" style="width: calc(100% - 250px); padding: 2% 0; align-items: center; background: var(--background); border-top-left-radius: 30px; overflow: auto; scroll-behavior: smooth; position: relative;">
-      <div id="title" class="title">Orion Framework v2.1.0</div>
+      <div id="title" class="title">Orion Framework v2.2.0</div>
 
       <div class="type-c" style="padding-top: 0;">
         <div class="desc">
@@ -533,11 +533,11 @@
             <o-button>Button</o-button>
           </div>
           <div class="code">
-            &lt;o-switch>&lt;/o-switch><br>
+            &lt;o-button>&lt;/o-button><br>
             <br>
-            &lt;o-button <span class="high">width</span>="100px" <span class="high">height</span>="40px">&lt;/o-button><br>
+            &lt;o-button <span class="high">style="width: 100px; height: 40px;"</span>>&lt;/o-button><br>
             <br>
-            &lt;o-switch><span class="high">Button</span>&lt;/o-switch><br>
+            &lt;o-button><span class="high">Button</span>&lt;/o-button><br>
           </div>
         </div>
         <!-- COLORS -->
@@ -556,32 +556,33 @@
             &lt;o-button <span class="high">color</span>="#d4007c">Color&lt;/o-button><br>
           </div>
         </div>
-        <!-- TYPE -->
-        <div id="button-type" class="cat-c">
-          <div class="cat">TYPE</div>
+        <!-- SHAPE -->
+        <div id="button-shape" class="cat-c">
+          <div class="cat">SHAPE</div>
           <div class="desc">
-            You can also change your button's style with the <span class="cod">type</span> attribute.<br>
-            Type value can set to <span class="cod">plain</span> (default), <span class="cod">border</span> and <span class="cod">ghost</span>.
+            You can also change your button's style with the <span class="cod">shape</span> attribute.<br>
+            Shape value can set to <span class="cod">plain</span> (default), <span class="cod">border</span> and <span class="cod">ghost</span>.
           </div>
           <div class="display">
-            <o-button type="plain">Plain</o-button>
-            <o-button type="border">Border</o-button>
-            <o-button type="ghost">Ghost</o-button>
+            <o-button shape="plain">Plain</o-button>
+            <o-button shape="border">Border</o-button>
+            <o-button shape="ghost">Ghost</o-button>
           </div>
           <div class="code">
-            &lt;o-button <span class="high">type</span>="plain">Plain&lt;/o-button><br>
+            &lt;o-button <span class="high">shape</span>="plain">Plain&lt;/o-button><br>
             <br>
-            &lt;o-button <span class="high">type</span>="border">Border&lt;/o-button><br>
+            &lt;o-button <span class="high">shape</span>="border">Border&lt;/o-button><br>
             <br>
-            &lt;o-button <span class="high">type</span>="ghost">Ghost&lt;/o-button>
+            &lt;o-button <span class="high">shape</span>="ghost">Ghost&lt;/o-button>
           </div>
         </div>
         <!-- CONTENT -->
         <div id="button-content" class="cat-c">
           <div class="cat">CONTENT</div>
           <div class="desc">
-            To prepare your button to it's content, you can use the <span class="cod">content</span> attribute. Additionally, to make the content vertical use the <span class="cod">vertical</span> attribute.<br>
-            Content value can set to <span class="cod">text</span> (default), <span class="cod">textbox</span> (text without padding), <span class="cod">emote</span> and <span class="cod">box</span> (makes it a container).
+            To prepare your button to it's content, you can use the <span class="cod">content</span> attribute.<br>
+            Content value can set to <span class="cod">text</span> (default), <span class="cod">textbox</span> (text without padding), <span class="cod">emote</span> and <span class="cod">box</span> (makes it a container).<br>
+            Additionally, to make the content vertical use the <span class="cod">vertical</span> attribute.
           </div>
           <div class="display">
             <o-button content="text">Text</o-button>
@@ -652,16 +653,13 @@
         <div id="button-icons" class="cat-c">
           <div class="cat">ICONS</div>
           <div class="desc">
-            To add icons to your button, use the <span class="cod">lefticon</span> and <span class="cod">righticon</span> attributes to change the left and right icons respectively.
+            To add an icon to your button, use the <span class="cod">lefticon</span> attribute.
           </div>
           <div class="display">
             <o-button lefticon="Data/Images/logo.png">Left Icon</o-button>
-            <o-button righticon="Data/Images/logo.png">Right Icon</o-button>
           </div>
           <div class="code">
-            &lt;o-button <span class="high">lefticon</span>="Data/Images/logo.png">Left Icon&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">righticon</span>="Data/Images/logo.png">Right Icon&lt;/o-button>
+            &lt;o-button <span class="high">lefticon</span>="Data/Images/logo.png">Left Icon&lt;/o-button>
           </div>
         </div>
       </div>
