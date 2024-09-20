@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://botpanzer.github.io/Orion-Framework/">
-    <img src="https://github.com/BOTPanzer/Orion-Framework/blob/main/Data/Images/logo.png" width="130">
+    <img src="https://github.com/BOTPanzer/Orion-Framework/blob/main/Docs/Images/logo.png" width="130">
   </a>
 </p>
 
