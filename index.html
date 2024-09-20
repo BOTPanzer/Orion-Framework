@@ -6,413 +6,457 @@
   <script src="orion-framework.js"></script>
 </head>
 
+
+
+
+
 <style>
-  /*LEGEND*/
-  .legen {
-    width: calc(100% - 40px);
-    padding: 10px 20px 0 20px;
-    font-size: 18px;
+  @font-face { font-family: Code; src: url('Docs/Code.ttf'); }
+
+  body {
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    flex-direction: column;
+    background-color: var(--button);
+  }
+
+  /* Legend */
+  .legend {
+    min-width: fit-content; 
+    width: fit-content; 
+    height: 100%; 
+    padding: 10px 25px;
+    box-sizing: border-box;
+    display: flex; 
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  .legendTitle {
+    margin-top: 30px;
+    margin-bottom: 5px;
+    font-size: 1.4rem;
     font-family: Display;
-    color: var(--text1);
     text-align: center;
     cursor: pointer;
   }
 
-  .legbox {
-    width: 210px; 
-    margin: 10px 20px 0 20px; 
-    display: flex;
-    flex-direction: column;
-    font-size: 18px; 
-    color: var(--text1); 
+  .legendGroup {
+    --nameHeight: 36px;
+    --itemHeight: 25px;
     position: relative;
+    min-height: fit-content;
   }
 
-  .legbox div {
-    max-height: 250px;
-    margin-left: 20px;
-    display: flex;
-    flex-direction: column;
+  .legendGroupName {
+    height: var(--nameHeight);
+    line-height: var(--nameHeight);
+
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .legendGroupItem {
+    height: 0;
+    line-height: var(--itemHeight);
+
+    font-size: 1rem;
+    padding-left: 20px;
+    cursor: pointer;
     overflow: hidden;
-    transition: max-height .5s ease-in;
-  }
-
-  .legbox input {
-    width: 20px; 
-    height: 20px; 
-    right: 0; 
-    text-align: center;
-    position: absolute; 
-    cursor: pointer;
-    appearance: none;
-  }
-
-  .legbox input:not(:checked) ~ div {
-    max-height: 0;
-    transition: max-height .5s ease-out;
-  }
-
-  .leg {
-    width: 190px;
-    font-size: 18px;
-    color: var(--text1);
-    cursor: pointer;
-  }
-
-  .legdot {
-    width: 20px; 
-    height: 20px; 
-    right: 0; 
-    text-align: center;
-    position: absolute; 
-    cursor: pointer;
+    color: var(--textSecondary);
     pointer-events: none;
+    transition: height .2s;
   }
 
-  .legdot:after {
-    content: '-';
-  }
+  .legendGroup > input {
+    --height: calc(var(--nameHeight) - 6px);
 
-  .legbox input:not(:checked) ~ .legdot:after {
-    content: '+';
-  }
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+    width: var(--height);
+    height: var(--height);
+    margin: 3px 0;
 
-  .leg2 {
-    width: 190px;
-    font-size: 17px;
-    color: var(--text2);
+    appearance: none;
+    border-radius: 50%;
+    transform: rotate(90deg);
     cursor: pointer;
-    transition: all .2s;
-  }
-  
-  .leg2:hover {
-    color: var(--text1);
+
+    transition: transform .2s, background-color .2s;
   }
 
-  /*TYPE CONTAINER*/
-  .type-c {
-    width: 60%;
-    min-width: 500px;
-    padding-top: 30px;
-    margin-bottom: 200px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    position: relative;
+  .legendGroup > input:hover {
+    background-color: var(--hover);
   }
 
-  /*TYPE TITLE*/
-  .title {
-    margin-bottom: 50px;
-    padding-top: 20px;
-    font-family: Display; 
-    font-size: 50px; 
-    line-height: 50px;
-    color: var(--text1);
-  }
-
-  .type {
-    margin: 0 0 10px 0;
-    font-family: Display; 
-    font-size: 40px; 
-    line-height: 40px;
-    color: var(--text1);
-  }
-
-  /*DESCRIPTION*/
-  .desc {
+  .legendGroup > input::after {
+    content: '>';
     width: 100%;
-    margin: 10px 0;
-  }
-
-  /*CATEGORY CONTAINER*/
-  .cat-c {
-    width: 100%;
-    margin: 10px 0 30px 0;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    position: relative;
-  }
-
-  /*CATEGORY TITLE*/
-  .cat {
-    margin: 10px 0;
-    font-family: Display; 
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: var(--height);
+    text-align: center;
+    font-family: Main;
     font-size: 20px;
-    line-height: 20px;
-    text-overflow: ellipsis; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    color: var(--text1);
+    color: var(--text);
   }
 
-  /*TEXT HIGHLIGHTS*/
-  .cod {
-    padding: 0 5px;
-    border-radius: 5px; 
-    background: var(--menu);
-    user-select: text;
-    outline: 2px #ffffff49 solid;
+  .legendGroup > input:checked {
+    transform: rotate(-90deg);
   }
 
-  .high {
-    color: var(--accent)
+  .legendGroup > input:checked ~ .legendGroupItem {
+    height: var(--itemHeight);
+    pointer-events: unset;
   }
 
-  /*DISPLAYS*/
-  .code {
+  .legendGroup > input:checked ~ .legendGroupItem {
+    height: var(--itemHeight);
+    pointer-events: unset;
+  }
+
+  /* Page (navbar & docs) */
+  .page {
     width: 100%;
-    height: fit-content; 
-    padding: 10px;
-    margin: 10px 0 20px 0;
-    font-size: 13px; 
-    font-family: monospace;
-    line-height: 150%;
-    border-radius: var(--buttonCorner); 
-    background: var(--menu);
-    user-select: text;
+    height: calc(100% - 70px);
+    display: flex; 
+    flex-direction: row;
   }
 
-  .display {
-    width: fit-content;
-    margin: 10px auto;
-    display: flex;
+  /* Navbar */
+  .navbar {
+    width: 100%;
+    height: 70px;
+
+    padding: 10px 25px;
+    box-sizing: border-box;
+
+    display: flex; 
     flex-direction: row;
+    gap: 20px;
+  }
+
+  /* Docs layout */
+  .docs {
+    flex: 1; 
+
+    padding: 0 100px 100px 100px; 
+    box-sizing: border-box;
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+
+    overflow-y: scroll; 
+    background-color: var(--background);
+    border-top-left-radius: 40px;
+  }
+
+  .doc {
+    width: max(50%, 50vw);
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 20px; 
   }
 
-  /*BALL*/
-  .ballbox {
-    display: flex;
-    flex-direction: row;
-    align-items: center; 
-    gap: 10px;
+  .doc[first] {
+    margin-bottom: -100px;
   }
 
-  .ball {
-    width: 15px;
-    height: 15px;
-    border-radius: 7.5px;
-    box-shadow: var(--shadow2);
+  .title {
+    margin-top: 120px;
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: Display;
+  }
+
+  .title[big] {
+    font-size: 4rem;
+  }
+
+  .subtitle {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    font-family: Display;
+  }
+
+  att {
+    padding: 2px 7px;
+
+    background-color: var(--button);
+    border-radius: 10px;
+    font-family: Code;
+    user-select: text;
+  }
+
+  .description {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+  }
+
+  /* Docs code snippets */
+  .code {
+    width: 100%;
+    background-color: var(--button);
+    padding: 20px;
+    border-radius: 20px;
+    font-family: Code;
+    user-select: text;
+  }
+
+  high {
+    color: #37c8f5;
+  }
+
+  com {
+    color: #6a9955;
+  }
+
+  ball {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: var(--color);
+    outline: #757575 solid 1px;
   }
 </style>
 
-<body class="vc" style="background: var(--menu);">
 
-   <!--     /$$ /$$$$$$$$ /$$   /$$ /$$   /$$
-  | $$$    /$$$| $$_____/| $$$ | $$| $$  | $$
-  | $$$$  /$$$$| $$      | $$$$| $$| $$  | $$
-  | $$ $$/$$ $$| $$$$$   | $$ $$ $$| $$  | $$
-  | $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$
-  | $$\  $ | $$| $$      | $$\  $$$| $$  | $$
-  | $$ \/  | $$| $$$$$$$$| $$ \  $$|  $$$$$$/
-  |__/     |__/|________/|__/  \__/ \____-->
 
-  <div class="hc" style="width: 100%; height: 60px; position: relative; align-items: center; gap: 20px;">
-    <o-button type="ghost" onclick="easteregg()" style="width: 230px; margin-left: 10px;">
-      <div class="hc" style="font-family: Display; align-items: center; gap: 10px;">
-        <img style="width: 30px; height: 30px;" src="Data/Images/logo.png">
-        Oriøn Framework
-      </div>
-    </o-button>
-    <o-button type="ghost" lefticon="Data/Images/git.png" onclick="window.open('https://github.com/BOTPanzer', '_blank');">GitHub</o-button>
-    <o-button type="ghost" lefticon="Data/Images/ig.png" onclick="window.open('https://www.instagram.com/bot_panzer', '_blank');">Instagram</o-button>
+
+
+<body>
+
+  <div class="navbar">
+    <o-button size="big" text="Oriøn Framework" nofilter lefticon="Docs/Images/logo.png" style="font-family: Display;" onclick="scrollToElement('framework')"></o-button>
+    <o-button size="big" text="Github Repo" lefticon="Docs/Images/git.png" onclick="window.open('https://github.com/BOTPanzer/Orion-Framework', '_blank');"></o-button>
+    <o-button size="big" text="Portfolio" lefticon="Docs/Images/web.png" onclick="window.open('https://botpa.vercel.app/', '_blank');"></o-button>
   </div>
 
-  <div class="hc" style="width: 100%; height: calc(100% - 60px); position: relative;">
-    
-    <!--       /$$$$$$$$  /$$$$$$  /$$$$$$$$ /$$   /$$ /$$$$$$$ 
-    | $$      | $$_____/ /$$__  $$| $$_____/| $$$ | $$| $$__  $$
-    | $$      | $$      | $$  \__/| $$      | $$$$| $$| $$  \ $$
-    | $$      | $$$$$   | $$ /$$$$| $$$$$   | $$ $$ $$| $$  | $$
-    | $$      | $$__/   | $$|_  $$| $$__/   | $$  $$$$| $$  | $$
-    | $$      | $$      | $$  \ $$| $$      | $$\  $$$| $$  | $$
-    | $$$$$$$$| $$$$$$$$|  $$$$$$/| $$$$$$$$| $$ \  $$| $$$$$$$/
-    |________/|________/ \______/ |________/|__/  \__/|_____--> 
+  <div class="page">
 
-    <div class="vc scrollbar-invisible" style="width: 250px; height: calc(100% - 20px); padding-bottom: 20px; position: relative; overflow-y: scroll;">
-      <div class="legen" onclick="document.getElementById('docs').scrollTo(0, 0)">FRAMEWORK</div>
-      <!-- HTML --> 
-      <div class="legen" onclick="scrollElem('html')">HTML</div>
-      <!-- THEME --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('theme')">Theme</span>
+     <!--                                                    /$$
+    | $$                                                    | $$
+    | $$        /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$$
+    | $$       /$$__  $$ /$$__  $$ /$$__  $$| $$__  $$ /$$__  $$
+    | $$      | $$$$$$$$| $$  \ $$| $$$$$$$$| $$  \ $$| $$  | $$
+    | $$      | $$_____/| $$  | $$| $$_____/| $$  | $$| $$  | $$
+    | $$$$$$$$|  $$$$$$$|  $$$$$$$|  $$$$$$$| $$  | $$|  $$$$$$$
+    |________/ \_______/ \____  $$ \_______/|__/  |__/ \_______/
+                         /$$  \ $$
+                        |  $$$$$$/
+                         \____-->
+
+    <div class="legend no-scrollbar">
+      <o-button size="big" text="Oriøn Framework" lefticon style="font-family: Display; opacity: 0; margin-bottom: -75px; pointer-events: none;"></o-button>
+  
+      <div class="legendTitle" onclick="scrollToElement('html')">HTML</div>
+      
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('theme-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('theme-fonts')">Fonts</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('box')">Box</div>
+        <div class="legendGroupItem" onclick="scrollToElement('box-hover')">Hover</div>
+        <div class="legendGroupItem" onclick="scrollToElement('box-personalization')">Personalization</div>
       </div>
-      <!-- BUTTON --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('button')">Button</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('button-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('button-shape')">Shape</span>
-          <span class="leg2" onclick="scrollElem('button-content')">Content</span>
-          <span class="leg2" onclick="scrollElem('button-hover')">Hover</span>
-          <span class="leg2" onclick="scrollElem('button-cursor')">Cursor</span>
-          <span class="leg2" onclick="scrollElem('button-icons')">Icons</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('button')">Buttons</div>
+        <div class="legendGroupItem" onclick="scrollToElement('button-text')">Text</div>
+        <div class="legendGroupItem" onclick="scrollToElement('button-type')">Type</div>
+        <div class="legendGroupItem" onclick="scrollToElement('button-size')">Size</div>
+        <div class="legendGroupItem" onclick="scrollToElement('button-icons')">Icons</div>
+        <div class="legendGroupItem" onclick="scrollToElement('button-personalization')">Personalization</div>
       </div>
-      <!-- INPUT --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('input')">Input</span>
-        <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('input-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('input-text')">Text</span>
-          <span class="leg2" onclick="scrollElem('input-type')">Type</span>
-          <span class="leg2" onclick="scrollElem('input-other')">Other</span>
-        </div>
+      
+      <div class="legendGroup">
+        <div class="legendGroupName" onclick="scrollToElement('button-array')">Button array</div>
       </div>
-      <!-- SWITCH --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('switch')">Switch</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('switch-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('switch-type')">Type</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('switch')">Switches</div>
+        <div class="legendGroupItem" onclick="scrollToElement('switch-checked')">Checked & disabled</div>
+        <div class="legendGroupItem" onclick="scrollToElement('switch-personalization')">Personalization</div>
       </div>
-      <!-- E.SWITCH --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('eswitch')">Emote Switch</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('eswitch-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('eswitch-text')">Text</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('checkbox')">Checkboxes</div>
+        <div class="legendGroupItem" onclick="scrollToElement('checkbox-checked')">Checked & disabled</div>
+        <div class="legendGroupItem" onclick="scrollToElement('checkbox-personalization')">Personalization</div>
       </div>
-      <!-- CHECKBOX --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('checkbox')">Checkbox</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('checkbox-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('checkbox-type')">Type</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('radio')">Radio buttons</div>
+        <div class="legendGroupItem" onclick="scrollToElement('radio-checked')">Checked & disabled</div>
+        <div class="legendGroupItem" onclick="scrollToElement('radio-personalization')">Personalization</div>
       </div>
-      <!-- RADIO -->
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('radio')">Radio</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('radio-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('radio-type')">Type</span>
-        </div>
-      </div> 
-      <!-- SEEKBAR --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('seekbar')">Seekbar</span>
-        <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('seekbar-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('seekbar-data')">Data</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('input')">Text input</div>
+        <div class="legendGroupItem" onclick="scrollToElement('input-text')">Text</div>
+        <div class="legendGroupItem" onclick="scrollToElement('input-size')">Size</div>
+        <div class="legendGroupItem" onclick="scrollToElement('input-label')">Label</div>
+        <div class="legendGroupItem" onclick="scrollToElement('input-type')">Type</div>
+        <div class="legendGroupItem" onclick="scrollToElement('input-disabled')">Max, readonly & disabled</div>
+        <div class="legendGroupItem" onclick="scrollToElement('input-personalization')">Personalization</div>
       </div>
-      <!-- CARD --> 
-      <div class="legbox">
-        <span class="leg" style="width: 210px;" onclick="scrollElem('card')">Card</span>
-      </div>
-      <!-- LOADING --> 
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('loading')">Loading</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('loading-colors')">Colors</span>
-          <span class="leg2" onclick="scrollElem('loading-type')">Type</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('seekbar')">Seekbar</div>
+        <div class="legendGroupItem" onclick="scrollToElement('seekbar-disabled')">Min, max, value & disabled</div>
+        <div class="legendGroupItem" onclick="scrollToElement('seekbar-personalization')">Personalization</div>
       </div>
-      <!-- EFFECTS -->
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('effects')">Effects</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('effects-glow')">Glow</span>
-          <span class="leg2" onclick="scrollElem('effects-noise')">Noise</span>
-          <span class="leg2" onclick="scrollElem('effects-glass')">Glass</span>
-          <span class="leg2" onclick="scrollElem('effects-pulse')">Pulse</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('loading')">Loading indicators</div>
+        <div class="legendGroupItem" onclick="scrollToElement('loading-type')">Type</div>
+        <div class="legendGroupItem" onclick="scrollToElement('loading-personalization')">Personalization</div>
       </div>
-      <!-- JS -->
-      <div class="legen" onclick="scrollElem('js')">JS</div>
-      <!-- NOTIFICATIONS -->
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('notis')">Notifications</span>
+  
+      <div class="legendTitle" onclick="scrollToElement('js')">JS</div>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('notis-text')">Title & Content</span>
-          <span class="leg2" onclick="scrollElem('notis-options')">Options</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('noti')">Notifications</div>
+        <div class="legendGroupItem" onclick="scrollToElement('noti-title')">Title & content</div>
+        <div class="legendGroupItem" onclick="scrollToElement('noti-options')">Options</div>
       </div>
-      <!-- DIALOGS -->
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('dialogs')">Dialogs</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('dialogs-functions')">Functions</span>
-          <span class="leg2" onclick="scrollElem('dialogs-text')">Title & Content</span>
-          <span class="leg2" onclick="scrollElem('dialogs-options')">Options</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('ctxmenu')">Context menus</div>
+        <div class="legendGroupItem" onclick="scrollToElement('ctxmenu-event')">Event</div>
+        <div class="legendGroupItem" onclick="scrollToElement('ctxmenu-items')">Items & title</div>
+        <div class="legendGroupItem" onclick="scrollToElement('ctxmenu-functions')">Functions</div>
       </div>
-      <!-- DBUILDER -->
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('dbuilder')">Dialog Builder</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('dbuilder-info')">Info</span>
-          <span class="leg2" onclick="scrollElem('dbuilder-alert')">Alert</span>
-          <span class="leg2" onclick="scrollElem('dbuilder-confirm')">Confirm</span>
-          <span class="leg2" onclick="scrollElem('dbuilder-input')">Input</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('dialog')">Dialogs</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialog-content')">Content & title</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialog-options')">Options</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialog-functions')">Functions</div>
       </div>
-      <!-- CONTEXT MENUS -->
-      <div class="legbox">
-        <span class="leg" onclick="scrollElem('menus')">Context Menus</span>
+  
+      <div class="legendGroup">
         <input type="checkbox">
-        <span class="legdot"></span>
-        <div>
-          <span class="leg2" onclick="scrollElem('menus-vars')">Event, Items & Title</span>
-          <span class="leg2" onclick="scrollElem('menus-functions')">Functions</span>
-        </div>
+        <div class="legendGroupName" onclick="scrollToElement('dialogbuilder')">Dialog builder</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialogbuilder-info')">Info</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialogbuilder-alert')">Alert</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialogbuilder-confirm')">Confirm</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialogbuilder-input')">Input</div>
+        <div class="legendGroupItem" onclick="scrollToElement('dialogbuilder-custom')">Custom</div>
       </div>
     </div>
 
-     <!--$$$$   /$$$$$$   /$$$$$$   /$$$$$$ 
-    | $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$
-    | $$  \ $$| $$  \ $$| $$  \__/| $$  \__/
-    | $$  | $$| $$  | $$| $$      |  $$$$$$ 
-    | $$  | $$| $$  | $$| $$       \____  $$
-    | $$  | $$| $$  | $$| $$    $$ /$$  \ $$
-    | $$$$$$$/|  $$$$$$/|  $$$$$$/|  $$$$$$/
-    |_______/  \______/  \______/  \____-->
 
-    <div id="docs" class="vc" style="width: calc(100% - 250px); padding: 2% 0; align-items: center; background: var(--background); border-top-left-radius: 30px; overflow: auto; scroll-behavior: smooth; position: relative;">
-      <div id="title" class="title">Orion Framework v2.2.0</div>
 
-      <div class="type-c" style="padding-top: 0;">
-        <div class="desc">
-          Oriøn Framework is a HTML, CSS & JS based framework made with personalization in mind. 
-          This project got separated from Oriøn Assistant in an attempt to make it available for everyone.
+
+
+      <!--$$$                        /$$                           /$$
+     /$$__  $$                      | $$                          | $$
+    | $$  \__/  /$$$$$$  /$$$$$$$  /$$$$$$    /$$$$$$  /$$$$$$$  /$$$$$$
+    | $$       /$$__  $$| $$__  $$|_  $$_/   /$$__  $$| $$__  $$|_  $$_/
+    | $$      | $$  \ $$| $$  \ $$  | $$    | $$$$$$$$| $$  \ $$  | $$
+    | $$    $$| $$  | $$| $$  | $$  | $$ /$$| $$_____/| $$  | $$  | $$ /$$
+    |  $$$$$$/|  $$$$$$/| $$  | $$  |  $$$$/|  $$$$$$$| $$  | $$  |  $$$$/
+     \______/  \______/ |__/  |__/   \___/   \_______/|__/  |__/   \_-->
+
+    <div class="docs">
+    
+       <!--$$$$$                                                                           /$$      
+      | $$_____/                                                                          | $$      
+      | $$     /$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$  /$$  /$$  /$$  /$$$$$$   /$$$$$$ | $$   /$$
+      | $$$$$ /$$__  $$|____  $$| $$_  $$_  $$ /$$__  $$| $$ | $$ | $$ /$$__  $$ /$$__  $$| $$  /$$/
+      | $$__/| $$  \__/ /$$$$$$$| $$ \ $$ \ $$| $$$$$$$$| $$ | $$ | $$| $$  \ $$| $$  \__/| $$$$$$/ 
+      | $$   | $$      /$$__  $$| $$ | $$ | $$| $$_____/| $$ | $$ | $$| $$  | $$| $$      | $$_  $$ 
+      | $$   | $$     |  $$$$$$$| $$ | $$ | $$|  $$$$$$$|  $$$$$/$$$$/|  $$$$$$/| $$      | $$ \  $$
+      |__/   |__/      \_______/|__/ |__/ |__/ \_______/ \_____/\___/  \______/ |__/      |__/  \-->
+
+      <div id="framework" class="doc">
+        <div class="title" big>Oriøn Framework</div>
+    
+        <div class="description">Oriøn Framework is a simple framework intended to be used in Oriøn Assistant.<br>It was made with customization in mind.</div>
+        
+        <!-- Theme -->
+        <div class="subtitle">Theme</div>
+    
+        <div class="description">You can change theme colors & settings by changing these CSS attributes.</div>
+      
+        <div class="code">
+          Theme<br>
+          <high>--background</high>: <ball style="--color: #18191c"></ball> #18191c; The color of the background<br>
+          <high>--menu</high>: <ball style="--color: #18191c"></ball> var(--background); The color of the background in dialogs<br>
+          <br>
+          Scrollbar<br>
+          <high>--scrollbar</high>: <ball style="--color: #f5f5f569"></ball> #f5f5f569; The color of the scrollbar's background<br>
+          <high>--scrollbarThumb</high>: <ball style="--color: #f5f5f5"></ball> #f5f5f5; The color of the scrollbar's thumb<br>
+          <high>--scrollbarSize</high>: 16px; The size of the scrollbar<br>
+          <br>
+          Colors<br>
+          <high>--accent</high>: <ball style="--color: #cc1d4e"></ball> #cc1d4e; The accent color<br>
+          <high>--success</high>: <ball style="--color: #00a023"></ball> #00a023; A color to indicate success<br>
+          <high>--danger</high>: <ball style="--color: #af0636"></ball> #af0636; A color to indicate danger<br>
+          <high>--warning</high>: <ball style="--color: #ce9700"></ball> #ce9700; A color to indicate warning<br>
+          <high>--progress</high>: <ball style="--color: #C7C9CA"></ball> #C7C9CA; A color to indicate progress<br>
+          <br>
+          Text<br>
+          <high>--text</high>: <ball style="--color: #f5f5f5"></ball> #f5f5f5; The color of text<br>
+          <high>--textSecondary</high>: <ball style="--color: #afb1b3"></ball> #afb1b3; An alternate color to use in text<br>
+          <high>--textHint</high>: <ball style="--color: #afb1b3"></ball> var(--textSecondary); The color of text input hints<br>
+          <high>--textWindowButton</high>: <ball style="--color: #f5f5f5"></ball> var(--text); The color of dialog close buttons text<br>
+          <high>--textSize</high>: 15px; The size of the text<br>
+          <br>
+          Buttons<br>
+          <high>--button</high>: <ball style="--color: #202225"></ball> #202225; The color of buttons<br>
+          <high>--buttonBorderColor</high>: <ball style="--color: transparent"></ball> transparent; The color of the border of buttons<br>
+          <high>--buttonBorderWidth</high>: 0px; The width of the border of buttons<br>
+          <high>--buttonIconFilter</high>: brightness(0) invert(); The filter of button icons<br>
+          <br>
+          Window<br>
+          <high>--windowMarginTop</high>: 0px; The margin used at the top in dialogs<br>
+          <high>--windowButtonHover</high>: <ball style="--color: #2a2e33"></ball> #2a2e33; The color of the window's minimize & maximize buttons<br>
+          <high>--windowExitHover</high>: <ball style="--color: #ED4245"></ball> #ED4245; The color of the window's close button<br>
+          <br>
+          Other<br>
+          <high>--hover</high>: <ball style="--color: #ffffff10"></ball> #ffffff10; The color of the hover effect<br>
         </div>
       </div>
+
+
+
+
+
+
+
+
+
 
        <!--  /$$ /$$$$$$$$ /$$      /$$ /$$      
       | $$  | $$|__  $$__/| $$$    /$$$| $$      
@@ -422,829 +466,760 @@
       | $$  | $$   | $$   | $$\  $ | $$| $$      
       | $$  | $$   | $$   | $$ \/  | $$| $$$$$$$$
       |__/  |__/   |__/   |__/     |__/|______-->
-
-      <div id="html" class="title">HTML</div>
-
-      <!--$$$$$$ /$$   /$$ /$$$$$$$$ /$$      /$$ /$$$$$$$$
-      |__  $$__/| $$  | $$| $$_____/| $$$    /$$$| $$_____/
-         | $$   | $$  | $$| $$      | $$$$  /$$$$| $$      
-         | $$   | $$$$$$$$| $$$$$   | $$ $$/$$ $$| $$$$$   
-         | $$   | $$__  $$| $$__/   | $$  $$$| $$| $$__/   
-         | $$   | $$  | $$| $$      | $$\  $ | $$| $$      
-         | $$   | $$  | $$| $$$$$$$$| $$ \/  | $$| $$$$$$$$
-         |__/   |__/  |__/|________/|__/     |__/|______-->
       
-      <div id="theme" class="type-c">
-        <div class="type">- THEME -</div>
-        <div class="desc">
-          Oriøn has a serie of colors and fonts that are used all over the framework and can be personalized. 
-          Some of these colors can be used in element's <span class="cod">color</span> and <span class="cod">background</span> attributes as <span class="high">menu</span>, <span class="high">background</span>, <span class="high">scrollbar</span>, <span class="high">accent</span>, <span class="high">success</span>, <span class="high">danger</span>, <span class="high">warning</span>, <span class="high">progress</span>, <span class="high">text1</span>, <span class="high">text2</span>, <span class="high">text3</span> and <span class="high">button</span>.
-        </div>
-        <!-- COLORS -->
-        <div id="theme-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            <div class="ballbox">
-              <span class="cod">--menu</span> #1e2023 <div class="ball" style="background: var(--menu);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--background</span> #18191c <div class="ball" style="background: var(--background);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--scrollbar</span> #f5f5f5 <div class="ball" style="background: var(--scrollbar);"></div>
-            </div><br>
-            
-            <div class="ballbox">
-              <span class="cod">--accent</span> #cc1d4e <div class="ball" style="background: var(--accent);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--success</span> #00a023 <div class="ball" style="background: var(--success);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--danger</span> #af0636 <div class="ball" style="background: var(--danger);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--warning</span> #ce9700 <div class="ball" style="background: var(--warning);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--progress</span> #C7C9CA <div class="ball" style="background: var(--progress);"></div>
-            </div><br>
-            
-            <div class="ballbox">
-              <span class="cod">--text1</span> #f5f5f5 <div class="ball" style="background: var(--text1);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--text2</span> #C7C9CA <div class="ball" style="background: var(--text2);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--text3</span> #72767D <div class="ball" style="background: var(--text3);"></div>
-            </div><br>
-            
-            <div class="ballbox">
-              <span class="cod">--button</span> #202225 <div class="ball" style="background: var(--button);"></div>
-            </div>
-            <div class="ballbox">
-              <span class="cod">--buttonBorderColor</span> transparent
-            </div>
-            <div class="ballbox">
-              <span class="cod">--buttonBorderWidth</span> 0
-            </div>
-            <div class="ballbox">
-              <span class="cod">--buttonCorner</span> 10px
-            </div>
-          </div>
-        </div>
-        <!-- FONT FAMILIES -->
-        <div id="theme-fonts" class="cat-c">
-          <div class="cat">FONT FAMILIES</div>
-          <div class="desc">
-            <div class="ballbox">
-              <span class="cod">Main</span> <span style="font-family: Main;">Poppins</span>
-            </div>
-            <div class="ballbox">
-              <span class="cod">Display</span> <span style="font-family: Display;">LEMON MILK Medium</span>
-            </div>
-            <div class="ballbox">
-              <span class="cod">Display2</span> <span style="font-family: Display2;">Staatliches</span>
-            </div>
-          </div>
-        </div>
+      <div id="html" class="doc" first>
+        <div class="title" big>HTML</div>
+    
+        <div class="description">All of the elements from the framework that you can use.</div>
       </div>
 
-       <!--$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$
-      | $$__  $$| $$  | $$|__  $$__/|__  $$__//$$__  $$| $$$ | $$
-      | $$  \ $$| $$  | $$   | $$      | $$  | $$  \ $$| $$$$| $$
-      | $$$$$$$ | $$  | $$   | $$      | $$  | $$  | $$| $$ $$ $$
-      | $$__  $$| $$  | $$   | $$      | $$  | $$  | $$| $$  $$$$
-      | $$  \ $$| $$  | $$   | $$      | $$  | $$  | $$| $$\  $$$
-      | $$$$$$$/|  $$$$$$/   | $$      | $$  |  $$$$$$/| $$ \  $$
-      |_______/  \______/    |__/      |__/   \______/ |__/  \-->
 
-      <div id="button" class="type-c">
-        <div class="type">- BUTTON -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a button, use the <span class="cod">o-button</span> element. 
-            To modify the text, change it's innerHTML.
-          </div>
-          <div class="display">
-            <o-button></o-button>
-            <o-button style="width: 100px; height: 40px;"></o-button>
-            <o-button>Button</o-button>
-          </div>
-          <div class="code">
-            &lt;o-button>&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">style="width: 100px; height: 40px;"</span>>&lt;/o-button><br>
-            <br>
-            &lt;o-button><span class="high">Button</span>&lt;/o-button><br>
-          </div>
+
+
+
+       <!--$$$$
+      | $$__  $$
+      | $$  \ $$  /$$$$$$  /$$   /$$
+      | $$$$$$$  /$$__  $$|  $$ /$$/
+      | $$__  $$| $$  \ $$ \  $$$$/ 
+      | $$  \ $$| $$  | $$  >$$  $$ 
+      | $$$$$$$/|  $$$$$$/ /$$/\  $$
+      |_______/  \______/ |__/  \-->
+      
+      <div id="box" class="doc">
+        <div class="title">Box</div>
+    
+        <div class="description">Boxes are the main element of the framework, every other element is an extension of them.<br>To create a box, use the <att>o-box</att> element.</div>
+    
+        <!-- Hover -->
+        <div id="box-hover"></div>
+
+        <div class="subtitle">Hover</div>
+    
+        <div class="description">You can disable the hover animation by using the <att>hover</att> attribute.</div>
+      
+        <div class="row">
+          <o-box></o-box>
+        
+          <o-box hover="none"></o-box>
         </div>
-        <!-- COLORS -->
-        <div id="button-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your button, use the <span class="cod">background</span> and <span class="cod">color</span> attributes to change the background and text color respectively.
-          </div>
-          <div class="display">
-            <o-button background="#4f3a50">Background</o-button>
-            <o-button color="#d4007c">Color</o-button>
-          </div>
-          <div class="code">
-            &lt;o-button <span class="high">background</span>="#4f3a50">Background&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">color</span>="#d4007c">Color&lt;/o-button><br>
-          </div>
+    
+        <div class="code">
+          <high>&lt;o-box&gt;&lt;/o-box&gt;</high><br>
+          <br>
+          &lt;o-box <high>hover="none"</high>&gt;&lt;/o-box&gt;
         </div>
-        <!-- SHAPE -->
-        <div id="button-shape" class="cat-c">
-          <div class="cat">SHAPE</div>
-          <div class="desc">
-            You can also change your button's style with the <span class="cod">shape</span> attribute.<br>
-            Shape value can set to <span class="cod">plain</span> (default), <span class="cod">border</span> and <span class="cod">ghost</span>.
-          </div>
-          <div class="display">
-            <o-button shape="plain">Plain</o-button>
-            <o-button shape="border">Border</o-button>
-            <o-button shape="ghost">Ghost</o-button>
-          </div>
-          <div class="code">
-            &lt;o-button <span class="high">shape</span>="plain">Plain&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">shape</span>="border">Border&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">shape</span>="ghost">Ghost&lt;/o-button>
-          </div>
+      
+        <!-- Personalization -->
+        <div id="box-personalization"></div>
+
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Boxes can be personalized by using the <att>corner</att>, <att>width</att>, <att>height</att>, <att>background</att>, <att>color</att> & <att>transparent</att> attributes.</div>
+      
+        <div class="row">
+          <o-box corner="10px"></o-box>
+    
+          <o-box width="30px" height="30px"></o-box>
+    
+          <o-box background="#4f3a50"></o-box>
+          
+          <o-box color="accent">
+            <span style="margin: auto;">Hi</span>
+          </o-box>
+      
+          <o-box transparent>
+            <span style="margin: auto;">Hi</span>
+          </o-box>
         </div>
-        <!-- CONTENT -->
-        <div id="button-content" class="cat-c">
-          <div class="cat">CONTENT</div>
-          <div class="desc">
-            To prepare your button to it's content, you can use the <span class="cod">content</span> attribute.<br>
-            Content value can set to <span class="cod">text</span> (default), <span class="cod">textbox</span> (text without padding), <span class="cod">emote</span> and <span class="cod">box</span> (makes it a container).<br>
-            Additionally, to make the content vertical use the <span class="cod">vertical</span> attribute.
-          </div>
-          <div class="display">
-            <o-button content="text">Text</o-button>
-            <o-button content="textbox">Textbox</o-button>
-            <o-button content="emote">🦆</o-button>
-            <o-button content="box">box</o-button>
-          </div>
-          <div class="code">
-            &lt;o-button <span class="high">content</span>="text">Text&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">content</span>="textbox">Textbox&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">content</span>="emote">🦆&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">content</span>="box">box&lt;/o-button>
-          </div>
-        </div>
-        <!-- HOVER -->
-        <div id="button-hover" class="cat-c">
-          <div class="cat">HOVER</div>
-          <div class="desc">
-            To change your button's hover animation, you can use the <span class="cod">hover</span> attribute.<br>
-            Hover value can set to <span class="cod">def</span> (default), <span class="cod">float</span>, <span class="cod">sink</span> and <span class="cod">none</span>.
-          </div>
-          <div class="display">
-            <o-button hover="def">Default</o-button>
-            <o-button hover="float">Float</o-button>
-            <o-button hover="sink">Sink</o-button>
-            <o-button hover="def float">Default Float</o-button>
-            <o-button hover="def sink">Default Sink</o-button>
-            <o-button hover="none">None</o-button>
-          </div>
-          <div class="code">
-            &lt;o-button <span class="high">hover</span>="def">Default&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">hover</span>="float">Float&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">hover</span>="sink">Sink&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">hover</span>="def float">Default Float&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">hover</span>="def sink">Default Sink&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">hover</span>="none">None&lt;/o-button>
-          </div>
-        </div>
-        <!-- CURSOR -->
-        <div id="button-cursor" class="cat-c">
-          <div class="cat">CURSOR</div>
-          <div class="desc">
-            To change your button's cursor, you can use the <span class="cod">cursor</span> attribute.<br>
-            Cursor value can set to <span class="cod">click</span> (default), <span class="cod">load</span> and <span class="cod">auto</span>.
-          </div>
-          <div class="display">
-            <o-button cursor="click">Click</o-button>
-            <o-button cursor="load">Load</o-button>
-            <o-button cursor="auto">Auto</o-button>
-          </div>
-          <div class="code">
-            &lt;o-button <span class="high">cursor</span>="click">Click&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">cursor</span>="load">Load&lt;/o-button><br>
-            <br>
-            &lt;o-button <span class="high">cursor</span>="auto">Auto&lt;/o-button>
-          </div>
-        </div>
-        <!-- ICONS -->
-        <div id="button-icons" class="cat-c">
-          <div class="cat">ICONS</div>
-          <div class="desc">
-            To add an icon to your button, use the <span class="cod">lefticon</span> attribute.
-          </div>
-          <div class="display">
-            <o-button lefticon="Data/Images/logo.png">Left Icon</o-button>
-          </div>
-          <div class="code">
-            &lt;o-button <span class="high">lefticon</span>="Data/Images/logo.png">Left Icon&lt;/o-button>
-          </div>
+    
+        <div class="code">
+          &lt;o-box <high>corner="10px"</high>&gt;&lt;/o-box&gt;<br>
+          <br>
+          &lt;o-box <high>width="24px" height="24px"</high>&gt;&lt;/o-box&gt;<br>
+          <br>
+          &lt;o-box <high>background="#4f3a50"</high>&gt;&lt;/o-box&gt;<br>
+          <br>
+          &lt;o-box <high>color="accent"</high>&gt;<br>
+          &nbsp;&nbsp;&lt;span style="margin: auto;"&gt;Hi&lt;/span&gt;<br>
+          &lt;/o-box&gt;<br>
+          <br>
+          &lt;o-box <high>transparent</high>&gt;<br>
+          &nbsp;&nbsp;&lt;span style="margin: auto;"&gt;Hi&lt;/span&gt;<br>
+          &lt;/o-box&gt;<br>
         </div>
       </div>
+    
+    
+    
+    
+    
+       <!--$$$$              /$$     /$$
+      | $$__  $$            | $$    | $$
+      | $$  \ $$ /$$   /$$ /$$$$$$ /$$$$$$    /$$$$$$  /$$$$$$$
+      | $$$$$$$ | $$  | $$|_  $$_/|_  $$_/   /$$__  $$| $$__  $$
+      | $$__  $$| $$  | $$  | $$    | $$    | $$  \ $$| $$  \ $$
+      | $$  \ $$| $$  | $$  | $$ /$$| $$ /$$| $$  | $$| $$  | $$
+      | $$$$$$$/|  $$$$$$/  |  $$$$/|  $$$$/|  $$$$$$/| $$  | $$
+      |_______/  \______/    \___/   \___/   \______/ |__/  |-->
+  
+      <div id="button" class="doc">
+        <div class="title">Buttons</div>
+    
+        <div class="description">To create a button, use the <att>o-button</att> element.</div>
+      
+        <!-- Text -->
+        <div id="button-text"></div>
 
-       <!--$$$ /$$   /$$ /$$$$$$$  /$$   /$$ /$$$$$$$$
-      |_  $$_/| $$$ | $$| $$__  $$| $$  | $$|__  $$__/
-        | $$  | $$$$| $$| $$  \ $$| $$  | $$   | $$   
-        | $$  | $$ $$ $$| $$$$$$$/| $$  | $$   | $$   
-        | $$  | $$  $$$$| $$____/ | $$  | $$   | $$   
-        | $$  | $$\  $$$| $$      | $$  | $$   | $$   
-       /$$$$$$| $$ \  $$| $$      |  $$$$$$/   | $$   
-      |______/|__/  \__/|__/       \______/    |-->
-
-      <div id="input" class="type-c">
-        <div class="type">- INPUT -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create an input, use the <span class="cod">o-input</span> element. 
-            You can use the <span class="cod">value</span> attribute to change it's text. 
-          </div>
-          <div class="display">
-            <o-input></o-input>
-            <o-input value="Text"></o-input>
-          </div>
-          <div class="code">
-            &lt;o-input>&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">value</span>="Text">&lt;/o-input><br>
-          </div>
+        <div class="subtitle">Text</div>
+    
+        <div class="description">You can add text to a button by using the <att>text</att> attribute.</div>
+      
+        <div class="row">
+          <o-button></o-button>
+        
+          <o-button text="This button has custom text"></o-button>
         </div>
-        <!-- COLORS -->
-        <div id="input-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your input, use the <span class="cod">background</span> and <span class="cod">color</span> attributes to change the background and text color respectively.
-            Additionally, you can use the <span class="cod">transparent</span> attribute to make the surrounding box disappear.
-          </div>
-          <div class="display">
-            <o-input background="#4f3a50"></o-input>
-            <o-input color="#d4007c" value="text"></o-input>
-            <o-input transparent value="text"></o-input>
-          </div>
-          <div class="code">
-            &lt;o-input <span class="high">background</span>="#4f3a50">&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">color</span>="#d4007c" value="text">&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">transparent</span> value="text">&lt;/o-input>
-          </div>
+    
+        <div class="code">
+          <high>&lt;o-button&gt;&lt;/o-button&gt;</high><br>
+          <br>
+          &lt;o-button <high>text="This button has custom text"</high>&gt;&lt;/o-button&gt;
         </div>
-        <!-- TEXT -->
-        <div id="input-text" class="cat-c">
-          <div class="cat">TEXT</div>
-          <div class="desc">
-            You can also use the <span class="cod">placeholder</span> and <span class="cod">label</span> attributes to change the placeholder and the label respectively.
-            As the label only shows when there is no text, use the <span class="cod">showlabel</span> attribute to make it show permanently.
-          </div>
-          <div class="display">
-            <o-input placeholder="Placeholder" label="Label"></o-input>
-            <o-input label="Label" showlabel></o-input>
-          </div>
-          <div class="code">
-            &lt;o-input <span class="high">placeholder</span>="Placeholder" <span class="high">label</span>="Label">&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">label</span>="Label" <span class="high">showlabel</span>>&lt;/o-input>
-          </div>
+      
+        <!-- Type -->
+        <div id="button-type"></div>
+        
+        <div class="subtitle">Type</div>
+    
+        <div class="description">You can change the style of buttons by using the <att>type</att> attribute.</div>
+      
+        <div class="row">
+          <o-button text="This is the default button"></o-button>
+        
+          <o-button type="border" text="This is a border button"></o-button>
+        
+          <o-button type="ghost" text="This is a ghost button"></o-button>
         </div>
-        <!-- TYPE -->
-        <div id="input-type" class="cat-c">
-          <div class="cat">TYPE</div>
-          <div class="desc">
-            You can also change your input's type with the <span class="cod">type</span> attribute.<br>
-            Type value can set to <span class="cod">text</span> (default), <span class="cod">password</span>, <span class="cod">search</span>, <span class="cod">number</span>, <span class="cod">date</span>, <span class="cod">month</span>, <span class="cod">week</span> and <span class="cod">time</span>.
-          </div>
-          <div class="display">
-            <o-input type="text" label="Text" showlabel></o-input>
-            <o-input type="password" label="Password" showlabel></o-input>
-          </div>
-          <div class="display">
-            <o-input type="number" label="Number" showlabel></o-input>
-            <o-input type="date" label="Date"></o-input>
-          </div>
-          <div class="code">
-            &lt;o-input <span class="high">type</span>="text" label="Text" showlabel>&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">type</span>="password" label="Password" showlabel>&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">type</span>="number" label="Number" showlabel>&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">type</span>="date" label="Date">&lt;/o-input>
-          </div>
+    
+        <div class="code">
+          &lt;o-button text="This is the default button"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button <high>type="border"</high> text="This is a border button"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button <high>type="ghost"</high> text="This is a ghost button"&gt;&lt;/o-button&gt;
         </div>
-        <!-- OTHER -->
-        <div id="input-other" class="cat-c">
-          <div class="cat">OTHER</div>
-          <div class="desc">
-            There are other attributes that can be applied to inputs.<br>
-            These are <span class="cod">max</span>, which changes the maximum number of characters, and <span class="cod">disabled</span>, which disables the input. 
-          </div>
-          <div class="display">
-            <o-input max="10" label="Max" value="Max of 10"></o-input>
-            <o-input disabled label="Disabled" value="I am disabled 👩‍🦽"></o-input>
-          </div>
-          <div class="code">
-            &lt;o-input <span class="high">max</span>="10" label="Max" showlabel value="Max of 10">&lt;/o-input><br>
-            <br>
-            &lt;o-input <span class="high">disabled</span> label="Disabled" showlabel value="I am disabled 👩‍🦽">&lt;/o-input>
-          </div>
+      
+        <!-- Size -->
+        <div id="button-size"></div>
+        
+        <div class="subtitle">Size</div>
+    
+        <div class="description">You can change the size of buttons by using the <att>size</att> attribute.</div>
+      
+        <div class="row">
+          <o-button text="This is the default button"></o-button>
+      
+          <o-button size="medium" text="This is a medium button"></o-button>
+          
+          <o-button size="big" text="This is a big button"></o-button>
         </div>
-        <!-- API -->
-      </div>
-
-        <!--$$$  /$$      /$$ /$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$
-       /$$__  $$| $$  /$ | $$|_  $$_/|__  $$__//$$__  $$| $$  | $$
-      | $$  \__/| $$ /$$$| $$  | $$     | $$  | $$  \__/| $$  | $$
-      |  $$$$$$ | $$/$$ $$ $$  | $$     | $$  | $$      | $$$$$$$$
-       \____  $$| $$$$_  $$$$  | $$     | $$  | $$      | $$__  $$
-       /$$  \ $$| $$$/ \  $$$  | $$     | $$  | $$    $$| $$  | $$
-      |  $$$$$$/| $$/   \  $$ /$$$$$$   | $$  |  $$$$$$/| $$  | $$
-       \______/ |__/     \__/|______/   |__/   \______/ |__/  |-->
-
-      <div id="switch" class="type-c">
-        <div class="type">- SWITCH -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a simple switch, use the <span class="cod">o-switch</span> element. 
-            You can use the <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to check it and disable it.
-          </div>
-          <div class="display">
-            <o-switch></o-switch>
-            <o-switch checked></o-switch>
-            <o-switch disabled></o-switch>
-          </div>
-          <div class="code">
-            &lt;o-switch>&lt;/o-switch><br>
-            <br>
-            &lt;o-switch <span class="high">checked</span>>&lt;/o-switch><br>
-            <br>
-            &lt;o-switch <span class="high">disabled</span>>&lt;/o-switch>
-          </div>
+    
+        <div class="code">
+          &lt;o-button text="This is the default button"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button <high>size="medium"</high> text="This is a medium button"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button <high>size="big"</high> text="This is a big button"&gt;&lt;/o-button&gt;
         </div>
-        <!-- COLORS -->
-        <div id="switch-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your switch, use the <span class="cod">background</span> and <span class="cod">color</span> attributes to change the background and thumb color respectively.
-          </div>
-          <div class="display">
-            <o-switch background="#4f3a50"></o-switch>
-            <o-switch color="#d4007c"></o-switch>
-          </div>
-          <div class="code">
-            &lt;o-switch <span class="high">background</span>="#4f3a50">&lt;/o-switch><br>
-            <br>
-            &lt;o-switch <span class="high">color</span>="#d4007c">&lt;/o-switch><br>
-          </div>
+      
+        <!-- Icons -->
+        <div id="button-icons"></div>
+        
+        <div class="subtitle">Icons</div>
+    
+        <div class="description">You can add icons to buttons by using the <att>lefticon</att> & <att>righticon</att> attributes.</div>
+      
+        <div class="row">
+          <o-button text="This button has a left icon" lefticon="Docs/Images/ig.png"></o-button>
+        
+          <o-button text="This button has a right icon" righticon="Docs/Images/git.png"></o-button>
+        
+          <o-button text="This button has both icons" lefticon="Docs/Images/ig.png" righticon="Docs/Images/git.png"></o-button>
         </div>
-        <!-- TYPE -->
-        <div id="switch-type" class="cat-c">
-          <div class="cat">TYPE</div>
-          <div class="desc">
-            You can also change your switch's style with the <span class="cod">type</span> attribute.<br>
-            Type value can set to <span class="cod">small</span>.
-          </div>
-          <div class="display">
-            <o-switch></o-switch>
-            <o-switch type="small"></o-switch>
-          </div>
-          <div class="code">
-            &lt;o-switch>&lt;/o-switch><br>
-            <br>
-            &lt;o-switch <span class="high">type</span>="small">&lt;/o-switch><br>
-          </div>
+    
+        <div class="code">
+          &lt;o-button text="This button has a left icon" <high>lefticon="Docs/Images/ig.png"</high>&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button text="This button has a right icon" <high>righticon="Docs/Images/git.png"</high>&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button text="This button has both icons" <high>lefticon="Docs/Images/ig.png" righticon="Docs/Images/git.png"</high>&gt;&lt;/o-button&gt;
+        </div>
+      
+        <!-- Personalization -->
+        <div id="button-personalization"></div>
+        
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Buttons can be personalized by using the <att>background</att>, <att>color</att> & <att>nofilter</att> attributes.</div>
+      
+        <div class="row">
+          <o-button background="#4f3a50" text="Custom background color"></o-button>
+          
+          <o-button color="accent" big text="Custom text color"></o-button>
+          
+          <o-button nofilter lefticon="Docs/Images/ig.png" text="Icons without a color filter"></o-button>
+        </div>
+    
+        <div class="code">
+          &lt;o-button <high>background="#4f3a50"</high> text="Custom background color"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button <high>color="accent"</high> big text="Custom text color"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &lt;o-button <high>nofilter</high> lefticon="Docs/Images/ig.png" text="Icons without a color filter"&gt;&lt;/o-button&gt;
         </div>
       </div>
-
-       <!--$$$$$      /$$$$$$  /$$      /$$ /$$$$$$ /$$$$$$$$ /$$$$$$  /$$   /$$
-      | $$_____/     /$$__  $$| $$  /$ | $$|_  $$_/|__  $$__//$$__  $$| $$  | $$
-      | $$          | $$  \__/| $$ /$$$| $$  | $$     | $$  | $$  \__/| $$  | $$
-      | $$$$$       |  $$$$$$ | $$/$$ $$ $$  | $$     | $$  | $$      | $$$$$$$$
-      | $$__/        \____  $$| $$$$_  $$$$  | $$     | $$  | $$      | $$__  $$
-      | $$           /$$  \ $$| $$$/ \  $$$  | $$     | $$  | $$    $$| $$  | $$
-      | $$$$$$$$ /$$|  $$$$$$/| $$/   \  $$ /$$$$$$   | $$  |  $$$$$$/| $$  | $$
-      |________/|__/ \______/ |__/     \__/|______/   |__/   \______/ |__/  |-->
-
-      <div id="eswitch" class="type-c">
-        <div class="type">- EMOTE SWITCH -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create an emote switch, use the <span class="cod">o-eswitch</span> element. 
-            You can use the <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to check it and disable it.
-          </div>
-          <div class="display">
-            <o-eswitch></o-eswitch>
-            <o-eswitch checked></o-eswitch>
-            <o-eswitch disabled></o-eswitch>
-          </div>
-          <div class="code">
-            &lt;o-eswitch>&lt;/o-eswitch><br>
-            <br>
-            &lt;o-eswitch <span class="high">checked</span>>&lt;/o-eswitch><br>
-            <br>
-            &lt;o-eswitch <span class="high">disabled</span>>&lt;/o-eswitch>
-          </div>
+    
+    
+    
+    
+    
+        <!--$$$                                        
+       /$$__  $$                                       
+      | $$  \ $$  /$$$$$$   /$$$$$$  /$$$$$$  /$$   /$$
+      | $$$$$$$$ /$$__  $$ /$$__  $$|____  $$| $$  | $$
+      | $$__  $$| $$  \__/| $$  \__/ /$$$$$$$| $$  | $$
+      | $$  | $$| $$      | $$      /$$__  $$| $$  | $$
+      | $$  | $$| $$      | $$     |  $$$$$$$|  $$$$$$$
+      |__/  |__/|__/      |__/      \_______/ \____  $$
+                                             /$$  | $$
+                                            |  $$$$$$/
+                                             \____-->
+  
+      <div id="button-array" class="doc">
+        <div class="title">Button arrays</div>
+    
+        <div class="description">You can join multiple buttons by using button arrays.<br>To create a button array, use the <att>o-array</att> element.</div>
+      
+        <div class="row">
+          <o-array>
+            <o-button text="First button"></o-button>
+        
+            <o-button text="Second button"></o-button>
+        
+            <o-button text="Third button"></o-button>
+          </o-array>
+        
+          <o-array>
+            <o-button lefticon="Docs/Images/pre.png"></o-button>
+        
+            <o-button lefticon="Docs/Images/pause.png"></o-button>
+        
+            <o-button lefticon="Docs/Images/next.png"></o-button>
+          </o-array>
         </div>
-        <!-- COLORS -->
-        <div id="eswitch-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your emote switch, use the <span class="cod">background</span> and <span class="cod">color</span> attributes to change the background and thumb color respectively.
-          </div>
-          <div class="display">
-            <o-eswitch background="#4f3a50"></o-eswitch>
-            <o-eswitch color="#d4007c"></o-eswitch>
-          </div>
-          <div class="code">
-            &lt;o-eswitch <span class="high">background</span>="#4f3a50">&lt;/o-eswitch><br>
-            <br>
-            &lt;o-eswitch <span class="high">color</span>="#d4007c">&lt;/o-eswitch><br>
-          </div>
-        </div>
-        <!-- TEXT -->
-        <div id="eswitch-text" class="cat-c">
-          <div class="cat">TEXT</div>
-          <div class="desc">
-            You can also use the <span class="cod">left</span> and <span class="cod">right</span> attributes tto change the left text and right text respectively.
-          </div>
-          <div class="display">
-            <o-eswitch left="🐻" right="🐀"></o-eswitch>
-          </div>
-          <div class="code">
-            &lt;o-eswitch <span class="high">left</span>="🐻" <span class="high">right</span>="🐀">&lt;/o-eswitch>
-          </div>
+    
+        <div class="code">
+          <high>&lt;o-array&gt;<br></high>
+          &nbsp;&nbsp;&lt;o-button text="First button"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &nbsp;&nbsp;&lt;o-button text="Second button"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &nbsp;&nbsp;&lt;o-button text="Third button"&gt;&lt;/o-button&gt;<br>
+          <high>&lt;/o-array&gt;<br></high>
+          <br>
+          <high>&lt;o-array&gt;<br></high>
+          &nbsp;&nbsp;&lt;o-button lefticon="Docs/Images/pre.png"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &nbsp;&nbsp;&lt;o-button lefticon="Docs/Images/pause.png"&gt;&lt;/o-button&gt;<br>
+          <br>
+          &nbsp;&nbsp;&lt;o-button lefticon="Docs/Images/next.png"&gt;&lt;/o-button&gt;<br>
+          <high>&lt;/o-array&gt;<br></high>
         </div>
       </div>
+    
+    
+    
+    
+    
+        <!--$$$                /$$   /$$               /$$      
+       /$$__  $$              |__/  | $$              | $$      
+      | $$  \__/ /$$  /$$  /$$ /$$ /$$$$$$    /$$$$$$$| $$$$$$$ 
+      |  $$$$$$ | $$ | $$ | $$| $$|_  $$_/   /$$_____/| $$__  $$
+       \____  $$| $$ | $$ | $$| $$  | $$    | $$      | $$  \ $$
+       /$$  \ $$| $$ | $$ | $$| $$  | $$ /$$| $$      | $$  | $$
+      |  $$$$$$/|  $$$$$/$$$$/| $$  |  $$$$/|  $$$$$$$| $$  | $$
+       \______/  \_____/\___/ |__/   \___/   \_______/|__/  |-->
+  
+      <div id="switch" class="doc">
+        <div class="title">Switches</div>
 
-        <!--$$$  /$$   /$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$$$$$$   /$$$$$$  /$$   /$$
-       /$$__  $$| $$  | $$| $$_____/ /$$__  $$| $$  /$$/| $$__  $$ /$$__  $$| $$  / $$
-      | $$  \__/| $$  | $$| $$      | $$  \__/| $$ /$$/ | $$  \ $$| $$  \ $$|  $$/ $$/
-      | $$      | $$$$$$$$| $$$$$   | $$      | $$$$$/  | $$$$$$$ | $$  | $$ \  $$$$/ 
-      | $$      | $$__  $$| $$__/   | $$      | $$  $$  | $$__  $$| $$  | $$  >$$  $$ 
-      | $$    $$| $$  | $$| $$      | $$    $$| $$\  $$ | $$  \ $$| $$  | $$ /$$/\  $$
-      |  $$$$$$/| $$  | $$| $$$$$$$$|  $$$$$$/| $$ \  $$| $$$$$$$/|  $$$$$$/| $$  \ $$
-       \______/ |__/  |__/|________/ \______/ |__/  \__/|_______/  \______/ |__/  |-->
+        <div class="description">To create a switch, use the <att>o-switch</att> element.</div>
+      
+        <!-- Checked & disabled -->
+        <div id="switch-checked"></div>
+        
+        <div class="subtitle">Checked & disabled</div>
+    
+        <div class="description">Switches can start checked or disabled by using the <att>checked</att> & <att>disabled</att> attributes.</div>
+      
+        <div class="row">
+          <o-switch></o-switch>
+        
+          <o-switch checked></o-switch>
+        
+          <o-switch disabled></o-switch>
+        </div>
+    
+        <div class="code">
+          <high>&lt;o-switch&gt;&lt;/o-switch&gt;</high><br>
+          <br>
+          &lt;o-switch <high>checked</high>&gt;&lt;/o-switch&gt;<br>
+          <br>
+          &lt;o-switch <high>checked disabled</high>&gt;&lt;/o-switch&gt;
+        </div>
+      
+        <!-- Personalization -->
+        <div id="switch-personalization"></div>
 
-      <div id="checkbox" class="type-c">
-        <div class="type">- CHECKBOX -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a checkbox, use the <span class="cod">o-checkbox</span> element. 
-            You can use the <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to check it and disable it.
-          </div>
-          <div class="display">
-            <o-checkbox></o-checkbox>
-            <o-checkbox checked></o-checkbox>
-            <o-checkbox disabled></o-checkbox>
-          </div>
-          <div class="code">
-            &lt;o-checkbox>&lt;/o-checkbox><br>
-            <br>
-            &lt;o-checkbox <span class="high">checked</span>>&lt;/o-checkbox><br>
-            <br>
-            &lt;o-checkbox <span class="high">disabled</span>>&lt;/o-checkbox>
-          </div>
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Switches can be personalized by using the <att>background</att> & <att>color</att> attributes.</div>
+      
+        <div class="row">
+          <o-switch background="#4f3a50"></o-switch>
+        
+          <o-switch color="accent"></o-switch>
         </div>
-        <!-- COLORS -->
-        <div id="checkbox-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your checkbox, use the <span class="cod">background</span> and <span class="cod">color</span> attributes to change the background and check indicator color respectively.
-          </div>
-          <div class="display">
-            <o-checkbox background="#4f3a50"></o-checkbox>
-            <o-checkbox color="#d4007c" checked></o-checkbox>
-          </div>
-          <div class="code">
-            &lt;o-checkbox <span class="high">background</span>="#4f3a50">&lt;/o-checkbox><br>
-            <br>
-            &lt;o-checkbox <span class="high">color</span>="#d4007c" checked>&lt;/o-checkbox><br>
-          </div>
-        </div>
-        <!-- TYPE -->
-        <div id="checkbox-type" class="cat-c">
-          <div class="cat">TYPE</div>
-          <div class="desc">
-            You can also change your checkbox's style with the <span class="cod">type</span> attribute.<br>
-            Type value can set to <span class="cod">reverse</span>.
-          </div>
-          <div class="display">
-            <o-checkbox checked></o-checkbox>
-            <o-checkbox type="reverse" checked></o-checkbox>
-          </div>
-          <div class="code">
-            &lt;o-checkbox checked>&lt;/o-checkbox><br>
-            <br>
-            &lt;o-checkbox <span class="high">type</span>="reverse" checked>&lt;/o-checkbox><br>
-          </div>
+    
+        <div class="code">
+          &lt;o-switch <high>background="#4f3a50"</high>&gt;&lt;/o-switch&gt;<br>
+          <br>
+          &lt;o-switch <high>color="accent"</high>&gt;&lt;/o-switch&gt;
         </div>
       </div>
+    
+    
+    
+    
+    
+        <!--$$$  /$$                           /$$       /$$                          
+       /$$__  $$| $$                          | $$      | $$                          
+      | $$  \__/| $$$$$$$   /$$$$$$   /$$$$$$$| $$   /$$| $$$$$$$   /$$$$$$  /$$   /$$
+      | $$      | $$__  $$ /$$__  $$ /$$_____/| $$  /$$/| $$__  $$ /$$__  $$|  $$ /$$/
+      | $$      | $$  \ $$| $$$$$$$$| $$      | $$$$$$/ | $$  \ $$| $$  \ $$ \  $$$$/ 
+      | $$    $$| $$  | $$| $$_____/| $$      | $$_  $$ | $$  | $$| $$  | $$  >$$  $$ 
+      |  $$$$$$/| $$  | $$|  $$$$$$$|  $$$$$$$| $$ \  $$| $$$$$$$/|  $$$$$$/ /$$/\  $$
+       \______/ |__/  |__/ \_______/ \_______/|__/  \__/|_______/  \______/ |__/  \-->
+  
+      <div id="checkbox" class="doc">
+        <div class="title">Checkboxes</div>
 
-       <!--$$$$   /$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$ 
-      | $$__  $$ /$$__  $$| $$__  $$|_  $$_/ /$$__  $$
-      | $$  \ $$| $$  \ $$| $$  \ $$  | $$  | $$  \ $$
-      | $$$$$$$/| $$$$$$$$| $$  | $$  | $$  | $$  | $$
-      | $$__  $$| $$__  $$| $$  | $$  | $$  | $$  | $$
-      | $$  \ $$| $$  | $$| $$  | $$  | $$  | $$  | $$
-      | $$  | $$| $$  | $$| $$$$$$$/ /$$$$$$|  $$$$$$/
-      |__/  |__/|__/  |__/|_______/ |______/ \____-->
+        <div class="description">To create a checkbox, use the <att>o-checkbox</att> element.</div>
+      
+        <!-- Checked & disabled -->
+        <div id="checkbox-checked"></div>
 
-      <div id="radio" class="type-c">
-        <div class="type">- RADIO BUTTON -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a radio button, use the <span class="cod">o-radio</span> element. 
-            You can use the <span class="cod">name</span>, <span class="cod">checked</span> and <span class="cod">disabled</span> attributes to change it's name, check it and disable it.
-          </div>
-          <div class="display">
-            <o-radio name="1"></o-radio>
-            <o-radio name="1" checked></o-radio>
-            <o-radio name="1" disabled></o-radio>
-          </div>
-          <div class="code">
-            &lt;o-radio <span class="high">name</span>="1">&lt;/o-radio><br>
-            <br>
-            &lt;o-radio <span class="high">name</span>="1" <span class="high">checked</span>>&lt;/o-radio><br>
-            <br>
-            &lt;o-radio <span class="high">name</span>="1" <span class="high">disabled</span>>&lt;/o-radio>
-          </div>
+        <div class="subtitle">Checked & disabled</div>
+    
+        <div class="description">Checkboxes can start checked or disabled by using the <att>checked</att> & <att>disabled</att> attributes.</div>
+      
+        <div class="row">
+          <o-checkbox></o-checkbox>
+        
+          <o-checkbox checked></o-checkbox>
+        
+          <o-checkbox checked disabled></o-checkbox>
         </div>
-        <!-- COLORS -->
-        <div id="radio-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your radio button, use the <span class="cod">background</span> and <span class="cod">color</span> attributes to change the background and check indicator color respectively.
-          </div>
-          <div class="display">
-            <o-radio name="2" background="#4f3a50"></o-radio>
-            <o-radio name="2" color="#d4007c" checked></o-radio>
-          </div>
-          <div class="code">
-            &lt;o-radio name="2" <span class="high">background</span>="#4f3a50">&lt;/o-radio><br>
-            <br>
-            &lt;o-radio name="2" <span class="high">color</span>="#d4007c" checked>&lt;/o-radio><br>
-          </div>
+    
+        <div class="code">
+          <high>&lt;o-checkbox&gt;&lt;/o-checkbox&gt;</high><br>
+          <br>
+          &lt;o-checkbox <high>checked</high>&gt;&lt;/o-checkbox&gt;<br>
+          <br>
+          &lt;o-checkbox <high>checked disabled</high>&gt;&lt;/o-checkbox&gt;
         </div>
-        <!-- TYPE -->
-        <div id="radio-type" class="cat-c">
-          <div class="cat">TYPE</div>
-          <div class="desc">
-            You can also change your radio button's style with the <span class="cod">type</span> attribute.<br>
-            Type value can set to <span class="cod">reverse</span>.
-          </div>
-          <div class="display">
-            <o-radio name="3"></o-radio>
-            <o-radio name="3" type="reverse" checked></o-radio>
-          </div>
-          <div class="code">
-            &lt;o-radio name="3">&lt;/o-radio><br>
-            <br>
-            &lt;o-radio name="3" <span class="high">type</span>="reverse" checked>&lt;/o-radio><br>
-          </div>
+      
+        <!-- Personalization -->
+        <div id="checkbox-personalization"></div>
+
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Checkboxes can be personalized by using the <att>background</att> & <att>color</att> attributes.</div>
+      
+        <div class="row">
+          <o-checkbox checked background="#4f3a50"></o-checkbox>
+        
+          <o-checkbox checked color="accent"></o-checkbox>
+        </div>
+    
+        <div class="code">
+          &lt;o-checkbox checked <high>background="#4f3a50"</high>&gt;&lt;/o-checkbox&gt;<br>
+          <br>
+          &lt;o-checkbox checked <high>color="accent"</high>&gt;&lt;/o-checkbox&gt;
         </div>
       </div>
+    
+    
+    
+    
+    
+       <!--$$$$                  /$$ /$$          
+      | $$__  $$                | $$|__/          
+      | $$  \ $$  /$$$$$$   /$$$$$$$ /$$  /$$$$$$ 
+      | $$$$$$$/ |____  $$ /$$__  $$| $$ /$$__  $$
+      | $$__  $$  /$$$$$$$| $$  | $$| $$| $$  \ $$
+      | $$  \ $$ /$$__  $$| $$  | $$| $$| $$  | $$
+      | $$  | $$|  $$$$$$$|  $$$$$$$| $$|  $$$$$$/
+      |__/  |__/ \_______/ \_______/|__/ \____-->
+  
+      <div id="radio" class="doc">
+        <div class="title">Radio buttons</div>
+      
+        <div class="description">To create a radio button, use the <att>o-radio</att> element.</div>
 
-        <!--$$$  /$$$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$ 
-       /$$__  $$| $$_____/| $$_____/| $$  /$$/| $$__  $$ /$$__  $$| $$__  $$
-      | $$  \__/| $$      | $$      | $$ /$$/ | $$  \ $$| $$  \ $$| $$  \ $$
-      |  $$$$$$ | $$$$$   | $$$$$   | $$$$$/  | $$$$$$$ | $$$$$$$$| $$$$$$$/
-       \____  $$| $$__/   | $$__/   | $$  $$  | $$__  $$| $$__  $$| $$__  $$
-       /$$  \ $$| $$      | $$      | $$\  $$ | $$  \ $$| $$  | $$| $$  \ $$
-      |  $$$$$$/| $$$$$$$$| $$$$$$$$| $$ \  $$| $$$$$$$/| $$  | $$| $$  | $$
-       \______/ |________/|________/|__/  \__/|_______/ |__/  |__/|__/  |-->
+        <!-- Checked & disabled -->
+        <div id="radio-checked"></div>
 
-      <div id="seekbar" class="type-c">
-        <div class="type">- SEEKBAR -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a seekbar, use the <span class="cod">o-seekbar</span> element. 
-          </div>
-          <div class="display">
-            <o-seekbar style="width: 200px"></o-seekbar>
-          </div>
-          <div class="code">
-            &lt;o-seekbar>&lt;/o-seekbar>
-          </div>
+        <div class="subtitle">Checked & disabled</div>
+    
+        <div class="description">Radio buttons can start checked or disabled by using the <att>checked</att> & <att>disabled</att> attributes.</div>
+      
+        <div class="row">
+          <o-radio name="1"></o-radio>
+        
+          <o-radio name="1" checked></o-radio>
+        
+          <o-radio checked disabled></o-radio>
         </div>
-        <!-- COLORS -->
-        <div id="seekbar-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your seekbar, use the <span class="cod">background</span> and <span class="cod">color</span> attributes to change the background and thumb color respectively.
-          </div>
-          <div class="display">
-            <o-seekbar background="#4f3a50"></o-seekbar>
-            <o-seekbar color="#d4007c"></o-seekbar>
-          </div>
-          <div class="code">
-            &lt;o-seekbar <span class="high">background</span>="#4f3a50">&lt;/o-seekbar><br>
-            <br>
-            &lt;o-seekbar <span class="high">color</span>="#d4007c">&lt;/o-seekbar><br>
-          </div>
+    
+        <div class="code">
+          <high>&lt;o-radio</high> name="1"&gt;<high>&lt;/o-radio&gt;</high><br>
+          <br>
+          &lt;o-radio name="1" <high>checked</high>&gt;&lt;/o-radio&gt;<br>
+          <br>
+          &lt;o-radio <high>checked disabled</high>&gt;&lt;/o-radio&gt;
         </div>
-        <!-- DATA -->
-        <div id="seekbar-data" class="cat-c">
-          <div class="cat">DATA</div>
-          <div class="desc">
-            You can also change your seekbar's data with the <span class="cod">min</span>, <span class="cod">max</span> & <span class="cod">value</span> attributes.
-          </div>
-          <div class="display">
-            <o-seekbar min="0" max="10" value="7" style="width: 300px"></o-seekbar>
-          </div>
-          <div class="code">
-            &lt;o-seekbar <span class="high">min</span>="0" <span class="high">max</span>="10" <span class="high">value</span>="7" style="width: 300px">&lt;/o-seekbar>
-          </div>
+      
+        <!-- Personalization -->
+        <div id="radio-personalization"></div>
+
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Radio buttons can be personalized by using the <att>background</att> & <att>color</att> attributes.</div>
+      
+        <div class="row">
+          <o-radio name="2" background="#4f3a50"></o-radio>
+        
+          <o-radio name="2" checked color="accent"></o-radio>
+        </div>
+    
+        <div class="code">
+          &lt;o-radio name="2" <high>background="#4f3a50"</high>&gt;&lt;/o-radio&gt;<br>
+          <br>
+          &lt;o-radio name="2" checked <high>color="accent"</high>&gt;&lt;/o-radio&gt;
         </div>
       </div>
+    
+    
+    
+    
+    
+       <!--$$$                                 /$$
+      |_  $$_/                                | $$
+        | $$   /$$$$$$$   /$$$$$$  /$$   /$$ /$$$$$$
+        | $$  | $$__  $$ /$$__  $$| $$  | $$|_  $$_/
+        | $$  | $$  \ $$| $$  \ $$| $$  | $$  | $$
+        | $$  | $$  | $$| $$  | $$| $$  | $$  | $$ /$$
+       /$$$$$$| $$  | $$| $$$$$$$/|  $$$$$$/  |  $$$$/
+      |______/|__/  |__/| $$____/  \______/    \___/
+                        | $$
+                        | $$
+                        |-->
+  
+      <div id="input" class="doc">
+        <div class="title">Text inputs</div>
+      
+        <div class="description">To create a text input, use the <att>o-input</att> element.</div>
+      
+        <!-- Text -->
+        <div id="input-text"></div>
 
-        <!--$$$   /$$$$$$  /$$$$$$$  /$$$$$$$ 
-       /$$__  $$ /$$__  $$| $$__  $$| $$__  $$
-      | $$  \__/| $$  \ $$| $$  \ $$| $$  \ $$
-      | $$      | $$$$$$$$| $$$$$$$/| $$  | $$
-      | $$      | $$__  $$| $$__  $$| $$  | $$
-      | $$    $$| $$  | $$| $$  \ $$| $$  | $$
-      |  $$$$$$/| $$  | $$| $$  | $$| $$$$$$$/
-       \______/ |__/  |__/|__/  |__/|_____-->
+        <div class="subtitle">Text</div>
+    
+        <div class="description">You can add text & hints to a text inputs by using the <att>value</att> & <att>hint</att> attributes.</div>
+      
+        <div class="row">
+          <o-input></o-input>
 
-      <div id="card" class="type-c">
-        <div class="type">- CARD -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a card, use the <span class="cod">o-card</span> element. 
-            To personalize your card, use the <span class="cod">image</span> and <span class="cod">text</span> attributes to change the image and text respectively.
-          </div>
-          <div class="display">
-            <o-card image="Data/Images/cp2077.jpg" text="Cyberpunk 2077"></o-card>
-            <o-card image="Data/Images/metro.jpg" text="Metro Exodus"></o-card>
-            <o-card image="Data/Images/fo4.jpg" text="Fallout 4"></o-card>
-          </div>
-          <div class="code">
-            &lt;o-card <span class="high">image</span>="Data/Images/cp2077.jpg" <span class="high">text</span>="Cyberpunk 2077">&lt;/o-card><br>
-            &lt;o-card <span class="high">image</span>="Data/Images/metro.jpg" <span class="high">text</span>="Metro Exodus">&lt;/o-card><br>
-            &lt;o-card <span class="high">image</span>="Data/Images/fo4.jpg" <span class="high">text</span>="Fallout 4">&lt;/o-card><br>
-          </div>
+          <o-input value="Custom text"></o-input>
+          
+          <o-input hint="Custom hint"></o-input>
+        </div>
+    
+        <div class="code">
+          <high>&lt;o-input&gt;&lt;/o-input&gt;</high><br>
+          <br>
+          &lt;o-input <high>value="Custom text"</high>&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input <high>hint="Custom hint"</high>&gt;&lt;/o-input&gt;
+        </div>
+      
+        <!-- Size -->
+        <div id="input-size"></div>
+
+        <div class="subtitle">Size</div>
+    
+        <div class="description">You can change the size of text inputs by using the <att>size</att> attribute.</div>
+      
+        <div class="row">
+          <o-input value="Default"></o-input>
+      
+          <o-input size="medium" value="Medium"></o-input>
+          
+          <o-input size="big" value="Big"></o-input>
+        </div>
+    
+        <div class="code">
+          &lt;o-input value="Default"&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input <high>size="medium"</high> value="Medium"&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input <high>size="big"</high> value="Big"&gt;&lt;/o-input&gt;
+        </div>
+      
+        <!-- Label -->
+        <div id="input-label"></div>
+
+        <div class="subtitle">Label</div>
+    
+        <div class="description">You can add a label to text inputs by using the <att>label</att> attribute.<br>Adding the <att>label</att> attribute without a text will use the hint instead.</div>
+      
+        <div class="row">
+          <o-input hint="Hint" label value="Text"></o-input>
+      
+          <o-input hint="Hint" label="Medium" value="Text" size="medium"></o-input>
+          
+          <o-input hint="Hint" label="Big" value="Text" size="big"></o-input>
+        </div>
+    
+        <div class="code">
+          &lt;o-input hint="Hint" <high>label</high> value="Text"&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input hint="Hint" <high>label="Medium"</high> value="Text" size="medium"&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input hint="Hint" <high>label="Big"</high> value="Text" size="big"&gt;&lt;/o-input&gt;
+        </div>
+      
+        <!-- Type -->
+        <div id="input-type"></div>
+
+        <div class="subtitle">Type</div>
+    
+        <div class="description">You can change the input type of text inputs by using the <att>type</att> attribute.</div>
+      
+        <div class="row">
+          <o-input type="text" hint="Text"></o-input>
+          
+          <o-input type="password" hint="Password"></o-input>
+          
+          <o-input type="number" hint="Number"></o-input>
+        </div>
+        
+        <div class="code">
+          &lt;o-input <high>type="text"</high> hint="Text"&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input <high>type="password"</high> hint="Password"&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input <high>type="number"</high> hint="Number"&gt;&lt;/o-input&gt;
+        </div>
+      
+        <!-- Max, readonly & disabled -->
+        <div id="input-disabled"></div>
+
+        <div class="subtitle">Max, readonly & disabled</div>
+    
+        <div class="description">You can change text inputs max amount of characters, make them read only and disabled by using the <att>max</att>, <att>readonly</att> & <att>disabled</att> attributes.</div>
+      
+        <div class="row">
+          <o-input value="Max of 10" max="10"></o-input>
+      
+          <o-input value="Read only" readonly></o-input>
+          
+          <o-input value="Disabled 👩‍🦽" disabled></o-input>
+        </div>
+    
+        <div class="code">
+          &lt;o-input value="Max of 10" <high>max="10"</high>&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input value="Read only" <high>readonly</high>&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input value="Disabled 👩‍🦽" <high>disabled</high>&gt;&lt;/o-input&gt;
+        </div>
+      
+        <!-- Personalization -->
+        <div id="input-personalization"></div>
+
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Text inputs can be personalized by using the <att>background</att>, <att>color</att> & <att>transparent</att> attributes.</div>
+      
+        <div class="row">
+          <o-input value="Custom background" background="#4f3a50"></o-input>
+          
+          <o-input value="Custom color" color="accent"></o-input>
+          
+          <o-input value="Transparent" transparent></o-input>
+        </div>
+    
+        <div class="code">
+          &lt;o-input value="Custom background" <high>background="#4f3a50"</high>&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input value="Custom color" <high>color="accent"</high>&gt;&lt;/o-input&gt;<br>
+          <br>
+          &lt;o-input value="Transparent" <high>transparent</high>&gt;&lt;/o-input&gt;
         </div>
       </div>
+    
+    
+    
+    
+    
+        <!--$$$                      /$$       /$$                          
+       /$$__  $$                    | $$      | $$                          
+      | $$  \__/  /$$$$$$   /$$$$$$ | $$   /$$| $$$$$$$   /$$$$$$   /$$$$$$ 
+      |  $$$$$$  /$$__  $$ /$$__  $$| $$  /$$/| $$__  $$ |____  $$ /$$__  $$
+       \____  $$| $$$$$$$$| $$$$$$$$| $$$$$$/ | $$  \ $$  /$$$$$$$| $$  \__/
+       /$$  \ $$| $$_____/| $$_____/| $$_  $$ | $$  | $$ /$$__  $$| $$      
+      |  $$$$$$/|  $$$$$$$|  $$$$$$$| $$ \  $$| $$$$$$$/|  $$$$$$$| $$      
+       \______/  \_______/ \_______/|__/  \__/|_______/  \_______/|-->
+  
+      <div id="seekbar" class="doc">
+        <div class="title">Seekbars</div>
+      
+        <div class="description">To create a seekbar, use the <att>o-seekbar</att> element.</div>
+      
+        <!-- Min, max & value -->
+        <div id="seekbar-disabled"></div>
 
-      <!--        /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$ 
-      | $$       /$$__  $$ /$$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$
-      | $$      | $$  \ $$| $$  \ $$| $$  \ $$  | $$  | $$$$| $$| $$  \__/
-      | $$      | $$  | $$| $$$$$$$$| $$  | $$  | $$  | $$ $$ $$| $$ /$$$$
-      | $$      | $$  | $$| $$__  $$| $$  | $$  | $$  | $$  $$$$| $$|_  $$
-      | $$      | $$  | $$| $$  | $$| $$  | $$  | $$  | $$\  $$$| $$  \ $$
-      | $$$$$$$$|  $$$$$$/| $$  | $$| $$$$$$$/ /$$$$$$| $$ \  $$|  $$$$$$/
-      |________/ \______/ |__/  |__/|_______/ |______/|__/  \__/ \____-->
+        <div class="subtitle">Min, max, value & disabled</div>
+    
+        <div class="description">Seekbars can start with value limits, custom values and disabled by using the <att>min</att>, <att>max</att>, <att>value</att> & <att>disabled</att> attributes.</div>
+      
+        <div class="row">
+          <o-seekbar></o-seekbar>
 
-      <div id="loading" class="type-c">
-        <div class="type">- LOADING -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a loading indicator, use the <span class="cod">o-loading</span> element.
-          </div>
-          <div class="display">
-            <o-loading></o-loading>
-          </div>
-          <div class="code">
-            &lt;o-loading>&lt;/o-loading><br>
-          </div>
+          <o-seekbar min="0" max="5" value="1"></o-seekbar> 
+
+          <o-seekbar disabled></o-seekbar> 
         </div>
-        <!-- COLORS -->
-        <div id="loading-colors" class="cat-c">
-          <div class="cat">COLORS</div>
-          <div class="desc">
-            To personalize your loading indicators, use the <span class="cod">color</span> attribute to change element color.
-          </div>
-          <div class="display">
-            <o-loading></o-loading>
-            <o-loading color="#d4007c"></o-loading>
-          </div>
-          <div class="code">
-            &lt;o-loading>&lt;/o-loading><br>
-            <br>
-            &lt;o-loading <span class="high">color</span>="#d4007c">&lt;/o-loading><br>
-          </div>
+    
+        <div class="code">
+          <high>&lt;o-seekbar&gt;&lt;/o-seekbar&gt;</high><br>
+          <br>
+          &lt;o-seekbar <high>min="0" max="5" value="1"</high>&gt;&lt;/o-seekbar&gt; <br>
+          <br>
+          &lt;o-seekbar <high>disabled</high>&gt;&lt;/o-seekbar&gt;
         </div>
-        <!-- TYPE -->
-        <div id="loading-type" class="cat-c">
-          <div class="cat">TYPE</div>
-          <div class="desc">
-            You can also change your loading indicator's style with the <span class="cod">type</span> attribute.<br>
-            Type value can set to <span class="cod">dots</span>, <span class="cod">spin</span> & <span class="cod">pulse</span>.
-          </div>
-          <div class="display">
-            <o-loading></o-loading>
-            <o-loading type="dots"></o-loading>
-            <o-loading type="spin"></o-loading>
-            <o-loading type="pulse"></o-loading>
-          </div>
-          <div class="code">
-            &lt;o-loading>&lt;/o-loading><br>
-            <br>
-            &lt;o-loading <span class="high">type</span>="dots">&lt;/o-loading><br>
-            <br>
-            &lt;o-loading <span class="high">type</span>="spin">&lt;/o-loading><br>
-            <br>
-            &lt;o-loading <span class="high">type</span>="pulse">&lt;/o-loading>
-          </div>
+      
+        <!-- Personalization -->
+        <div id="seekbar-personalization"></div>
+
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Seekbars can be personalized by using the <att>background</att> & <att>color</att> attributes.</div>
+      
+        <div class="row">
+          <o-seekbar background="#4f3a50"></o-seekbar>
+      
+          <o-seekbar color="accent"></o-seekbar>
+        </div>
+    
+        <div class="code">
+          &lt;o-seekbar <high>background="#4f3a50"</high>&gt;&lt;/o-seekbar&gt;<br>
+          <br>
+          &lt;o-seekbar <high>color="accent"</high>&gt;&lt;/o-seekbar&gt;
         </div>
       </div>
+  
+  
+  
+  
+  
+       <!--                                /$$ /$$                    
+      | $$                                | $$|__/                    
+      | $$        /$$$$$$   /$$$$$$   /$$$$$$$ /$$ /$$$$$$$   /$$$$$$ 
+      | $$       /$$__  $$ |____  $$ /$$__  $$| $$| $$__  $$ /$$__  $$
+      | $$      | $$  \ $$  /$$$$$$$| $$  | $$| $$| $$  \ $$| $$  \ $$
+      | $$      | $$  | $$ /$$__  $$| $$  | $$| $$| $$  | $$| $$  | $$
+      | $$$$$$$$|  $$$$$$/|  $$$$$$$|  $$$$$$$| $$| $$  | $$|  $$$$$$$
+      |________/ \______/  \_______/ \_______/|__/|__/  |__/ \____  $$
+                                                             /$$  \ $$
+                                                            |  $$$$$$/
+                                                             \____--> 
+   
+      <div id="loading" class="doc">
+        <div class="title">Loading Indicators</div>
+      
+        <div class="description">To create a loading indicator, use the <att>o-loading</att> element.</div>
+    
+        <!-- Colors -->
+        <div id="loading-type"></div>
 
-      <!--$$$$$$ /$$$$$$$$ /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$$$$$$$ /$$$$$$ 
-      | $$_____/| $$_____/| $$_____/| $$_____/ /$$__  $$|__  $$__//$$__  $$
-      | $$      | $$      | $$      | $$      | $$  \__/   | $$  | $$  \__/
-      | $$$$$   | $$$$$   | $$$$$   | $$$$$   | $$         | $$  |  $$$$$$ 
-      | $$__/   | $$__/   | $$__/   | $$__/   | $$         | $$   \____  $$
-      | $$      | $$      | $$      | $$      | $$    $$   | $$   /$$  \ $$
-      | $$$$$$$$| $$      | $$      | $$$$$$$$|  $$$$$$/   | $$  |  $$$$$$/
-      |________/|__/      |__/      |________/ \______/    |__/   \____-->
+        <div class="subtitle">Type</div>
+    
+        <div class="description">You can change the style of loading indicators by using the <att>type</att> attribute.</div>
+    
+        <div class="row">
+          <o-loading></o-loading>
+          <o-loading type="dots"></o-loading>
+          <o-loading type="spin"></o-loading>
+          <o-loading type="pulse"></o-loading>
+        </div>
+    
+        <div class="code">
+          &lt;o-loading&gt;&lt;/o-loading&gt;<br>
+          <br>
+          &lt;o-loading <high>type="dots"</high>&gt;&lt;/o-loading&gt;<br>
+          <br>
+          &lt;o-loading <high>type="spin"</high>&gt;&lt;/o-loading&gt;<br>
+          <br>
+          &lt;o-loading <high>type="pulse"</high>&gt;&lt;/o-loading&gt;
+        </div>
+        
+        <!-- Personalization -->
+        <div id="loading-personalization"></div>
 
-      <div id="effects" class="type-c">
-        <div class="type">- EFFECTS -</div>
-        <div class="cat-c">
-          <div class="desc">
-            Classes that can be added to elements to create effects.
-          </div>
+        <div class="subtitle">Personalization</div>
+    
+        <div class="description">Loading indicators can be personalized by using the <att>color</att> attribute.</div>
+    
+        <div class="row">
+          <o-loading color="accent"></o-loading>
+          <o-loading color="accent" type="dots"></o-loading>
+          <o-loading color="accent" type="spin"></o-loading>
+          <o-loading color="accent" type="pulse"></o-loading>
         </div>
-        <!-- GLOW -->
-        <div id="effects-glow" class="cat-c">
-          <div class="cat">GLOW</div>
-          <div class="desc">
-            The <span class="cod">glow</span> class replaces the element's background to create a glow effect.
-          </div>
-          <div class="display">
-            <div class="glow" style="width: 80px; height: 40px; border-radius: var(--buttonCorner);"></div>
-          </div>
-          <div class="code">
-            &lt;div class="<span class="high">glow</span>">&lt;/div>
-          </div>
-        </div>
-        <!-- NOISE -->
-        <div id="effects-noise" class="cat-c">
-          <div class="cat">NOISE</div>
-          <div class="desc">
-            The <span class="cod">noise</span> class replaces the element's background to create a noise effect.
-          </div>
-          <div class="display">
-            <div class="noise" style="width: 80px; height: 40px; border-radius: var(--buttonCorner);"></div>
-          </div>
-          <div class="code">
-            &lt;div class="<span class="high">noise</span>">&lt;/div>
-          </div>
-        </div>
-        <!-- GLASS -->
-        <div id="effects-glass" class="cat-c">
-          <div class="cat">GLASS</div>
-          <div class="desc">
-            The <span class="cod">glass</span> class adds a shadow and blurs the background to create a glass effect.
-          </div>
-          <div class="display">
-            <div style="width: 120px; height: 120px; position: relative;">
-              <img style="width: 100px; height: 100px; position: relative; border-radius: var(--buttonCorner); object-fit: cover;" src="Data/Images/cp2077.jpg"></img>
-              <div class="glass" style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px; border-radius: var(--buttonCorner);"></div>
-            </div>
-          </div>
-          <div class="code">
-            &lt;div class="<span class="high">glass</span>">&lt;/div>
-          </div>
-        </div>
-        <!-- PULSE -->
-        <div id="effects-pulse" class="cat-c">
-          <div class="cat">PULSE</div>
-          <div class="desc">
-            The <span class="cod">pulse</span> class adds a shadow around an element to create a pulse effect.<br>
-            Changing the <span class="cod">--oColor</span> variable applies a custom color.
-          </div>
-          <div class="display">
-            <div class="pulse" style="width: 80px; height: 40px; border-radius: var(--buttonCorner); background-color: var(--button);"></div>
-            <div class="pulse" style="width: 80px; height: 40px; border-radius: var(--buttonCorner); background-color: var(--button); --oColor: #d4007c;"></div>
-          </div>
-          <div class="code">
-            &lt;div class="<span class="high">pulse</span>">&lt;/div><br>
-            <br>
-            &lt;div class="<span class="high">pulse</span>" style="<span class="high">--oColor: #d4007c;</span>">&lt;/div>
-          </div>
+    
+        <div class="code">
+          &lt;o-loading <high>color="accent"</high>&gt;&lt;/o-loading&gt;<br>
+          <br>
+          &lt;o-loading <high>color="accent"</high> type="dots"&gt;&lt;/o-loading&gt;<br>
+          <br>
+          &lt;o-loading <high>color="accent"</high> type="spin"&gt;&lt;/o-loading&gt;<br>
+          <br>
+          &lt;o-loading <high>color="accent"</high> type="pulse"&gt;&lt;/o-loading&gt;
         </div>
       </div>
+  
+  
+  
+  
+  
+
+
+
+
 
           <!--$$  /$$$$$$ 
          |__  $$ /$$__  $$
@@ -1255,352 +1230,454 @@
       |  $$$$$$/|  $$$$$$/
        \______/  \____-->
 
-      <div id="js" class="title">JS</div>
+      <div id="js" class="doc" first>
+        <div class="title" big>JS</div>
+    
+        <div class="description">All of the functions from the framework that you can use.</div>
+      </div>
 
-       <!--  /$$  /$$$$$$  /$$$$$$$$ /$$$$$$  /$$$$$$ 
-      | $$$ | $$ /$$__  $$|__  $$__/|_  $$_/ /$$__  $$
-      | $$$$| $$| $$  \ $$   | $$     | $$  | $$  \__/
-      | $$ $$ $$| $$  | $$   | $$     | $$  |  $$$$$$ 
-      | $$  $$$$| $$  | $$   | $$     | $$   \____  $$
-      | $$\  $$$| $$  | $$   | $$     | $$   /$$  \ $$
-      | $$ \  $$|  $$$$$$/   | $$    /$$$$$$|  $$$$$$/
-      |__/  \__/ \______/    |__/   |______/ \____-->
+
+
+
+
+       <!--  /$$             /$$     /$$
+      | $$$ | $$            | $$    |__/
+      | $$$$| $$  /$$$$$$  /$$$$$$   /$$  /$$$$$$$
+      | $$ $$ $$ /$$__  $$|_  $$_/  | $$ /$$_____/
+      | $$  $$$$| $$  \ $$  | $$    | $$|  $$$$$$
+      | $$\  $$$| $$  | $$  | $$ /$$| $$ \____  $$
+      | $$ \  $$|  $$$$$$/  |  $$$$/| $$ /$$$$$$$/
+      |__/  \__/ \______/    \___/  |__/|_____-->
+
+      <div id="noti" class="doc">
+        <div class="title">Notifications</div>
       
-      <div id="notis" class="type-c">
-        <div class="type">- NOTIFICATIONS -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a notification, use the <span class="cod">createNoti(title, content, options)</span> function.<br>
-            Notifications will stack and keep appearing until there is none left.
-          </div>
-          <div class="display">
-            <o-button onclick="createNoti('Alert 🔞', 'Anna wants to know you 🔥')">Notification Test</o-button>
-          </div>
+        <div class="description">To create a notification, use the <att>createNoti(title, content, options)</att> function.</div>
+        
+        <!-- Title & content -->
+        <div id="noti-title"></div>
+
+        <div class="subtitle">Title & content</div>
+    
+        <div class="description">You can modify the title & content of the notification by using the <att>title</att> & <att>content</att> string arguments.</div>
+    
+        <div class="row">
+          <o-button text="Notification sample" onclick="createNoti('Title', 'Content')"></o-button>
         </div>
-        <!-- TITLE & CONTENT -->
-        <div id="notis-text" class="cat-c">
-          <div class="cat">TITLE & CONTENT</div>
-          <div class="desc">
-            To personalize your notification, use the <span class="cod">title</span> and <span class="cod">content</span> (strings) to change the title and content respectively.
-          </div>
-          <div class="display">
-            <o-button onclick="createNoti('Title', 'Content')">Notification Test</o-button>
-          </div>
-          <div class="code">
-            createNoti(<span class="high">'Title'</span>, <span class="high">'Content'</span>)
-          </div>
+    
+        <div class="code">
+          createNoti(<high>'Title', 'Content'</high>)
         </div>
-        <!-- OPTIONS -->
-        <div id="notis-options" class="cat-c">
-          <div class="cat">OPTIONS</div>
-          <div class="desc">
-            To add extra personalization, the <span class="cod">options</span> (object) can add more things to your notification.
-            Options value can contain:<br>
-            &nbsp;&nbsp;• An <span class="cod">onClick</span> (function) to run when clicked.<br>
-            &nbsp;&nbsp;• A <span class="cod">time</span> (number) to state the time in ms it will stay before disappearing.
-          </div>
-          <div class="display">
-            <o-button onclick="createNoti('Test', 'Click me!', { 
-              onClick: function() { window.open('https://github.com/BOTPanzer', '_blank') }, time: 1500 })">Notification Test</o-button>
-          </div>
-          <div class="code">
-            createNoti('Test', 'Click me!', <span class="high">{<br>
-              &nbsp;&nbsp;onClick: function() { window.open('https://github.com/BOTPanzer') },<br>
-              &nbsp;&nbsp;time: 1500<br>
-            }</span>)
-          </div>
+
+        <!-- Options -->
+        <div id="noti-options"></div>
+
+        <div class="subtitle">Options</div>
+    
+        <div class="description">You can customize even further your notification by using the <att>options</att> object argument.</div>
+    
+        <div class="row">
+          <o-button text="Notification sample" onclick="createNoti('Test', 'Click me!', { onClick: () => window.open('https://botpa.vercel.app/', '_blank'), duration: 3000 })"></o-button>
+        </div>
+    
+        <div class="code">
+          createNoti('Test', 'Click me!', <high>{<br>
+          &nbsp;&nbsp;onClick: () => window.open('https://botpa.vercel.app/', '_blank'),<br>
+          &nbsp;&nbsp;duration: 3000<br>
+          }</high>)<br>
+        </div>
+      </div>
+  
+  
+  
+  
+  
+        <!--$$$  /$$$$$$$$ /$$   /$$       /$$      /$$                              
+       /$$__  $$|__  $$__/| $$  / $$      | $$$    /$$$                              
+      | $$  \__/   | $$   |  $$/ $$/      | $$$$  /$$$$  /$$$$$$  /$$$$$$$  /$$   /$$
+      | $$         | $$    \  $$$$/       | $$ $$/$$ $$ /$$__  $$| $$__  $$| $$  | $$
+      | $$         | $$     >$$  $$       | $$  $$$| $$| $$$$$$$$| $$  \ $$| $$  | $$
+      | $$    $$   | $$    /$$/\  $$      | $$\  $ | $$| $$_____/| $$  | $$| $$  | $$
+      |  $$$$$$/   | $$   | $$  \ $$      | $$ \/  | $$|  $$$$$$$| $$  | $$|  $$$$$$/
+       \______/    |__/   |__/  |__/      |__/     |__/ \_______/|__/  |__/ \____-->
+
+      <div id="ctxmenu" class="doc">
+        <div class="title">Context Menus</div>
+      
+        <div class="description">To create a context menu, use the <att>createCTXMenu(title, items, title)</att> function.<br>Returns the id of the context menu.</div>
+        
+        <!-- Event -->
+        <div id="ctxmenu-event"></div>
+
+        <div class="subtitle">Event</div>
+    
+        <div class="description">In order to create a context menu, you will need the <att>event</att> variable from the event listener you are calling the function from.</div>
+    
+        <div class="row">
+          <o-button text="Context menu sample" onclick="createCTXMenu(event)"></o-button>
+        </div>
+    
+        <div class="code">
+          const id = createCTXMenu(<high>event</high>)
+        </div>
+
+        <!-- Items & title -->
+        <div id="ctxmenu-items"></div>
+
+        <div class="subtitle">Items & title</div>
+    
+        <div class="description">To add items and a title to your context menu, you can use the <att>items</att> array and the <att>title</att> string variables.</div>
+    
+        <div class="row">
+          <o-button text="Context menu sample" onclick="
+            createCTXMenu(event, [
+              { id: 'test1', label: 'Label 1', click: () => {} }, 
+              { id: 'test2', label: 'Label 2', click: () => {} }
+            ], 'Title')
+          "></o-button>
+        </div>
+    
+        <div class="code">
+          const id = createCTXMenu(event, <high>[<br>
+          &nbsp;&nbsp;{ id: 'test1', label: 'Label 1', click: () => {} },<br>
+          &nbsp;&nbsp;{ id: 'test2', label: 'Label 2', click: () => {} }<br>
+          ], 'Title'</high>)
+        </div>
+
+        <!-- Functions -->
+        <div id="ctxmenu-functions"></div>
+
+        <div class="subtitle">Functions</div>
+    
+        <div class="description">To close a context menu at will, you can use the <att>closeCTXMenu(id)</att> function.</div>
+    
+        <div class="code">
+          const id = createCTXMenu(...)<br>
+          <br>
+          <high>closeCTXMenu(id)</high>
+        </div>
+      </div>
+  
+  
+  
+  
+  
+       <!--$$$$  /$$           /$$                    
+      | $$__  $$|__/          | $$                    
+      | $$  \ $$ /$$  /$$$$$$ | $$  /$$$$$$   /$$$$$$ 
+      | $$  | $$| $$ |____  $$| $$ /$$__  $$ /$$__  $$
+      | $$  | $$| $$  /$$$$$$$| $$| $$  \ $$| $$  \ $$
+      | $$  | $$| $$ /$$__  $$| $$| $$  | $$| $$  | $$
+      | $$$$$$$/| $$|  $$$$$$$| $$|  $$$$$$/|  $$$$$$$
+      |_______/ |__/ \_______/|__/ \______/  \____  $$
+                                             /$$  \ $$
+                                            |  $$$$$$/
+                                             \____-->
+
+      <div id="dialog" class="doc">
+        <div class="title">Dialogs</div>
+      
+        <div class="description">To create a dialog, use the <att>createDialog(content, title, options)</att> function.<br>Returns the id of the dialog.</div>
+    
+        <!-- Content & title -->
+        <div id="dialog-content"></div>
+
+        <div class="subtitle">Content & title</div>
+    
+        <div class="description">To add content & a title to your dialog, you can use the <att>content</att> & <att>title</att> string variables.<br>The content is the plain text HTML inside of the dialog.</div>
+    
+        <div class="row">
+          <o-button text="Dialog sample" onclick="createDialog(`<div style='margin: 20px'>This is the content of the dialog</div>`, `Title`)"></o-button>
+        </div>
+    
+        <div class="code">
+          const content = '&lt;div style="margin: 20px"&gt;This is the content of the dialog&lt;/div&gt;'<br>
+          <br>
+          const id = createDialog(<high>content, 'Title'</high>)
+        </div>
+
+        <!-- Options -->
+        <div id="dialog-options"></div>
+
+        <div class="subtitle">Options</div>
+    
+        <div class="description">You can customize even further your dialog by using the <att>options</att> object argument.<br>There are options to replace the <att>onClose</att> function of the dialog and to hide the close button with <att>hideClose</att>.</div>
+    
+        <div class="row">
+          <o-button text="Dialog sample" onclick="const id = createDialog(`<div style='margin: 20px'>This is the content of the dialog</div>`, 'Title', { onClose: () => { closeDialog(id); createNoti('Info', 'Dialog closed') }, hideClose: false })"></o-button>
+        </div>
+    
+        <div class="code">
+          const content = '&lt;div style="margin: 20px"&gt;This is the content of the dialog&lt;/div&gt;'<br>
+          <br>
+          const id = createDialog(content, 'Title', <high>{<br>
+          &nbsp;&nbsp;onClose: () => { <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;closeDialog(id)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;createNoti('Info', 'Dialog closed')<br>
+          &nbsp;&nbsp;},<br>
+          &nbsp;&nbsp;hideClose: false<br>
+          }</high>)
+        </div>
+
+        <!-- Functions -->
+        <div id="dialog-functions"></div>
+
+        <div class="subtitle">Functions</div>
+    
+        <div class="description">To rename or close a dialog at will, you can use the <att>renameDialog(id, title)</att> & <att>closeDialog(id)</att> functions.</div>
+    
+        <div class="code">
+          const id = createDialog(...)<br>
+          <br>
+          <high>renameDialog(id, 'Title')</high><br>
+          <br>
+          <high>closeDialog(id)</high>
         </div>
       </div>
 
-       <!--$$$$  /$$$$$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$   /$$$$$$ 
-      | $$__  $$|_  $$_/ /$$__  $$| $$       /$$__  $$ /$$__  $$ /$$__  $$
-      | $$  \ $$  | $$  | $$  \ $$| $$      | $$  \ $$| $$  \__/| $$  \__/
-      | $$  | $$  | $$  | $$$$$$$$| $$      | $$  | $$| $$ /$$$$|  $$$$$$ 
-      | $$  | $$  | $$  | $$__  $$| $$      | $$  | $$| $$|_  $$ \____  $$
-      | $$  | $$  | $$  | $$  | $$| $$      | $$  | $$| $$  \ $$ /$$  \ $$
-      | $$$$$$$/ /$$$$$$| $$  | $$| $$$$$$$$|  $$$$$$/|  $$$$$$/|  $$$$$$/
-      |_______/ |______/|__/  |__/|________/ \______/  \______/  \____-->
 
-      <div id="dialogs" class="type-c">
-        <div class="type">- DIALOGS -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a dialog, use the <span class="cod">createDialog(innerHTML, title, options)</span> function, which will return the created dialog's ID. 
-          </div>
-          <div class="display">
-            <o-button onclick="dBuilderTest('info', 'Dialog')">Dialog Test</o-button>
-          </div>
+
+
+
+      
+       <!--$$$$  /$$           /$$                           /$$$$$$$            /$$ /$$       /$$
+      | $$__  $$|__/          | $$                          | $$__  $$          |__/| $$      | $$
+      | $$  \ $$ /$$  /$$$$$$ | $$  /$$$$$$   /$$$$$$       | $$  \ $$ /$$   /$$ /$$| $$  /$$$$$$$  /$$$$$$   /$$$$$$
+      | $$  | $$| $$ |____  $$| $$ /$$__  $$ /$$__  $$      | $$$$$$$ | $$  | $$| $$| $$ /$$__  $$ /$$__  $$ /$$__  $$
+      | $$  | $$| $$  /$$$$$$$| $$| $$  \ $$| $$  \ $$      | $$__  $$| $$  | $$| $$| $$| $$  | $$| $$$$$$$$| $$  \__/
+      | $$  | $$| $$ /$$__  $$| $$| $$  | $$| $$  | $$      | $$  \ $$| $$  | $$| $$| $$| $$  | $$| $$_____/| $$
+      | $$$$$$$/| $$|  $$$$$$$| $$|  $$$$$$/|  $$$$$$$      | $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$|  $$$$$$$| $$
+      |_______/ |__/ \_______/|__/ \______/  \____  $$      |_______/  \______/ |__/|__/ \_______/ \_______/|__/
+                                             /$$  \ $$
+                                            |  $$$$$$/
+                                             \____-->
+
+      <div id="dialogbuilder" class="doc">
+        <div class="title">Dialog Builder</div>
+      
+        <div class="description">You can use the <att>DialogBuilder.build(type, options)</att> function to make the dialog creation easier.<br>Returns an object with the contents of your dialog.</div>
+    
+        <!-- Info -->
+        <div id="dialogbuilder-info"></div>
+
+        <div class="subtitle">Info</div>
+    
+        <div class="description">
+          You can use the <att>DialogBuilder.INFO</att> type to create an informational dialog.<br>
+          <br>
+          Returns an object with:<br>
+          · <att>content</att>: the dialog's plain text HTML
         </div>
-        <!-- FUNCTIONS -->
-        <div id="dialogs-functions" class="cat-c">
-          <div class="cat">FUNCTIONS</div>
-          <div class="desc">
-            These are some of the (functions) related to dialogs:<br>
-            &nbsp;&nbsp;• <span class="cod">closeDialog(id)</span> closes the dialog with the specified ID.<br>
-            &nbsp;&nbsp;• <span class="cod">setDialogTitle(id, title)</span> changes the title of the dialog with the specified ID.
-          </div>
-          <div class="code">
-            let id = createDialog()<br>
-            <span class="high">closeDialog(id)</span><br>
-            <span class="high">setDialogTitle(id, 'Title')</span>
-          </div>
+    
+        <div class="row">
+          <o-button onclick="dialogBuilderTest(DialogBuilder.INFO)" text="Info dialog sample"></o-button>
         </div>
-        <!-- TITLE & CONTENT -->
-        <div id="dialogs-text" class="cat-c">
-          <div class="cat">TITLE & CONTENT</div>
-          <div class="desc">
-            To personalize your dialog, use the <span class="cod">innerHTML</span> and <span class="cod">title</span> (strings) to change the HTML text you would write inside the dialog and the title respectively.
-          </div>
-          <div class="display">
-            <o-button onclick="createDialog(`<div style='width: 500px; padding: 20px; text-align: center;'>This is a dialog example</div>`, 'Title')">Dialog Test</o-button>
-          </div>
-          <div class="code">
-            createDialog(<span class="high">`&lt;div style="width: 500px; padding: 20px; text-align: center;"><br>
-            &nbsp;&nbsp;This is a dialog example<br>
-            &lt;/div>`</span>, <span class="high">'Title'</span>)
-          </div>
+    
+        <div class="code">
+          const type = <high>DialogBuilder.INFO</high><br>
+          <br>
+          const options = <high>{<br>
+          &nbsp;&nbsp;content: 'Low damage, and the ability to jump over enemy walls...',<br>
+          }</high><br>
+          <br>
+          const db = <high>DialogBuilder.build(type, options)</high><br>
+          <br>
+          const id = createDialog(<high>db.content</high>)
         </div>
-        <!-- OPTIONS -->
-        <div id="dialogs-options" class="cat-c">
-          <div class="cat">OPTIONS</div>
-          <div class="desc">
-            To add extra personalization, the <span class="cod">options</span> (object) can add more things to your dialog.<br>
-            Options value can contain:<br>
-            &nbsp;&nbsp;• An <span class="cod">onClose</span> (function) to replace the close function.<br>
-            &nbsp;&nbsp;• A <span class="cod">preventClose</span> (boolean) to prevent the user from closing the dialog.
-          </div>
-          <div class="display">
-            <o-button onclick="let id = ''; id = createDialog(`<div style='width: 500px; padding: 20px; text-align: center; font-size: 15px;'>This is a dialog example</div>`, 'Title', { onClose: function() { closeDialog(id); createNoti('Info', 'Dialog Closed')}, preventClose: false })">Dialog Test</o-button>
-          </div>
-          <div class="code">
-            let id = ''<br>
-            id = createDialog('innerHTML', 'Title', <span class="high">{<br>
-            &nbsp;&nbsp;onClose: function() { <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;closeDialog(id)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;createNoti('Info', 'Dialog Closed')<br>
-            &nbsp;&nbsp;},<br>
-            &nbsp;&nbsp;preventClose: false<br>
-            }</span>)
-          </div>
+
+        <!-- Alert -->
+        <div id="dialogbuilder-alert"></div>
+
+        <div class="subtitle">Alert</div>
+    
+        <div class="description">
+          You can use the <att>DialogBuilder.ALERT</att> type to create an alert dialog.<br>
+          <br>
+          Returns an object with:<br>
+          · <att>content</att>: the dialog's plain text HTML<br>
+          · <att>confirmId</att>: the id of the confirm button
+        </div>
+    
+        <div class="row">
+          <o-button onclick="dialogBuilderTest(DialogBuilder.ALERT)" text="Alert dialog sample"></o-button>
+        </div>
+    
+        <div class="code">
+          const type = <high>DialogBuilder.ALERT</high><br>
+          <br>
+          const options = <high>{<br>
+          &nbsp;&nbsp;content: 'Low damage, and the ability to jump over enemy walls...',<br>
+          }</high><br>
+          <br>
+          const db = <high>DialogBuilder.build(type, options)</high><br>
+          <br>
+          const id = createDialog(<high>db.content</high>)<br>
+          <br>
+          <com>// Add listener to the confirm button using db.confirmId</com>
+        </div>
+
+        <!-- Confirm -->
+        <div id="dialogbuilder-confirm"></div>
+
+        <div class="subtitle">Confirm</div>
+    
+        <div class="description">
+          You can use the <att>DialogBuilder.CONFIRM</att> type to create a confirmation dialog.<br>
+          <br>
+          Returns an object with:<br>
+          · <att>content</att>: the dialog's plain text HTML<br>
+          · <att>confirmId</att>: the id of the confirm button<br>
+          · <att>cancelId</att>: the id of the cancel button
+        </div>
+    
+        <div class="row">
+          <o-button onclick="dialogBuilderTest(DialogBuilder.CONFIRM)" text="Confirm dialog sample"></o-button>
+        </div>
+    
+        <div class="code">
+          const type = <high>DialogBuilder.CONFIRM</high><br>
+          <br>
+          const options = <high>{<br>
+          &nbsp;&nbsp;content: 'Low damage, and the ability to jump over enemy walls...',<br>
+          }</high><br>
+          <br>
+          const db = <high>DialogBuilder.build(type, options)</high><br>
+          <br>
+          const id = createDialog(<high>db.content</high>)<br>
+          <br>
+          <com>// Add listener to the confirm button using db.confirmId</com><br>
+          <com>// Add listener to the cancel button using db.cancelId</com>
+        </div>
+
+        <!-- Input -->
+        <div id="dialogbuilder-input"></div>
+
+        <div class="subtitle">Input</div>
+    
+        <div class="description">
+          You can use the <att>DialogBuilder.INPUT</att> type to create a text input dialog.<br>
+          <br>
+          Returns an object with:<br>
+          · <att>content</att>: the dialog's plain text HTML<br>
+          · <att>confirmId</att>: the id of the confirm button<br>
+          · <att>inputId</att>: the id of the text input
+        </div>
+    
+        <div class="row">
+          <o-button onclick="dialogBuilderTest(DialogBuilder.INPUT)" text="Input dialog sample"></o-button>
+        </div>
+    
+        <div class="code">
+          const type = <high>DialogBuilder.INPUT</high><br>
+          <br>
+          const options = <high>{<br>
+          &nbsp;&nbsp;text: 'Text',<br>
+          &nbsp;&nbsp;hint: 'Hint',<br>
+          }</high><br>
+          <br>
+          const db = <high>DialogBuilder.build(type, options)</high><br>
+          <br>
+          const id = createDialog(<high>db.content</high>)<br>
+          <br>
+          <com>// Add listener to the confirm button using db.confirmId</com><br>
+          <com>// Do something with the text input using db.inputId</com>
+        </div>
+
+        <!-- Custom -->
+        <div id="dialogbuilder-custom"></div>
+
+        <div class="subtitle">Custom</div>
+    
+        <div class="description">
+          You can use the <att>DialogBuilder.CUSTOM</att> type to create a dialog with custom buttons.<br>
+          <br>
+          Returns an object with:<br>
+          · <att>content</att>: the dialog's plain text HTML<br>
+        </div>
+    
+        <div class="row">
+          <o-button onclick="customDialogBuilderTest()" text="Custom dialog sample"></o-button>
+        </div>
+    
+        <div class="code">
+          const type = <high>DialogBuilder.CUSTOM</high><br>
+          <br>
+          const options = <high>{<br>
+          &nbsp;&nbsp;content: 'Low damage, and the ability to jump over enemy walls...',<br>
+          &nbsp;&nbsp;buttons: [<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: 'custom-save',<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text: 'Save'<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: 'custom-cancel',<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text: 'Cancel'<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+          &nbsp;&nbsp;]<br>
+          }</high><br>
+          <br>
+          const db = <high>DialogBuilder.build(type, options)</high><br>
+          <br>
+          const id = createDialog(<high>db.content</high>)<br>
+          <br>
+          <com>// Add listeners to the custom buttons (in this case, custom-save & custom-cancel)</com>
         </div>
       </div>
-
-       <!--$$$$     /$$$$$$$  /$$   /$$ /$$$$$$ /$$       /$$$$$$$  /$$$$$$$$ /$$$$$$$ 
-      | $$__  $$   | $$__  $$| $$  | $$|_  $$_/| $$      | $$__  $$| $$_____/| $$__  $$
-      | $$  \ $$   | $$  \ $$| $$  | $$  | $$  | $$      | $$  \ $$| $$      | $$  \ $$
-      | $$  | $$   | $$$$$$$ | $$  | $$  | $$  | $$      | $$  | $$| $$$$$   | $$$$$$$/
-      | $$  | $$   | $$__  $$| $$  | $$  | $$  | $$      | $$  | $$| $$__/   | $$__  $$
-      | $$  | $$   | $$  \ $$| $$  | $$  | $$  | $$      | $$  | $$| $$      | $$  \ $$
-      | $$$$$$$//$$| $$$$$$$/|  $$$$$$/ /$$$$$$| $$$$$$$$| $$$$$$$/| $$$$$$$$| $$  | $$
-      |_______/|__/|_______/  \______/ |______/|________/|_______/ |________/|__/  |-->
-
-      <div id="dbuilder" class="type-c">
-        <div class="type">- DIALOG BUILDER -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create simple dialogs, use the <span class="cod">dialogBuilder(type, options)</span> function, which will return an (object) with the required elements to create the dialog.<br>
-            Use the <span class="cod">type</span> (String) to specify the type of the dialog and the <span class="cod">options</span> (Object) to add things depending on the type.
-          </div>
-        </div>
-        <!-- INFO -->
-        <div id="dbuilder-info" class="cat-c">
-          <div class="cat">INFO</div>
-          <div class="desc">
-            The <span class="cod">info</span> dialog type is used to create informational dialogs.<br>
-            Options value can contain:<br>
-            &nbsp;&nbsp;• A <span class="cod">content</span> (string), which declares the dialog's text.<br>
-            And returns:<br>
-            &nbsp;&nbsp;• A <span class="cod">innerHTML</span> (string), which is the dialog's innerHTML.
-          </div>
-          <div class="display">
-            <o-button onclick="dBuilderTest('info')">Info Dialog Test</o-button>
-          </div>
-          <div class="code">
-            let db = dialogBuilder(<span class="high">'info'</span>, <span class="high">{<br>
-            &nbsp;&nbsp;content: 'Low damage, and the ability to...'<br>
-            }</span>) => {<br>
-            &nbsp;&nbsp;innerHTML<br>
-            }<br>
-            <br>
-            createDialog(db.innerHTML, 'Info')
-          </div>
-        </div>
-        <!-- ALERT -->
-        <div id="dbuilder-alert" class="cat-c">
-          <div class="cat">ALERT</div>
-          <div class="desc">
-            The <span class="cod">alert</span> dialog type is used to create alert dialogs.<br>
-            Options value can contain:<br>
-            &nbsp;&nbsp;• A <span class="cod">content</span> (string), which declares the dialog's text.<br>
-            And returns:<br>
-            &nbsp;&nbsp;• A <span class="cod">innerHTML</span> (string), which is the dialog's innerHTML.<br>
-            &nbsp;&nbsp;• A <span class="cod">confirmId</span> (string), which is the confirm button's ID.
-          </div>
-          <div class="display">
-            <o-button onclick="dBuilderTest('alert')">Alert Dialog Test</o-button>
-          </div>
-          <div class="code">
-            let db = dialogBuilder(<span class="high">'alert'</span>, <span class="high">{<br>
-            &nbsp;&nbsp;content: 'Low damage, and the ability to...'<br>
-            }</span>) => {<br>
-            &nbsp;&nbsp;innerHTML,<br>
-            &nbsp;&nbsp;confirmId<br>
-            }<br>
-            <br>
-            createDialog(db.innerHTML, 'Alert')<br>
-            <br>
-            /*ADD LISTENER TO BUTTON*/
-          </div>
-        </div>
-        <!-- CONFIRM -->
-        <div id="dbuilder-confirm" class="cat-c">
-          <div class="cat">CONFIRM</div>
-          <div class="desc">
-            The <span class="cod">confirm</span> dialog type is used to create confirm dialogs.<br>
-            Options value can contain:<br>
-            &nbsp;&nbsp;• A <span class="cod">content</span> (string), which declares the dialog's text.<br>
-            And returns:<br>
-            &nbsp;&nbsp;• A <span class="cod">innerHTML</span> (string), which is the dialog's innerHTML.<br>
-            &nbsp;&nbsp;• A <span class="cod">confirmId</span> (string), which is the confirm button's ID.<br>
-            &nbsp;&nbsp;• A <span class="cod">cancelId</span> (string), which is the cancel button's ID.
-          </div>
-          <div class="display">
-            <o-button onclick="dBuilderTest('confirm')">Confirm Dialog Test</o-button>
-          </div>
-          <div class="code">
-            let db = dialogBuilder(<span class="high">'confirm'</span>, <span class="high">{<br>
-            &nbsp;&nbsp;content: 'Low damage, and the ability to...'<br>
-            }</span>) => {<br>
-            &nbsp;&nbsp;innerHTML,<br>
-            &nbsp;&nbsp;confirmId,<br>
-            &nbsp;&nbsp;cancelId<br>
-            }<br>
-            <br>
-            createDialog(db.innerHTML, 'Confirm')<br>
-            <br>
-            /*ADD LISTENERS TO BUTTONS*/
-          </div>
-        </div>
-        <!-- INPUT -->
-        <div id="dbuilder-input" class="cat-c">
-          <div class="cat">INPUT</div>
-          <div class="desc">
-            The <span class="cod">input</span> dialog type is used to create input dialogs.<br>
-            Options value can contain:<br>
-            &nbsp;&nbsp;• A <span class="cod">placeholder</span> (string), which declares the inputs's placeholder.<br>
-            &nbsp;&nbsp;• A <span class="cod">label</span> (string), which declares the inputs's label.<br>
-            And returns:<br>
-            &nbsp;&nbsp;• A <span class="cod">innerHTML</span> (string), which is the dialog's innerHTML.<br>
-            &nbsp;&nbsp;• A <span class="cod">confirmId</span> (string), which is the confirm button's ID.<br>
-            &nbsp;&nbsp;• A <span class="cod">inputId</span> (string), which is the inputs's ID.
-          </div>
-          <div class="display">
-            <o-button onclick="dBuilderTest('input')">Input Dialog Test</o-button>
-          </div>
-          <div class="code">
-            let db = dialogBuilder(<span class="high">'input'</span>, <span class="high">{<br>
-            &nbsp;&nbsp;placeholder: 'Placeholder',<br>
-            &nbsp;&nbsp;label: 'Label'<br>
-            }</span>) => {<br>
-            &nbsp;&nbsp;innerHTML,<br>
-            &nbsp;&nbsp;confirmId,<br>
-            &nbsp;&nbsp;inputId<br>
-            }<br>
-            <br>
-            createDialog(db.innerHTML, 'Input')<br>
-            <br>
-            /*ADD LISTENER TO BUTTON*/
-          </div>
-        </div>
-      </div>
-
-       <!--     /$$ /$$$$$$$$ /$$   /$$ /$$   /$$  /$$$$$$ 
-      | $$$    /$$$| $$_____/| $$$ | $$| $$  | $$ /$$__  $$
-      | $$$$  /$$$$| $$      | $$$$| $$| $$  | $$| $$  \__/
-      | $$ $$/$$ $$| $$$$$   | $$ $$ $$| $$  | $$|  $$$$$$ 
-      | $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$ \____  $$
-      | $$\  $ | $$| $$      | $$\  $$$| $$  | $$ /$$  \ $$
-      | $$ \/  | $$| $$$$$$$$| $$ \  $$|  $$$$$$/|  $$$$$$/
-      |__/     |__/|________/|__/  \__/ \______/  \____--> 
-
-      <div id="menus" class="type-c">
-        <div class="type">- CONTEXT MENUS -</div>
-        <div class="cat-c">
-          <div class="desc">
-            To create a context menu, use the <span class="cod">createCTXMenu(event, items, title)</span> function, which will return the created context menu's ID. 
-          </div>
-          <div class="display">
-            <o-button onclick="createCTXMenu(event, [{id: 'test', label: 'Item', click: function() {}}], 'Menu')">Context Menu Test</o-button>
-          </div>
-        </div>
-        <!-- EVENT, ITEMS & TITLE-->
-        <div id="menus-vars" class="cat-c">
-          <div class="cat">EVENT, ITEMS & TITLE</div>
-          <div class="desc">
-            The <span class="cod">event</span> (object) requieres the event variable of the listener used to create the menu while <span class="cod">items</span> requires an (array) of objects to add to the menu. 
-            The <span class="cod">title</span> (string) changes the title.
-          </div>
-          <div class="display">
-            <o-button onclick="createCTXMenu(event, [{id: 'test', label: 'Label', click: function() {}}], 'Title')">Context Menu Test</o-button>
-          </div>
-          <div class="code">
-            createCTXMenu(<span class="high">event</span>, <span class="high">[<br>
-            &nbsp;&nbsp;{<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;id: 'test',<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;label: 'Label',<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;click: function() {}<br>
-            &nbsp;&nbsp;}<br>
-            ]</span>, <span class="high">'Title'</span>)
-          </div>
-        </div>
-        <!-- FUNCTIONS -->
-        <div id="menus-functions" class="cat-c">
-          <div class="cat">FUNCTIONS</div>
-          <div class="desc">
-            These are some of the (functions) related to context menus:<br>
-            &nbsp;&nbsp;• <span class="cod">closeCTXMenu(id)</span> closes the menu with the specified ID.
-          </div>
-          <div class="code">
-            let id = createCTXMenu()<br>
-            <span class="high">closeCTXMenu(id)</span>
-          </div>
-        </div>
-      </div>
-    </div>
+   </div>
   </div>
 </body>
 
+
+
+
+
 <script>
-  function dBuilderTest(type, title) {
-    let content = 'Low damage, and the ability to jump over enemy walls. Hog Riders prioritize defensive structures above all other targets, and will bypass all other types of enemy buildings and troops while any defence remain on the battlefield.'
-    if (title == undefined) title = type
-    let db = dialogBuilder(type, {
-      content: content,
-      placeholder: 'Placeholder',
-      label: 'Label'
-    })
-    let id = createDialog(db.innerHTML, title, {})
-    document.getElementById(db.confirmId).addEventListener('click', function() {
-      closeDialog(id)
-    })
-    if (document.getElementById(db.cancelId) != null)
-    document.getElementById(db.cancelId).addEventListener('click', function() {
-      closeDialog(id)
-    })
+  function scrollToElement(id) {
+    location.href = "#";
+    location.href = "#" + id;
   }
 
-  function scrollElem(id) {
-    document.getElementById(id).scrollIntoView()
+  function dialogBuilderTest(type, title) {
+    //Default values
+    if (title == undefined) title = 'Dialog'
+    
+    //Create a dialog using DialogBuilder
+    const db = DialogBuilder.build(type, {
+      content: 'Low damage, and the ability to jump over enemy walls. Hog Riders prioritize defensive structures above all other targets, and will bypass all other types of enemy buildings and troops while any defence remain on the battlefield.',
+      text: 'Text',
+      hint: 'Hint'
+    })
+
+    //Create dialog
+    const id = createDialog(db.content)
+
+    //Add listeners to buttons
+    if (db.confirmId) document.getElementById(db.confirmId).addEventListener('click', () => { closeDialog(id) })
+    if (db.cancelId) document.getElementById(db.cancelId).addEventListener('click', () => { closeDialog(id) })
   }
 
-  let egg = 0
-  function easteregg() {
-    egg++
-    if (egg >= 7) 
-      createNoti('Poggers', 'An easteregg 🥰', {
-        onClick: function() { window.open('https://youtu.be/ehjObfjpsUk', '_blank') }
-      })
-    console.log(oNotisSaved);
+  function customDialogBuilderTest() {
+    //Create a dialog using DialogBuilder
+    const db = DialogBuilder.build(DialogBuilder.CUSTOM, {
+      content: 'Low damage, and the ability to jump over enemy walls. Hog Riders prioritize defensive structures above all other targets, and will bypass all other types of enemy buildings and troops while any defence remain on the battlefield.',
+      buttons: [
+        {
+          id: 'custom-save',
+          text: 'Save'
+        },
+        {
+          id: 'custom-cancel',
+          text: 'Cancel'
+        }
+      ]
+    })
+
+    //Create dialog
+    const id = createDialog(db.content)
+
+    //Add listeners to buttons
+    document.getElementById('custom-save').addEventListener('click', () => { closeDialog(id) })
+    document.getElementById('custom-cancel').addEventListener('click', () => { closeDialog(id) })
   }
 </script>
 </html>
